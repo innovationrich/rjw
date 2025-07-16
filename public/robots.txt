@@ -18,5 +18,8 @@ Allow: /
 
 Sitemap: https://your-actual-domain.com/sitemap.xml
 
+# Ads.txt file location
+# https://your-actual-domain.com/ads.txt
+
 # IndexNow
 # API Key file location: https://your-actual-domain.com/22edc7cab1d846889a863530975e6e09.txt

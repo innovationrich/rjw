@@ -40,14 +40,14 @@ export default function RootLayout({
     <html lang="en">
       <head>
         <meta name="google-adsense-account" content="ca-pub-7250819478010326" />
-      </head>
-      <body className={inter.className}>
         <Script
           async
           src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7250819478010326"
           crossOrigin="anonymous"
-          strategy="afterInteractive"
+          strategy="beforeInteractive"
         />
+      </head>
+      <body className={inter.className}>
         <AdSenseInit />
         <Header />
         <main className="min-h-screen">{children}</main>

@@ -36,7 +36,7 @@ export function AdSenseBanner({
     }
 
     // Load ads after a short delay to ensure DOM is ready
-    const timer = setTimeout(loadAds, 100)
+    const timer = setTimeout(loadAds, 300)
 
     return () => clearTimeout(timer)
   }, [])
