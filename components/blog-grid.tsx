@@ -1,54 +1,44 @@
-import { getAllPosts } from "@/lib/blog-data"
-import Link from "next/link"
 import Image from "next/image"
+import Link from "next/link"
+import { blogPosts } from "@/lib/blog-data"
+import { Badge } from "@/components/ui/badge"
 
-interface BlogGridProps {
-  posts?: any[]
+export interface BlogPost {
+  id: string
+  title: string
+  excerpt: string
+  category: string
+  date: string
+  image?: string
 }
 
-const BlogGrid = ({ posts }: BlogGridProps) => {
-  // If no posts are passed as props, fetch them from the data source
-  const blogPosts = posts || getAllPosts()
-
-  if (!blogPosts || blogPosts.length === 0) {
-    return (
-      <div className="text-center py-8">
-        <p className="text-gray-600">No blog posts found.</p>
-      </div>
-    )
+export function BlogGrid({ posts = blogPosts }: { posts?: BlogPost[] }) {
+  if (!posts || posts.length === 0) {
+    return <p className="py-10 text-center text-gray-600">No blog posts found.</p>
   }
 
   return (
-    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-      {blogPosts.map((post) => (
-        <article
-          key={post.id}
-          className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow"
-        >
-          <div className="relative h-48">
-            <Image src={post.image || "/placeholder.jpg"} alt={post.title} fill className="object-cover" />
-          </div>
-          <div className="p-6">
-            <div className="flex items-center text-sm text-gray-500 mb-2">
-              <span>{post.category}</span>
-              <span className="mx-2">•</span>
-              <time dateTime={post.date}>{new Date(post.date).toLocaleDateString()}</time>
-            </div>
-            <h2 className="text-xl font-semibold mb-3 line-clamp-2">
-              <Link href={`/blog/${post.id}`} className="hover:text-blue-600 transition-colors">
+    <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+      {posts.map((post) => (
+        <article key={post.id} className="overflow-hidden rounded-lg bg-white shadow hover:shadow-lg">
+          <Link href={`/blog/${post.id}`}>
+            <Image
+              src={post.image ?? "/placeholder.svg?height=200&width=400&query=blog+thumbnail"}
+              alt={post.title}
+              width={400}
+              height={200}
+              className="h-48 w-full object-cover"
+            />
+          </Link>
+          <div className="space-y-3 p-4">
+            <Badge variant="secondary">{post.category}</Badge>
+            <h2 className="text-lg font-semibold leading-tight">
+              <Link href={`/blog/${post.id}`} className="hover:text-emerald-600">
                 {post.title}
               </Link>
             </h2>
-            <p className="text-gray-600 mb-4 line-clamp-3">{post.excerpt}</p>
-            <Link
-              href={`/blog/${post.id}`}
-              className="inline-flex items-center text-blue-600 hover:text-blue-800 font-medium"
-            >
-              Read More
-              <svg className="ml-1 w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-              </svg>
-            </Link>
+            <p className="text-sm text-gray-600">{post.excerpt}</p>
+            <time className="block text-xs text-gray-500">{new Date(post.date).toLocaleDateString()}</time>
           </div>
         </article>
       ))}

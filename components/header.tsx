@@ -2,83 +2,73 @@
 
 import Link from "next/link"
 import { useState } from "react"
+import { cn } from "@/lib/utils"
 
-/**
- * Site-wide header with logo, desktop nav and a custom (CSS) mobile hamburger.
- * No external icon libraries are used, eliminating the lucide-react load error.
- */
 export default function Header() {
   const [open, setOpen] = useState(false)
 
+  const navLinks = [
+    { href: "/", label: "Home" },
+    { href: "/blog", label: "Blog" },
+    { href: "/categories", label: "Categories" },
+    { href: "/about", label: "About" },
+    { href: "/contact", label: "Contact" },
+  ]
+
   return (
-    <header className="sticky top-0 z-50 bg-white shadow-md">
-      <div className="container mx-auto flex items-center justify-between px-4 py-4">
+    <header className="sticky top-0 z-40 w-full border-b bg-white/90 backdrop-blur">
+      <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-3 md:px-6">
         {/* Logo */}
-        <Link href="/" className="text-2xl font-bold">
-          <span className="bg-gradient-to-r from-green-400 via-blue-500 to-purple-600 bg-clip-text text-transparent drop-shadow-lg">
+        <Link href="/" className="text-2xl font-extrabold tracking-tight">
+          <span
+            className={cn(
+              "bg-gradient-to-r from-emerald-400 via-green-500 to-teal-500 bg-clip-text text-transparent drop-shadow",
+            )}
+          >
             {"$ideHustlesFromHome.com"}
           </span>
         </Link>
 
         {/* Desktop nav */}
-        <nav className="hidden md:flex space-x-6 text-gray-700">
-          <Link className="hover:text-blue-600 transition-colors" href="/">
-            Home
-          </Link>
-          <Link className="hover:text-blue-600 transition-colors" href="/blog">
-            Blog
-          </Link>
-          <Link className="hover:text-blue-600 transition-colors" href="/categories">
-            Categories
-          </Link>
-          <Link className="hover:text-blue-600 transition-colors" href="/about">
-            About
-          </Link>
-          <Link className="hover:text-blue-600 transition-colors" href="/contact">
-            Contact
-          </Link>
+        <nav className="hidden gap-6 md:flex">
+          {navLinks.map((link) => (
+            <Link
+              key={link.href}
+              href={link.href}
+              className="text-sm font-medium text-gray-700 transition-colors hover:text-emerald-600"
+            >
+              {link.label}
+            </Link>
+          ))}
         </nav>
 
         {/* Mobile hamburger */}
-        <button
-          aria-label="Toggle navigation"
-          onClick={() => setOpen(!open)}
-          className="md:hidden flex flex-col space-y-1.5 focus:outline-none"
-        >
-          <span
-            aria-hidden="true"
-            className={`h-0.5 w-6 bg-gray-700 transition-transform ${open ? "translate-y-2 rotate-45" : ""}`}
-          />
-          <span aria-hidden="true" className={`h-0.5 w-6 bg-gray-700 ${open ? "opacity-0" : ""}`} />
-          <span
-            aria-hidden="true"
-            className={`h-0.5 w-6 bg-gray-700 transition-transform ${open ? "-translate-y-2 -rotate-45" : ""}`}
-          />
+        <button aria-label="Toggle navigation" onClick={() => setOpen((p) => !p)} className="block md:hidden">
+          {/* Unicode hamburger to avoid icon import */}
+          <span className="text-2xl leading-none">☰</span>
         </button>
       </div>
 
       {/* Mobile menu */}
       {open && (
-        <nav className="md:hidden border-t border-gray-200 bg-white pb-4">
-          <div className="flex flex-col px-4 pt-4 space-y-2 text-gray-700">
-            <Link href="/" onClick={() => setOpen(false)} className="py-2 hover:text-blue-600">
-              Home
-            </Link>
-            <Link href="/blog" onClick={() => setOpen(false)} className="py-2 hover:text-blue-600">
-              Blog
-            </Link>
-            <Link href="/categories" onClick={() => setOpen(false)} className="py-2 hover:text-blue-600">
-              Categories
-            </Link>
-            <Link href="/about" onClick={() => setOpen(false)} className="py-2 hover:text-blue-600">
-              About
-            </Link>
-            <Link href="/contact" onClick={() => setOpen(false)} className="py-2 hover:text-blue-600">
-              Contact
-            </Link>
+        <nav className="border-t bg-white pb-3 pt-2 md:hidden">
+          <div className="mx-auto flex max-w-7xl flex-col gap-3 px-4">
+            {navLinks.map((link) => (
+              <Link
+                key={link.href}
+                href={link.href}
+                onClick={() => setOpen(false)}
+                className="text-sm font-medium text-gray-700 transition-colors hover:text-emerald-600"
+              >
+                {link.label}
+              </Link>
+            ))}
           </div>
         </nav>
       )}
     </header>
   )
 }
+
+/* also provide named export */
+export { Header }

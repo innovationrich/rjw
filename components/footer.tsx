@@ -1,124 +1,61 @@
 import Link from "next/link"
 
-/**
- * Site-wide footer with quick links, category shortcuts and legal pages.
- */
 export default function Footer() {
+  const primary = [
+    { href: "/", label: "Home" },
+    { href: "/blog", label: "Blog" },
+    { href: "/categories", label: "Categories" },
+  ]
+
+  const company = [
+    { href: "/about", label: "About" },
+    { href: "/contact", label: "Contact" },
+    { href: "/affiliate-disclosure", label: "Affiliate Disclosure" },
+  ]
+
+  const legal = [
+    { href: "/privacy-policy", label: "Privacy Policy" },
+    { href: "/terms-of-service", label: "Terms of Service" },
+    { href: "/sitemap", label: "Sitemap" },
+  ]
+
   return (
-    <footer className="bg-gray-800 text-white mt-12">
-      <div className="container mx-auto grid gap-8 px-4 py-12 md:grid-cols-4">
-        {/* Brand blurb */}
+    <footer className="border-t bg-gray-50 py-10">
+      <div className="mx-auto grid max-w-7xl gap-8 px-4 sm:grid-cols-2 md:grid-cols-4 md:px-6">
+        {/* Brand */}
         <div>
-          <Link href="/" className="text-xl font-bold block mb-4">
-            <span className="bg-gradient-to-r from-green-400 via-blue-500 to-purple-600 bg-clip-text text-transparent">
-              {"$ideHustlesFromHome.com"}
-            </span>
-          </Link>
-          <p className="text-sm text-gray-300">
-            Your ultimate resource for side hustles, passive income and financial freedom - all from home.
+          <h3 className="mb-3 text-lg font-semibold">$ideHustlesFromHome.com</h3>
+          <p className="text-sm text-gray-600">
+            Your go-to resource for making money on the side from the comfort of your home.
           </p>
         </div>
 
-        {/* Quick links */}
-        <div>
-          <h3 className="font-semibold mb-4">Quick Links</h3>
-          <ul className="space-y-2 text-gray-300">
-            <li>
-              <Link className="hover:text-white" href="/">
-                Home
-              </Link>
-            </li>
-            <li>
-              <Link className="hover:text-white" href="/blog">
-                Blog
-              </Link>
-            </li>
-            <li>
-              <Link className="hover:text-white" href="/categories">
-                Categories
-              </Link>
-            </li>
-            <li>
-              <Link className="hover:text-white" href="/about">
-                About
-              </Link>
-            </li>
-            <li>
-              <Link className="hover:text-white" href="/contact">
-                Contact
-              </Link>
-            </li>
-          </ul>
-        </div>
-
-        {/* Categories */}
-        <div>
-          <h3 className="font-semibold mb-4">Categories</h3>
-          <ul className="space-y-2 text-gray-300">
-            <li>
-              <Link className="hover:text-white" href="/categories/online-side-hustles">
-                Online Side Hustles
-              </Link>
-            </li>
-            <li>
-              <Link className="hover:text-white" href="/categories/passive-income">
-                Passive Income
-              </Link>
-            </li>
-            <li>
-              <Link className="hover:text-white" href="/categories/freelancing">
-                Freelancing
-              </Link>
-            </li>
-            <li>
-              <Link className="hover:text-white" href="/categories/digital-products">
-                Digital Products
-              </Link>
-            </li>
-            <li>
-              <Link className="hover:text-white" href="/categories/ecommerce">
-                E-commerce
-              </Link>
-            </li>
-            <li>
-              <Link className="hover:text-white" href="/categories/content-creation">
-                Content Creation
-              </Link>
-            </li>
-          </ul>
-        </div>
-
-        {/* Legal */}
-        <div>
-          <h3 className="font-semibold mb-4">Legal &amp; Info</h3>
-          <ul className="space-y-2 text-gray-300">
-            <li>
-              <Link className="hover:text-white" href="/privacy-policy">
-                Privacy Policy
-              </Link>
-            </li>
-            <li>
-              <Link className="hover:text-white" href="/terms-of-service">
-                Terms of Service
-              </Link>
-            </li>
-            <li>
-              <Link className="hover:text-white" href="/affiliate-disclosure">
-                Affiliate Disclosure
-              </Link>
-            </li>
-            <li>
-              <Link className="hover:text-white" href="/sitemap">
-                Sitemap
-              </Link>
-            </li>
-          </ul>
-        </div>
+        {/* Columns */}
+        {[
+          { title: "Explore", links: primary },
+          { title: "Company", links: company },
+          { title: "Legal", links: legal },
+        ].map((col) => (
+          <div key={col.title}>
+            <h4 className="mb-3 text-sm font-semibold text-gray-800">{col.title}</h4>
+            <ul className="space-y-2">
+              {col.links.map((l) => (
+                <li key={l.href}>
+                  <Link href={l.href} className="text-sm text-gray-600 hover:text-emerald-600">
+                    {l.label}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
+        ))}
       </div>
 
-      <div className="border-t border-gray-700 text-center py-6 text-gray-300 text-sm">
-        &copy; {new Date().getFullYear()} {"$ideHustlesFromHome.com"} — All rights reserved.
+      <div className="mt-10 border-t pt-4 text-center text-sm text-gray-500">
+        © {new Date().getFullYear()} $ideHustlesFromHome.com. All rights reserved.
       </div>
     </footer>
   )
 }
+
+export { Footer }
