@@ -1,167 +1,232 @@
+import type { Metadata } from "next"
 import Link from "next/link"
-import { Card, CardContent } from "@/components/ui/card"
-import {
-  Laptop,
-  TrendingUp,
-  ShoppingCart,
-  PenTool,
-  BarChart3,
-  Stethoscope,
-  Camera,
-  Truck,
-  MapPin,
-  Users,
-  Briefcase,
-} from "lucide-react"
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
+import { Badge } from "@/components/ui/badge"
+import { ArrowRight, DollarSign, Clock, TrendingUp } from "lucide-react"
 
-const allCategories = [
+export const metadata: Metadata = {
+  title: "Side Hustle Categories | SideHustles FromHome.com",
+  description:
+    "Explore proven side hustle categories to start earning money from home. Find freelancing, online business, passive income, and local opportunities.",
+  keywords: "side hustle categories, work from home, online income, freelancing, passive income",
+  openGraph: {
+    title: "Side Hustle Categories | SideHustles FromHome.com",
+    description: "Explore proven side hustle categories to start earning money from home.",
+    type: "website",
+  },
+}
+
+const categories = [
   {
-    name: "Online Side Hustles",
-    description: "Digital opportunities you can start from anywhere - virtual assistant, freelance writing, tutoring",
-    icon: Laptop,
-    count: "65+ articles",
-    color: "from-blue-500 to-blue-600",
-    href: "/categories/online-side-hustles",
+    title: "Online Side Hustles",
+    slug: "online-side-hustles",
+    description: "Digital opportunities you can start today from anywhere with an internet connection.",
+    icon: "💻",
+    posts: 15,
+    avgIncome: "$500-2000/month",
+    difficulty: "Beginner",
+    timeToStart: "1-7 days",
   },
   {
-    name: "Freelancing",
-    description: "Turn your skills into income - copywriting, content creation, consulting, and client services",
-    icon: PenTool,
-    count: "42+ articles",
-    color: "from-purple-500 to-purple-600",
-    href: "/categories/freelancing",
+    title: "Freelancing",
+    slug: "freelancing",
+    description: "Sell your skills and expertise to clients worldwide through freelance platforms.",
+    icon: "🎯",
+    posts: 12,
+    avgIncome: "$1000-5000/month",
+    difficulty: "Intermediate",
+    timeToStart: "1-14 days",
   },
   {
-    name: "Healthcare Side Hustles",
-    description: "Specialized opportunities for nurses, doctors, and healthcare professionals",
-    icon: Stethoscope,
-    count: "28+ articles",
-    color: "from-green-500 to-green-600",
-    href: "/categories/healthcare-side-hustles",
+    title: "Passive Income",
+    slug: "passive-income",
+    description: "Build income streams that generate money with minimal ongoing effort.",
+    icon: "💰",
+    posts: 10,
+    avgIncome: "$100-1000/month",
+    difficulty: "Advanced",
+    timeToStart: "30-90 days",
   },
   {
-    name: "Delivery & Gig Apps",
-    description: "Earn with your vehicle - DoorDash, Uber Eats, delivery services, and pickup truck gigs",
-    icon: Truck,
-    count: "35+ articles",
-    color: "from-orange-500 to-orange-600",
-    href: "/categories/delivery-gig-apps",
+    title: "Digital Products",
+    slug: "digital-products",
+    description: "Create and sell digital products like courses, templates, and software.",
+    icon: "📱",
+    posts: 8,
+    avgIncome: "$200-3000/month",
+    difficulty: "Intermediate",
+    timeToStart: "14-30 days",
   },
   {
-    name: "Creative & Design",
-    description: "Monetize your creativity - graphic design, photography, 3D printing, digital products",
-    icon: Camera,
-    count: "38+ articles",
-    color: "from-pink-500 to-pink-600",
-    href: "/categories/creative-design",
+    title: "E-commerce",
+    slug: "ecommerce",
+    description: "Start an online store and sell physical or digital products.",
+    icon: "🛒",
+    posts: 11,
+    avgIncome: "$500-10000/month",
+    difficulty: "Advanced",
+    timeToStart: "7-30 days",
   },
   {
-    name: "Passive Income",
-    description: "Build income streams that work while you sleep - real estate, investing, digital products",
-    icon: TrendingUp,
-    count: "32+ articles",
-    color: "from-indigo-500 to-indigo-600",
-    href: "/categories/passive-income",
+    title: "Content Creation",
+    slug: "content-creation",
+    description: "Monetize your creativity through blogging, YouTube, podcasting, and social media.",
+    icon: "🎨",
+    posts: 9,
+    avgIncome: "$100-5000/month",
+    difficulty: "Beginner",
+    timeToStart: "1-7 days",
   },
   {
-    name: "E-commerce",
-    description: "Start and scale your online store with dropshipping, Amazon FBA, and digital products",
-    icon: ShoppingCart,
-    count: "28+ articles",
-    color: "from-emerald-500 to-emerald-600",
-    href: "/categories/ecommerce",
+    title: "Gig Economy",
+    slug: "gig-economy",
+    description: "Flexible work opportunities through apps and platforms.",
+    icon: "🚗",
+    posts: 13,
+    avgIncome: "$300-1500/month",
+    difficulty: "Beginner",
+    timeToStart: "1-3 days",
   },
   {
-    name: "Content Creation",
-    description: "YouTube, blogging, social media, and other content monetization strategies",
-    icon: BarChart3,
-    count: "25+ articles",
-    color: "from-violet-500 to-violet-600",
-    href: "/categories/content-creation",
-  },
-  {
-    name: "Gig Economy",
-    description: "Flexible work opportunities and platform-based earning strategies",
-    icon: Briefcase,
-    count: "30+ articles",
-    color: "from-cyan-500 to-cyan-600",
-    href: "/categories/gig-economy",
-  },
-  {
-    name: "Entry-Level Jobs",
-    description: "No experience required - retail, food service, warehouse, and beginner-friendly positions",
-    icon: Users,
-    count: "45+ articles",
-    color: "from-rose-500 to-rose-600",
-    href: "/categories/entry-level-jobs",
-  },
-  {
-    name: "Local Job Search",
-    description: "Find employment opportunities in your area across all industries and skill levels",
-    icon: MapPin,
-    count: "50+ articles",
-    color: "from-amber-500 to-amber-600",
-    href: "/categories/local-job-search",
-  },
-  {
-    name: "Specialized Side Hustles",
-    description: "Leverage professional expertise - teachers, consultants, and skilled professionals",
-    icon: Stethoscope,
-    count: "22+ articles",
-    color: "from-teal-500 to-teal-600",
-    href: "/categories/specialized-side-hustles",
+    title: "Local Job Search",
+    slug: "local-job-search",
+    description: "Find part-time and flexible work opportunities in your local area.",
+    icon: "📍",
+    posts: 7,
+    avgIncome: "$400-2000/month",
+    difficulty: "Beginner",
+    timeToStart: "1-14 days",
   },
 ]
 
-export const metadata = {
-  title: "Side Hustle Categories - Find Your Perfect Opportunity",
-  description:
-    "Browse all side hustle categories including online opportunities, freelancing, healthcare, delivery apps, creative work, and passive income strategies.",
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@type": "CollectionPage",
+  name: "Side Hustle Categories",
+  description: "Explore proven side hustle categories to start earning money from home.",
+  url: "https://sidehustlesfromhome.com/categories",
+  mainEntity: {
+    "@type": "ItemList",
+    itemListElement: categories.map((category, index) => ({
+      "@type": "ListItem",
+      position: index + 1,
+      item: {
+        "@type": "Article",
+        name: category.title,
+        description: category.description,
+        url: `https://sidehustlesfromhome.com/categories/${category.slug}`,
+      },
+    })),
+  },
 }
 
 export default function CategoriesPage() {
   return (
-    <div className="bg-white min-h-screen">
-      <div className="bg-gradient-to-r from-orange-50 to-orange-100 py-12">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h1 className="text-4xl lg:text-5xl font-bold text-gray-900 mb-4">Side Hustle Categories</h1>
-          <p className="text-xl text-gray-600 max-w-2xl">
-            Explore side hustles by category to find opportunities that match your skills, interests, and available
-            time.
-          </p>
-        </div>
-      </div>
+    <>
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {allCategories.map((category) => {
-            const IconComponent = category.icon
-            return (
-              <Link key={category.name} href={category.href}>
-                <Card className="h-full hover:shadow-xl transition-all duration-300 hover:-translate-y-1 cursor-pointer group">
-                  <CardContent className="p-6">
-                    <div
-                      className={`w-12 h-12 bg-gradient-to-r ${category.color} rounded-lg flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300`}
-                    >
-                      <IconComponent className="w-6 h-6 text-white" />
+      <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100">
+        <div className="container mx-auto px-4 py-12">
+          {/* Hero Section */}
+          <div className="text-center mb-12">
+            <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">Side Hustle Categories</h1>
+            <p className="text-xl text-gray-600 max-w-3xl mx-auto mb-8">
+              Discover proven ways to earn extra income from home. Each category contains detailed guides, real income
+              examples, and step-by-step tutorials to help you start your side hustle journey.
+            </p>
+            <div className="flex flex-wrap justify-center gap-4 text-sm text-gray-500">
+              <div className="flex items-center gap-1">
+                <DollarSign className="w-4 h-4" />
+                <span>Real Income Data</span>
+              </div>
+              <div className="flex items-center gap-1">
+                <Clock className="w-4 h-4" />
+                <span>Time to Start</span>
+              </div>
+              <div className="flex items-center gap-1">
+                <TrendingUp className="w-4 h-4" />
+                <span>Difficulty Level</span>
+              </div>
+            </div>
+          </div>
+
+          {/* Categories Grid */}
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
+            {categories.map((category) => (
+              <Card key={category.slug} className="hover:shadow-lg transition-shadow duration-300 group">
+                <CardHeader>
+                  <div className="flex items-center justify-between mb-2">
+                    <span className="text-3xl">{category.icon}</span>
+                    <Badge variant="secondary">{category.posts} guides</Badge>
+                  </div>
+                  <CardTitle className="text-xl group-hover:text-blue-600 transition-colors">
+                    {category.title}
+                  </CardTitle>
+                  <CardDescription className="text-gray-600">{category.description}</CardDescription>
+                </CardHeader>
+                <CardContent>
+                  <div className="space-y-2 mb-4">
+                    <div className="flex justify-between text-sm">
+                      <span className="text-gray-500">Avg. Income:</span>
+                      <span className="font-semibold text-green-600">{category.avgIncome}</span>
                     </div>
-                    <h3 className="text-xl font-bold text-gray-900 mb-2 group-hover:text-orange-600 transition-colors">
-                      {category.name}
-                    </h3>
-                    <p className="text-gray-600 mb-4 leading-relaxed">{category.description}</p>
-                    <div className="flex items-center justify-between">
-                      <span className="text-sm font-medium text-orange-600">{category.count}</span>
-                      <span className="text-sm text-gray-500 group-hover:text-orange-600 transition-colors">
-                        Explore →
-                      </span>
+                    <div className="flex justify-between text-sm">
+                      <span className="text-gray-500">Difficulty:</span>
+                      <span className="font-medium">{category.difficulty}</span>
                     </div>
-                  </CardContent>
-                </Card>
-              </Link>
-            )
-          })}
+                    <div className="flex justify-between text-sm">
+                      <span className="text-gray-500">Time to Start:</span>
+                      <span className="font-medium">{category.timeToStart}</span>
+                    </div>
+                  </div>
+                  <Link
+                    href={`/categories/${category.slug}`}
+                    className="inline-flex items-center text-blue-600 hover:text-blue-800 font-medium group-hover:underline"
+                  >
+                    Explore {category.title}
+                    <ArrowRight className="w-4 h-4 ml-1 group-hover:translate-x-1 transition-transform" />
+                  </Link>
+                </CardContent>
+              </Card>
+            ))}
+          </div>
+
+          {/* FAQ Section */}
+          <div className="bg-white rounded-lg p-8 shadow-sm">
+            <h2 className="text-2xl font-bold text-gray-900 mb-6">Frequently Asked Questions</h2>
+            <div className="grid md:grid-cols-2 gap-6">
+              <div>
+                <h3 className="font-semibold text-gray-900 mb-2">How much can I realistically earn?</h3>
+                <p className="text-gray-600 text-sm">
+                  Earnings vary by category and effort. Beginners typically earn $100-500/month, while experienced side
+                  hustlers can earn $1000-5000+ monthly.
+                </p>
+              </div>
+              <div>
+                <h3 className="font-semibold text-gray-900 mb-2">Which category is best for beginners?</h3>
+                <p className="text-gray-600 text-sm">
+                  Online side hustles and gig economy work are ideal for beginners due to low barriers to entry and
+                  quick start times.
+                </p>
+              </div>
+              <div>
+                <h3 className="font-semibold text-gray-900 mb-2">Do I need special skills or equipment?</h3>
+                <p className="text-gray-600 text-sm">
+                  Most categories only require a computer and internet connection. Specific skills can be learned
+                  through our detailed guides.
+                </p>
+              </div>
+              <div>
+                <h3 className="font-semibold text-gray-900 mb-2">How long before I see results?</h3>
+                <p className="text-gray-600 text-sm">
+                  Some opportunities like gig work pay immediately, while passive income streams may take 30-90 days to
+                  generate meaningful revenue.
+                </p>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
-    </div>
+    </>
   )
 }
