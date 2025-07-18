@@ -9,7 +9,7 @@ const Header: React.FC = () => {
         <div className="text-2xl font-bold">
           <Link href="/" className="flex items-center">
             <span className="bg-clip-text text-transparent bg-gradient-to-r from-purple-500 to-pink-500 drop-shadow-lg">
-              SideHustles FromHome.com
+              $ideHustlesFromHome.com
             </span>
             <span className="ml-2 animate-pulse text-sm text-yellow-300">✨</span>
           </Link>
