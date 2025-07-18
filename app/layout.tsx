@@ -1,59 +1,22 @@
 import type React from "react"
 import type { Metadata } from "next"
-import { Inter } from "next/font/google"
 import "./globals.css"
-import { Header } from "@/components/header"
-import { Footer } from "@/components/footer"
-import { AdSenseInit } from "@/components/adsense-init"
-import Script from "next/script"
-
-const inter = Inter({ subsets: ["latin"] })
 
 export const metadata: Metadata = {
-  title: "SideHustles FromHome.com - Your Guide to Remote Income",
-  description:
-    "Discover proven side hustles you can do from home, passive income strategies, and remote work opportunities. Start your journey to financial freedom today.",
-  keywords:
-    "side hustles from home, remote work, work from home, passive income, online business, extra money, financial freedom",
-  authors: [{ name: "SideHustles FromHome Team" }],
-  verification: {
-    google: "google2d25a61afde90888",
-  },
-  other: {
-    "google-adsense-account": "ca-pub-7250819478010326",
-  },
-  openGraph: {
-    title: "SideHustles FromHome.com - Your Guide to Remote Income",
-    description:
-      "Discover proven side hustles you can do from home, passive income strategies, and remote work opportunities.",
-    type: "website",
-    locale: "en_US",
-  },
+  title: "SideHustles FromHome.com",
+  description: "Created with v0",
   generator: "v0.dev",
+  applicationName: "SideHustles FromHome.com",
 }
 
 export default function RootLayout({
   children,
-}: {
+}: Readonly<{
   children: React.ReactNode
-}) {
+}>) {
   return (
     <html lang="en">
-      <head>
-        <meta name="google-adsense-account" content="ca-pub-7250819478010326" />
-        <Script
-          async
-          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7250819478010326"
-          crossOrigin="anonymous"
-          strategy="beforeInteractive"
-        />
-      </head>
-      <body className={inter.className}>
-        <AdSenseInit />
-        <Header />
-        <main className="min-h-screen">{children}</main>
-        <Footer />
-      </body>
+      <body>{children}</body>
     </html>
   )
 }
