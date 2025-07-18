@@ -1,145 +1,78 @@
-import { NextResponse } from "next/server"
 import { blogPosts } from "@/lib/blog-data"
 
-// Gracefully handle bad or missing dates
-function formatIso(dateLike: string | number | Date | null | undefined) {
-  const d = dateLike ? new Date(dateLike) : undefined
-  return (!d || Number.isNaN(d.getTime()) ? new Date() : d).toISOString()
-}
-
 export async function GET() {
-  const baseUrl = "https://sidehustles.vercel.app"
+  const baseUrl = "https://sidehustlesfromhome.com"
+
+  // Static pages
+  const staticPages = ["", "/about", "/blog", "/categories", "/contact", "/privacy-policy", "/terms-of-service"]
+
+  // Category pages
+  const categoryPages = [
+    "/categories/online-side-hustles",
+    "/categories/passive-income",
+    "/categories/freelancing",
+    "/categories/digital-products",
+    "/categories/ecommerce",
+    "/categories/content-creation",
+    "/categories/specialized-side-hustles",
+    "/categories/local-job-search",
+    "/categories/gig-economy",
+    "/categories/delivery-gig-apps",
+    "/categories/creative-design",
+    "/categories/healthcare-side-hustles",
+    "/categories/entry-level-jobs",
+  ]
+
+  // Blog posts with date validation
+  const blogPostUrls = blogPosts
+    .filter((post) => {
+      // Validate date before using it
+      const date = new Date(post.publishedAt || post.date)
+      return !isNaN(date.getTime())
+    })
+    .map((post) => ({
+      url: `${baseUrl}/blog/${post.id}`,
+      lastModified: new Date(post.publishedAt || post.date).toISOString(),
+    }))
+
+  // Combine all URLs
+  const allUrls = [
+    ...staticPages.map((page) => ({
+      url: `${baseUrl}${page}`,
+      lastModified: new Date().toISOString(),
+      changeFrequency: "weekly" as const,
+      priority: page === "" ? 1.0 : 0.8,
+    })),
+    ...categoryPages.map((page) => ({
+      url: `${baseUrl}${page}`,
+      lastModified: new Date().toISOString(),
+      changeFrequency: "weekly" as const,
+      priority: 0.7,
+    })),
+    ...blogPostUrls.map((post) => ({
+      url: post.url,
+      lastModified: post.lastModified,
+      changeFrequency: "monthly" as const,
+      priority: 0.6,
+    })),
+  ]
 
   const sitemap = `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+${allUrls
+  .map(
+    ({ url, lastModified, changeFrequency, priority }) => `
   <url>
-    <loc>${baseUrl}</loc>
-    <lastmod>${new Date().toISOString()}</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>1.0</priority>
-  </url>
-  <url>
-    <loc>${baseUrl}/blog</loc>
-    <lastmod>${new Date().toISOString()}</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.9</priority>
-  </url>
-  <url>
-    <loc>${baseUrl}/categories</loc>
-    <lastmod>${new Date().toISOString()}</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>${baseUrl}/categories/online-side-hustles</loc>
-    <lastmod>${new Date().toISOString()}</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>${baseUrl}/categories/freelancing</loc>
-    <lastmod>${new Date().toISOString()}</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>${baseUrl}/categories/healthcare-side-hustles</loc>
-    <lastmod>${new Date().toISOString()}</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>${baseUrl}/categories/delivery-gig-apps</loc>
-    <lastmod>${new Date().toISOString()}</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>${baseUrl}/categories/creative-design</loc>
-    <lastmod>${new Date().toISOString()}</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>${baseUrl}/categories/passive-income</loc>
-    <lastmod>${new Date().toISOString()}</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>${baseUrl}/categories/ecommerce</loc>
-    <lastmod>${new Date().toISOString()}</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>${baseUrl}/categories/content-creation</loc>
-    <lastmod>${new Date().toISOString()}</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>${baseUrl}/categories/gig-economy</loc>
-    <lastmod>${new Date().toISOString()}</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>${baseUrl}/categories/specialized-side-hustles</loc>
-    <lastmod>${new Date().toISOString()}</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>${baseUrl}/categories/entry-level-jobs</loc>
-    <lastmod>${new Date().toISOString()}</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>${baseUrl}/categories/local-job-search</loc>
-    <lastmod>${new Date().toISOString()}</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>${baseUrl}/about</loc>
-    <lastmod>${new Date().toISOString()}</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>${baseUrl}/contact</loc>
-    <lastmod>${new Date().toISOString()}</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>${baseUrl}/privacy-policy</loc>
-    <lastmod>${new Date().toISOString()}</lastmod>
-    <changefreq>yearly</changefreq>
-    <priority>0.3</priority>
-  </url>
-  <url>
-    <loc>${baseUrl}/terms-of-service</loc>
-    <lastmod>${new Date().toISOString()}</lastmod>
-    <changefreq>yearly</changefreq>
-    <priority>0.3</priority>
-  </url>
-  ${blogPosts
-    .map(
-      (post) => `
-  <url>
-    <loc>${baseUrl}/blog/${post.id}</loc>
-    <lastmod>${formatIso(post.publishedAt)}</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
+    <loc>${url}</loc>
+    <lastmod>${lastModified}</lastmod>
+    <changefreq>${changeFrequency}</changefreq>
+    <priority>${priority}</priority>
   </url>`,
-    )
-    .join("")}
+  )
+  .join("")}
 </urlset>`
 
-  return new NextResponse(sitemap, {
+  return new Response(sitemap, {
     headers: {
       "Content-Type": "application/xml",
     },
