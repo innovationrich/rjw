@@ -1,25 +1,17 @@
+import Link from "next/link"
 import { Card, CardContent } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { AdBanner } from "@/components/ad-banner"
-import { InArticleAd } from "@/components/in-article-ad"
 import { BlogSidebar } from "@/components/blog-sidebar"
 import { Clock, User, Calendar } from "lucide-react"
 import { Button } from "@/components/ui/button"
-import { blogPosts, getPostBySlug, getRelatedPosts } from "@/lib/blog-data" // Updated import
+import { getPostBySlug, getRelatedPosts } from "@/lib/blog-data"
 import Image from "next/image"
 import { notFound } from "next/navigation"
 import { TableOfContents } from "@/components/table-of-contents"
-import Link from "next/link"
 
-// Generate static params for all blog posts
-export async function generateStaticParams() {
-  return blogPosts.map((post) => ({
-    id: post.slug, // Use slug for dynamic routing
-  }))
-}
-
-export async function generateMetadata({ params }: { params: { id: string } }) {
-  const post = getPostBySlug(params.id) // Fetch by slug
+export async function generateMetadata() {
+  const post = getPostBySlug("mastering-digital-marketing-smm-content-influencer")
 
   if (!post) {
     return {
@@ -29,7 +21,7 @@ export async function generateMetadata({ params }: { params: { id: string } }) {
   }
 
   return {
-    title: `${post.title} - Side HustlesFromHome.com`,
+    title: `${post.title} - $ideHustlesFromHome.com`,
     description: post.excerpt,
     openGraph: {
       title: post.title,
@@ -41,8 +33,8 @@ export async function generateMetadata({ params }: { params: { id: string } }) {
   }
 }
 
-export default function BlogPostPage({ params }: { params: { id: string } }) {
-  const post = getPostBySlug(params.id) // Fetch by slug
+export default function MasteringDigitalMarketingPage() {
+  const post = getPostBySlug("mastering-digital-marketing-smm-content-influencer")
 
   if (!post) {
     notFound()
@@ -90,6 +82,7 @@ export default function BlogPostPage({ params }: { params: { id: string } }) {
               </div>
 
               <div className="flex items-center gap-4 pb-6 border-b border-gray-200">
+                {/* Social Share Buttons - Placeholder for future implementation */}
                 <Button variant="outline" size="sm">
                   Share
                 </Button>
@@ -101,9 +94,6 @@ export default function BlogPostPage({ params }: { params: { id: string } }) {
 
             {/* Article Content */}
             <div className="prose prose-lg max-w-none" dangerouslySetInnerHTML={{ __html: post.content }} />
-
-            {/* In-Article Ad */}
-            <InArticleAd className="my-8" />
 
             {/* Newsletter Signup */}
             <Card className="bg-gradient-to-r from-orange-500 to-orange-600 text-white mt-12">
@@ -119,6 +109,7 @@ export default function BlogPostPage({ params }: { params: { id: string } }) {
             {/* Related Posts */}
             <div className="mt-12">
               <h3 className="text-2xl font-bold text-gray-900 mb-6">Related Articles</h3>
+              {/* Using getRelatedPosts with post.id and post.category */}
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                 {getRelatedPosts(post.id, post.category).map((relatedPost) => (
                   <Card key={relatedPost.id}>
