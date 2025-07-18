@@ -11,7 +11,7 @@ export async function GET() {
     "/privacy-policy",
     "/terms-of-service",
     "/affiliate-disclosure",
-    "/sitemap",
+    // Removed "/sitemap" from here as it points to the HTML sitemap page
     "/adsense-verification",
     "/admin/indexnow",
   ].map((path) => ({

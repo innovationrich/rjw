@@ -1,19 +1,15 @@
-import type React from "react"
+import { Card } from "@/components/ui/card"
 
-interface AdBannerProps {
-  imageUrl: string
-  altText: string
-  linkUrl: string
-}
-
-const AdBanner: React.FC<AdBannerProps> = ({ imageUrl, altText, linkUrl }) => {
+export function AdBanner() {
   return (
-    <a href={linkUrl} target="_blank" rel="noopener noreferrer">
-      <img src={imageUrl || "/placeholder.svg"} alt={altText} style={{ maxWidth: "100%", display: "block" }} />
-    </a>
+    <Card className="w-full bg-gray-100 p-4 text-center text-gray-500 dark:bg-gray-800 dark:text-gray-400">
+      <p>Advertisement</p>
+      {/* Replace with your actual ad code */}
+      <div className="mt-2 h-24 w-full bg-gray-200 flex items-center justify-center text-sm text-gray-400 dark:bg-gray-700 dark:text-gray-500">
+        [Your AdSense or other ad code here]
+      </div>
+    </Card>
   )
 }
 
-// Provide both a named and default export so either import style works.
-export { AdBanner }
 export default AdBanner
