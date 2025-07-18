@@ -1,131 +1,124 @@
 import Link from "next/link"
 
-const Footer = () => {
+/**
+ * Site-wide footer with quick links, category shortcuts and legal pages.
+ */
+export default function Footer() {
   return (
-    <footer className="bg-gray-800 text-white py-8 mt-12">
-      <div className="container mx-auto px-4">
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
-          {/* Logo and Description */}
-          <div className="md:col-span-1">
-            <Link href="/" className="text-xl font-bold mb-4 block">
-              <span className="bg-gradient-to-r from-green-400 via-blue-500 to-purple-600 bg-clip-text text-transparent">
-                $ideHustlesFromHome.com
-              </span>
-            </Link>
-            <p className="text-gray-300 text-sm">
-              Your ultimate resource for side hustles, passive income, and financial freedom from home.
-            </p>
-          </div>
-
-          {/* Quick Links */}
-          <div>
-            <h3 className="text-lg font-semibold mb-4">Quick Links</h3>
-            <ul className="space-y-2">
-              <li>
-                <Link href="/" className="text-gray-300 hover:text-white transition-colors">
-                  Home
-                </Link>
-              </li>
-              <li>
-                <Link href="/blog" className="text-gray-300 hover:text-white transition-colors">
-                  Blog
-                </Link>
-              </li>
-              <li>
-                <Link href="/categories" className="text-gray-300 hover:text-white transition-colors">
-                  Categories
-                </Link>
-              </li>
-              <li>
-                <Link href="/about" className="text-gray-300 hover:text-white transition-colors">
-                  About
-                </Link>
-              </li>
-              <li>
-                <Link href="/contact" className="text-gray-300 hover:text-white transition-colors">
-                  Contact
-                </Link>
-              </li>
-            </ul>
-          </div>
-
-          {/* Categories */}
-          <div>
-            <h3 className="text-lg font-semibold mb-4">Categories</h3>
-            <ul className="space-y-2">
-              <li>
-                <Link
-                  href="/categories/online-side-hustles"
-                  className="text-gray-300 hover:text-white transition-colors"
-                >
-                  Online Side Hustles
-                </Link>
-              </li>
-              <li>
-                <Link href="/categories/passive-income" className="text-gray-300 hover:text-white transition-colors">
-                  Passive Income
-                </Link>
-              </li>
-              <li>
-                <Link href="/categories/freelancing" className="text-gray-300 hover:text-white transition-colors">
-                  Freelancing
-                </Link>
-              </li>
-              <li>
-                <Link href="/categories/digital-products" className="text-gray-300 hover:text-white transition-colors">
-                  Digital Products
-                </Link>
-              </li>
-              <li>
-                <Link href="/categories/ecommerce" className="text-gray-300 hover:text-white transition-colors">
-                  E-commerce
-                </Link>
-              </li>
-              <li>
-                <Link href="/categories/content-creation" className="text-gray-300 hover:text-white transition-colors">
-                  Content Creation
-                </Link>
-              </li>
-            </ul>
-          </div>
-
-          {/* Legal & Info */}
-          <div>
-            <h3 className="text-lg font-semibold mb-4">Legal & Info</h3>
-            <ul className="space-y-2">
-              <li>
-                <Link href="/privacy-policy" className="text-gray-300 hover:text-white transition-colors">
-                  Privacy Policy
-                </Link>
-              </li>
-              <li>
-                <Link href="/terms-of-service" className="text-gray-300 hover:text-white transition-colors">
-                  Terms of Service
-                </Link>
-              </li>
-              <li>
-                <Link href="/affiliate-disclosure" className="text-gray-300 hover:text-white transition-colors">
-                  Affiliate Disclosure
-                </Link>
-              </li>
-              <li>
-                <Link href="/sitemap" className="text-gray-300 hover:text-white transition-colors">
-                  Sitemap
-                </Link>
-              </li>
-            </ul>
-          </div>
-        </div>
-
-        {/* Bottom Bar */}
-        <div className="border-t border-gray-700 mt-8 pt-8 text-center">
-          <p className="text-gray-300 text-sm">
-            &copy; {new Date().getFullYear()} $ideHustlesFromHome.com. All rights reserved.
+    <footer className="bg-gray-800 text-white mt-12">
+      <div className="container mx-auto grid gap-8 px-4 py-12 md:grid-cols-4">
+        {/* Brand blurb */}
+        <div>
+          <Link href="/" className="text-xl font-bold block mb-4">
+            <span className="bg-gradient-to-r from-green-400 via-blue-500 to-purple-600 bg-clip-text text-transparent">
+              {"$ideHustlesFromHome.com"}
+            </span>
+          </Link>
+          <p className="text-sm text-gray-300">
+            Your ultimate resource for side hustles, passive income and financial freedom - all from home.
           </p>
         </div>
+
+        {/* Quick links */}
+        <div>
+          <h3 className="font-semibold mb-4">Quick Links</h3>
+          <ul className="space-y-2 text-gray-300">
+            <li>
+              <Link className="hover:text-white" href="/">
+                Home
+              </Link>
+            </li>
+            <li>
+              <Link className="hover:text-white" href="/blog">
+                Blog
+              </Link>
+            </li>
+            <li>
+              <Link className="hover:text-white" href="/categories">
+                Categories
+              </Link>
+            </li>
+            <li>
+              <Link className="hover:text-white" href="/about">
+                About
+              </Link>
+            </li>
+            <li>
+              <Link className="hover:text-white" href="/contact">
+                Contact
+              </Link>
+            </li>
+          </ul>
+        </div>
+
+        {/* Categories */}
+        <div>
+          <h3 className="font-semibold mb-4">Categories</h3>
+          <ul className="space-y-2 text-gray-300">
+            <li>
+              <Link className="hover:text-white" href="/categories/online-side-hustles">
+                Online Side Hustles
+              </Link>
+            </li>
+            <li>
+              <Link className="hover:text-white" href="/categories/passive-income">
+                Passive Income
+              </Link>
+            </li>
+            <li>
+              <Link className="hover:text-white" href="/categories/freelancing">
+                Freelancing
+              </Link>
+            </li>
+            <li>
+              <Link className="hover:text-white" href="/categories/digital-products">
+                Digital Products
+              </Link>
+            </li>
+            <li>
+              <Link className="hover:text-white" href="/categories/ecommerce">
+                E-commerce
+              </Link>
+            </li>
+            <li>
+              <Link className="hover:text-white" href="/categories/content-creation">
+                Content Creation
+              </Link>
+            </li>
+          </ul>
+        </div>
+
+        {/* Legal */}
+        <div>
+          <h3 className="font-semibold mb-4">Legal &amp; Info</h3>
+          <ul className="space-y-2 text-gray-300">
+            <li>
+              <Link className="hover:text-white" href="/privacy-policy">
+                Privacy Policy
+              </Link>
+            </li>
+            <li>
+              <Link className="hover:text-white" href="/terms-of-service">
+                Terms of Service
+              </Link>
+            </li>
+            <li>
+              <Link className="hover:text-white" href="/affiliate-disclosure">
+                Affiliate Disclosure
+              </Link>
+            </li>
+            <li>
+              <Link className="hover:text-white" href="/sitemap">
+                Sitemap
+              </Link>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <div className="border-t border-gray-700 text-center py-6 text-gray-300 text-sm">
+        &copy; {new Date().getFullYear()} {"$ideHustlesFromHome.com"} — All rights reserved.
       </div>
     </footer>
   )
 }
-
-export default Footer
