@@ -15,7 +15,7 @@ export interface Category {
 }
 
 // Mock data for blog posts
-const blogPosts: BlogPost[] = [
+export const blogPosts: BlogPost[] = [
   {
     id: "1",
     title: "The Ultimate Guide to Freelance Writing",
@@ -169,7 +169,7 @@ const blogPosts: BlogPost[] = [
 ]
 
 // Mock data for categories
-const categories: Category[] = [
+export const categories: Category[] = [
   { name: "Content Creation", slug: "content-creation" },
   { name: "Creative Design", slug: "creative-design" },
   { name: "Delivery Gig Apps", slug: "delivery-gig-apps" },
