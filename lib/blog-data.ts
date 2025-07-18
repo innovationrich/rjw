@@ -1032,6 +1032,13 @@ export function getPostBySlug(slug: string): BlogPost | undefined {
   return blogPosts.find((post) => post.slug === slug)
 }
 
+/**
+ * Look up a post by its numeric id (legacy route support).
+ */
+export function getPostById(id: string): BlogPost | undefined {
+  return blogPosts.find((post) => post.id === id)
+}
+
 export function getPostsByCategorySlug(categorySlug: string): BlogPost[] {
   return blogPosts.filter((post) => post.category.toLowerCase().replace(/\s/g, "-") === categorySlug)
 }

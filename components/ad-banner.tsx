@@ -1,30 +1,19 @@
-"use client"
-
 import type React from "react"
-import { cn } from "@/lib/utils"
 
-export interface AdBannerProps extends React.HTMLAttributes<HTMLDivElement> {
-  type?: "header" | "sidebar" | "content" | "footer"
+interface AdBannerProps {
+  imageUrl: string
+  altText: string
+  linkUrl: string
 }
 
-/** Placeholder ad component – replace with your real ad code later. */
-function AdBanner({ type = "content", className, ...props }: AdBannerProps) {
+const AdBanner: React.FC<AdBannerProps> = ({ imageUrl, altText, linkUrl }) => {
   return (
-    <div
-      className={cn(
-        "flex items-center justify-center rounded-md border border-dashed border-gray-300 bg-gray-50 text-xs text-gray-500",
-        type === "header" && "h-20",
-        type === "sidebar" && "h-52",
-        type === "content" && "h-40",
-        type === "footer" && "h-20",
-        className,
-      )}
-      {...props}
-    >
-      {`Ad banner – ${type}`}
-    </div>
+    <a href={linkUrl} target="_blank" rel="noopener noreferrer">
+      <img src={imageUrl || "/placeholder.svg"} alt={altText} style={{ maxWidth: "100%", display: "block" }} />
+    </a>
   )
 }
 
+// Provide both a named and default export so either import style works.
 export { AdBanner }
 export default AdBanner
