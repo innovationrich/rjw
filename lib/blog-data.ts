@@ -30,6 +30,9 @@ export const posts: Post[] = [
   },
 ]
 
+// Alias for backwards-compatibility with components that import `blogPosts`.
+export const blogPosts = posts
+
 export function getPostsByCategory(category: string) {
   return posts.filter((p) => p.category === category)
 }
