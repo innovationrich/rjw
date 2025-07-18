@@ -1,6 +1,12 @@
 import { NextResponse } from "next/server"
 import { blogPosts } from "@/lib/blog-data"
 
+// Gracefully handle bad or missing dates
+function formatIso(dateLike: string | number | Date | null | undefined) {
+  const d = dateLike ? new Date(dateLike) : undefined
+  return (!d || Number.isNaN(d.getTime()) ? new Date() : d).toISOString()
+}
+
 export async function GET() {
   const baseUrl = "https://sidehustles.vercel.app"
 
@@ -125,7 +131,7 @@ export async function GET() {
       (post) => `
   <url>
     <loc>${baseUrl}/blog/${post.id}</loc>
-    <lastmod>${new Date(post.publishedAt).toISOString()}</lastmod>
+    <lastmod>${formatIso(post.publishedAt)}</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>`,
