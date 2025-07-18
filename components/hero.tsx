@@ -8,7 +8,7 @@ import { stockImages } from "@/lib/images"
 /**
  * Call-out section on the home page
  */
-function Hero() {
+export function Hero() {
   return (
     <section className="relative bg-gradient-to-br from-orange-50 to-orange-100 py-20 lg:py-32 overflow-hidden">
       {/* Background image */}
@@ -113,7 +113,5 @@ function InfoRow({ label, value, highlight = false }: InfoRowProps) {
 
 /* ---------- exports ---------- */
 
-// named export (required by other modules)
-export { Hero }
 // default export for convenience
 export default Hero
