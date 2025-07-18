@@ -1,36 +1,14 @@
 import { NextResponse } from "next/server"
 
 export async function GET() {
-  const robotsContent = `User-agent: *
+  const robotsTxt = `User-agent: *
 Allow: /
 
-User-agent: Googlebot
-Allow: /
+Sitemap: https://sidehustles.vercel.app/sitemap.xml`
 
-User-agent: AdsBot-Google
-Allow: /
-
-User-agent: Mediapartners-Google
-Allow: /
-
-User-agent: bingbot
-Allow: /
-
-User-agent: YandexBot
-Allow: /
-
-Sitemap: https://your-actual-domain.com/sitemap.xml
-
-# Ads.txt file location
-# https://your-actual-domain.com/ads.txt
-
-# IndexNow
-# API Key file location: https://your-actual-domain.com/22edc7cab1d846889a863530975e6e09.txt`
-
-  return new NextResponse(robotsContent, {
+  return new NextResponse(robotsTxt, {
     headers: {
       "Content-Type": "text/plain",
-      "Cache-Control": "public, max-age=86400",
     },
   })
 }
