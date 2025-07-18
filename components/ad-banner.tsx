@@ -1,71 +1,33 @@
-import { AdSenseBanner } from "./adsense-banner"
+"use client"
 
-interface AdBannerProps {
-  type: "header" | "sidebar" | "content" | "footer"
-  className?: string
+import type React from "react"
+
+import { cn } from "@/lib/utils"
+
+export interface AdBannerProps extends React.HTMLAttributes<HTMLDivElement> {
+  /** Which ad slot it is – header, sidebar, etc. */
+  type?: "header" | "sidebar" | "content" | "footer"
 }
 
-export function AdBanner({ type, className = "" }: AdBannerProps) {
-  // You'll need to create these ad units in your AdSense account
-  const getAdSlot = () => {
-    switch (type) {
-      case "header":
-        return "1234567890" // Replace with your actual header ad slot ID
-      case "sidebar":
-        return "2345678901" // Replace with your actual sidebar ad slot ID
-      case "content":
-        return "3456789012" // Replace with your actual in-content ad slot ID
-      case "footer":
-        return "4567890123" // Replace with your actual footer ad slot ID
-      default:
-        return "1234567890"
-    }
-  }
-
-  const getAdFormat = () => {
-    switch (type) {
-      case "header":
-        return "horizontal"
-      case "sidebar":
-        return "vertical"
-      case "content":
-        return "rectangle"
-      case "footer":
-        return "horizontal"
-      default:
-        return "auto"
-    }
-  }
-
-  const getContainerStyle = () => {
-    switch (type) {
-      case "header":
-        return "min-h-[100px] lg:min-h-[120px]"
-      case "sidebar":
-        return "min-h-[250px] w-full"
-      case "content":
-        return "min-h-[120px] lg:min-h-[150px]"
-      case "footer":
-        return "min-h-[80px] lg:min-h-[100px]"
-      default:
-        return "min-h-[120px]"
-    }
-  }
-
+/**
+ * Very simple placeholder ad banner.
+ * Replace the markup here with your real ad network code
+ * (e.g. Google AdSense) when you’re ready.
+ */
+export default function AdBanner({ type = "content", className, ...props }: AdBannerProps) {
   return (
-    <div className={`${getContainerStyle()} ${className} flex items-center justify-center bg-gray-50 rounded-lg`}>
-      <AdSenseBanner
-        adSlot={getAdSlot()}
-        adFormat={getAdFormat() as any}
-        style={{
-          display: "block",
-          width: "100%",
-          height: "100%",
-        }}
-        className="w-full h-full"
-      />
+    <div
+      className={cn(
+        "flex items-center justify-center rounded-md border border-dashed border-gray-300 bg-gray-50 text-xs text-gray-500",
+        type === "header" && "h-20",
+        type === "sidebar" && "h-52",
+        type === "content" && "h-40",
+        type === "footer" && "h-20",
+        className,
+      )}
+      {...props}
+    >
+      {`Ad banner – ${type}`}
     </div>
   )
 }
-
-export default AdBanner

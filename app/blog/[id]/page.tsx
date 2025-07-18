@@ -5,7 +5,7 @@ import { InArticleAd } from "@/components/in-article-ad"
 import { BlogSidebar } from "@/components/blog-sidebar"
 import { Clock, User, Calendar } from "lucide-react"
 import { Button } from "@/components/ui/button"
-import { blogPosts, getPostBySlug, getRelatedPosts } from "@/lib/blog-data" // Updated import
+import { blogPosts, getPostBySlug, getPostById, getRelatedPosts } from "@/lib/blog-data"
 import Image from "next/image"
 import { notFound } from "next/navigation"
 import { TableOfContents } from "@/components/table-of-contents"
@@ -13,9 +13,15 @@ import Link from "next/link"
 
 // Generate static params for all blog posts
 export async function generateStaticParams() {
-  return blogPosts.map((post) => ({
-    id: post.slug, // Use slug for dynamic routing
-  }))
+  /**
+   * Return BOTH the SEO-friendly slug and the numeric id so
+   *   /blog/123  ➜ still works for old links/bookmarks
+   *   /blog/some-slug  ➜ new canonical URL
+   */
+  return blogPosts.flatMap((post) => [
+    { id: post.slug },
+    { id: post.id }, // legacy numeric route
+  ])
 }
 
 export async function generateMetadata({ params }: { params: { id: string } }) {
@@ -42,7 +48,7 @@ export async function generateMetadata({ params }: { params: { id: string } }) {
 }
 
 export default function BlogPostPage({ params }: { params: { id: string } }) {
-  const post = getPostBySlug(params.id) // Fetch by slug
+  const post = getPostBySlug(params.id) ?? getPostById(params.id) // Fallback to numeric id
 
   if (!post) {
     notFound()
