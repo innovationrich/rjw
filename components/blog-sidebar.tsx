@@ -128,3 +128,5 @@ export function BlogSidebar() {
     </div>
   )
 }
+
+export default BlogSidebar

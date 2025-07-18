@@ -64,3 +64,5 @@ export function BlogGrid() {
     </div>
   )
 }
+
+export default BlogGrid
