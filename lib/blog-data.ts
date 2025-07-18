@@ -1050,3 +1050,7 @@ export function getRelatedPosts(currentPostId: string, category: string, limit =
     .sort(() => 0.5 - Math.random()) // Shuffle
     .slice(0, limit)
 }
+
+export function getPostsByCategory(category: string): BlogPost[] {
+  return blogPosts.filter((post) => post.category.toLowerCase() === category.toLowerCase())
+}

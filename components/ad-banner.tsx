@@ -67,3 +67,5 @@ export function AdBanner({ type, className = "" }: AdBannerProps) {
     </div>
   )
 }
+
+export default AdBanner
