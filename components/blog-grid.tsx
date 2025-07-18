@@ -1,50 +1,40 @@
+"use client"
+
+import Image from "next/image"
 import Link from "next/link"
-import { Card, CardContent } from "@/components/ui/card"
-import { OptimizedImage } from "@/components/optimized-image"
+import { blogPosts } from "@/lib/blog-data"
 
-interface BlogPost {
-  id: string
-  title: string
-  description: string
-  category: string
-  image: string
-  publishedAt: string
-}
+export default function BlogGrid() {
+  if (!blogPosts?.length) {
+    return <p className="text-center text-gray-500">No articles yet — check back soon.</p>
+  }
 
-export function BlogGrid({ posts }: { posts: BlogPost[] }) {
   return (
-    <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-      {posts.map((post) => (
-        <Card key={post.id} className="flex flex-col overflow-hidden rounded-lg shadow-lg">
-          <Link href={`/blog/${post.id}`}>
-            <OptimizedImage
+    <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
+      {blogPosts.map((post) => (
+        <article key={post.id} className="flex flex-col overflow-hidden rounded-lg shadow transition hover:shadow-lg">
+          <Link href={`/blog/${post.id}`} className="relative h-48 w-full shrink-0">
+            <Image
+              src={post.image || "/placeholder.svg"}
               alt={post.title}
-              className="h-48 w-full object-cover"
-              height={200}
-              src={post.image}
-              style={{
-                aspectRatio: "300/200",
-                objectFit: "cover",
-              }}
-              width={300}
+              fill
+              sizes="(max-width: 768px) 100vw, 33vw"
+              className="object-cover"
+              priority
             />
           </Link>
-          <CardContent className="flex flex-1 flex-col justify-between p-4">
-            <div>
-              <Link href={`/blog/${post.id}`}>
-                <h3 className="text-xl font-semibold text-gray-900 hover:text-gray-700">{post.title}</h3>
-              </Link>
-              <p className="mt-2 text-gray-600">{post.description}</p>
-            </div>
-            <div className="mt-4 flex items-center justify-between text-sm text-gray-500">
-              <span>{post.category}</span>
-              <span>{new Date(post.publishedAt).toLocaleDateString()}</span>
-            </div>
-          </CardContent>
-        </Card>
+
+          <div className="flex flex-1 flex-col bg-white p-5">
+            <span className="mb-2 text-xs uppercase tracking-wide text-orange-600">{post.category}</span>
+            <Link href={`/blog/${post.id}`}>
+              <h3 className="mb-3 text-lg font-semibold leading-snug text-gray-900 hover:text-orange-600">
+                {post.title}
+              </h3>
+            </Link>
+            <p className="line-clamp-3 flex-1 text-sm text-gray-600">{post.description}</p>
+          </div>
+        </article>
       ))}
     </div>
   )
 }
-
-export default BlogGrid
