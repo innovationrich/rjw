@@ -1,48 +1,29 @@
-import type { Metadata } from "next"
-
-export const metadata: Metadata = {
-  title: "Affiliate Disclosure - SideHustles FromHome.com",
-  description: "Learn about our affiliate disclosure policy at SideHustles FromHome.com.",
-  keywords: "affiliate disclosure, affiliate links, transparency, side hustles",
-  openGraph: {
-    title: "Affiliate Disclosure - SideHustles FromHome.com",
-    description: "Learn about our affiliate disclosure policy at SideHustles FromHome.com.",
-    url: "https://sidehustlesfromhome.com/affiliate-disclosure",
-    type: "website",
-  },
-  twitter: {
-    card: "summary_large_image",
-    title: "Affiliate Disclosure - SideHustles FromHome.com",
-    description: "Learn about our affiliate disclosure policy at SideHustles FromHome.com.",
-  },
-}
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 
 export default function AffiliateDisclosurePage() {
   return (
-    <main className="container mx-auto px-4 py-8 md:py-12">
-      <article className="prose prose-lg mx-auto max-w-3xl dark:prose-invert">
-        <h1 className="text-4xl font-bold mb-6">Affiliate Disclosure</h1>
-        <p className="text-lg mb-4">
-          SideHustles FromHome.com participates in various affiliate marketing programs, which means we may get paid
-          commissions on editorially chosen products purchased through our links to retailer sites. This comes at no
-          extra cost to you.
-        </p>
-        <p className="text-lg mb-4">
-          Our goal is to provide valuable content and resources to help you find legitimate side hustles and
-          work-from-home opportunities. We only recommend products and services that we genuinely believe will be
-          beneficial to our readers.
-        </p>
-        <p className="text-lg mb-4">
-          When you click on an affiliate link and make a purchase, we may receive a small commission from the retailer.
-          This helps support our website and allows us to continue creating high-quality content for you.
-        </p>
-        <p className="text-lg mb-4">
-          We are committed to transparency and honesty. Our editorial content is not influenced by advertisers or
-          affiliate partnerships. We strive to provide unbiased reviews and information to help you make informed
-          decisions.
-        </p>
-        <p className="text-lg mb-4">Thank you for supporting SideHustles FromHome.com!</p>
-      </article>
-    </main>
+    <div className="container mx-auto py-8 px-4">
+      <Card>
+        <CardHeader>
+          <CardTitle className="text-3xl font-bold">Affiliate Disclosure</CardTitle>
+        </CardHeader>
+        <CardContent className="space-y-4 text-gray-700">
+          <p>
+            This website, SideHustles FromHome.com, may contain affiliate links. This means that when you click on some
+            links and make a purchase, we may receive a small commission at no extra cost to you.
+          </p>
+          <p>
+            We only recommend products and services that we genuinely believe will add value to our readers. The
+            commissions earned help support the maintenance and growth of this website, allowing us to continue
+            providing valuable content.
+          </p>
+          <p>
+            Your support through these links is greatly appreciated and helps us keep SideHustles FromHome.com a free
+            resource for everyone.
+          </p>
+          <p>If you have any questions regarding this, please feel free to contact us.</p>
+        </CardContent>
+      </Card>
+    </div>
   )
 }

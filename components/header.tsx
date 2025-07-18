@@ -1,4 +1,5 @@
 import type React from "react"
+import Link from "next/link" // Import Link component
 
 const Header: React.FC = () => {
   return (
@@ -6,46 +7,46 @@ const Header: React.FC = () => {
       <div className="container mx-auto flex items-center justify-between">
         {/* Logo */}
         <div className="text-2xl font-bold">
-          <a href="/" className="flex items-center">
-            <span className="bg-clip-text text-transparent bg-gradient-to-r from-purple-500 to-pink-500">
+          <Link href="/" className="flex items-center">
+            <span className="bg-clip-text text-transparent bg-gradient-to-r from-purple-500 to-pink-500 drop-shadow-lg">
               SideHustles FromHome.com
             </span>
-            <span className="ml-2 animate-pulse text-sm">✨</span>
-          </a>
+            <span className="ml-2 animate-pulse text-sm text-yellow-300">✨</span>
+          </Link>
         </div>
 
         {/* Navigation */}
         <nav>
           <ul className="flex space-x-4">
             <li>
-              <a href="/" className="hover:text-gray-300">
+              <Link href="/" className="hover:text-gray-300">
                 Home
-              </a>
+              </Link>
             </li>
             <li>
-              <a href="/blog" className="hover:text-gray-300">
+              <Link href="/blog" className="hover:text-gray-300">
                 Blog
-              </a>
+              </Link>
             </li>
             <li>
-              <a href="/categories" className="hover:text-gray-300">
+              <Link href="/categories" className="hover:text-gray-300">
                 Categories
-              </a>
+              </Link>
             </li>
             <li>
-              <a href="/categories/investing" className="hover:text-gray-300">
+              <Link href="/categories/investing" className="hover:text-gray-300">
                 Investing
-              </a>
+              </Link>
             </li>
             <li>
-              <a href="/about" className="hover:text-gray-300">
+              <Link href="/about" className="hover:text-gray-300">
                 About
-              </a>
+              </Link>
             </li>
             <li>
-              <a href="/contact" className="hover:text-gray-300">
+              <Link href="/contact" className="hover:text-gray-300">
                 Contact
-              </a>
+              </Link>
             </li>
           </ul>
         </nav>

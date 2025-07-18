@@ -1,38 +1,31 @@
-import type { Metadata } from "next"
 import { blogPosts } from "@/lib/blog-data"
-import BlogGrid from "@/components/blog-grid"
-import BlogSidebar from "@/components/blog-sidebar"
-
-export const metadata: Metadata = {
-  title: "Investing Side Hustles - SideHustles FromHome.com",
-  description: "Explore legitimate investing side hustles and opportunities to grow your income from home.",
-  keywords:
-    "investing side hustles, passive income investing, stock market side hustles, real estate investing, crypto investing",
-  openGraph: {
-    title: "Investing Side Hustles - SideHustles FromHome.com",
-    description: "Explore legitimate investing side hustles and opportunities to grow your income from home.",
-    url: "https://sidehustlesfromhome.com/categories/investing",
-    type: "website",
-  },
-  twitter: {
-    card: "summary_large_image",
-    title: "Investing Side Hustles - SideHustles FromHome.com",
-    description: "Explore legitimate investing side hustles and opportunities to grow your income from home.",
-  },
-}
+import { BlogGrid } from "@/components/blog-grid"
+import { BlogSidebar } from "@/components/blog-sidebar"
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 
 export default function InvestingCategoryPage() {
   const investingPosts = blogPosts.filter((post) => post.category === "Investing")
 
   return (
-    <div className="container mx-auto px-4 py-8 md:py-12">
-      <h1 className="text-4xl font-bold mb-8 text-center">Investing Side Hustles</h1>
-      <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
-        <div className="md:col-span-3">
+    <div className="container mx-auto py-8 px-4">
+      <div className="grid grid-cols-1 gap-8 md:grid-cols-3">
+        <div className="md:col-span-2">
+          <Card className="mb-8">
+            <CardHeader>
+              <CardTitle className="text-3xl font-bold">Investing Side Hustles</CardTitle>
+            </CardHeader>
+            <CardContent>
+              <p className="text-lg text-gray-700">
+                Explore various ways to generate passive income and grow your wealth through smart investing strategies.
+                From stock market basics to real estate and alternative investments, find the best investing side
+                hustles for your financial goals.
+              </p>
+            </CardContent>
+          </Card>
           {investingPosts.length > 0 ? (
             <BlogGrid posts={investingPosts} />
           ) : (
-            <p className="text-center text-gray-600">No investing side hustle posts found yet. Check back soon!</p>
+            <p className="text-center text-gray-600">No investing articles found yet. Check back soon!</p>
           )}
         </div>
         <div className="md:col-span-1">
