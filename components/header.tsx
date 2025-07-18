@@ -14,7 +14,7 @@ const Header: React.FC = () => {
           </a>
         </div>
 
-        {/* Navigation (Placeholder) */}
+        {/* Navigation */}
         <nav>
           <ul className="flex space-x-4">
             <li>
@@ -25,6 +25,16 @@ const Header: React.FC = () => {
             <li>
               <a href="/blog" className="hover:text-gray-300">
                 Blog
+              </a>
+            </li>
+            <li>
+              <a href="/categories" className="hover:text-gray-300">
+                Categories
+              </a>
+            </li>
+            <li>
+              <a href="/categories/investing" className="hover:text-gray-300">
+                Investing
               </a>
             </li>
             <li>

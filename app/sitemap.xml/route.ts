@@ -1,10 +1,25 @@
 import { blogPosts } from "@/lib/blog-data"
 
+// Gracefully handle bad or missing dates
+function formatIso(dateLike: string | number | Date | null | undefined) {
+  const d = dateLike ? new Date(dateLike) : undefined
+  return (!d || Number.isNaN(d.getTime()) ? new Date() : d).toISOString()
+}
+
 export async function GET() {
   const baseUrl = "https://sidehustlesfromhome.com"
 
   // Static pages
-  const staticPages = ["", "/about", "/blog", "/categories", "/contact", "/privacy-policy", "/terms-of-service"]
+  const staticPages = [
+    "",
+    "/about",
+    "/blog",
+    "/categories",
+    "/contact",
+    "/privacy-policy",
+    "/terms-of-service",
+    "/affiliate-disclosure",
+  ]
 
   // Category pages
   const categoryPages = [
@@ -21,6 +36,7 @@ export async function GET() {
     "/categories/creative-design",
     "/categories/healthcare-side-hustles",
     "/categories/entry-level-jobs",
+    "/categories/investing", // Add the new Investing category
   ]
 
   // Blog posts with date validation
@@ -32,7 +48,7 @@ export async function GET() {
     })
     .map((post) => ({
       url: `${baseUrl}/blog/${post.id}`,
-      lastModified: new Date(post.publishedAt || post.date).toISOString(),
+      lastModified: formatIso(post.publishedAt || post.date),
     }))
 
   // Combine all URLs
