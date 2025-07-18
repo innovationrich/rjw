@@ -1,5 +1,5 @@
 import type React from "react"
-import Link from "next/link" // Import Link component
+import Link from "next/link"
 
 const Header: React.FC = () => {
   return (

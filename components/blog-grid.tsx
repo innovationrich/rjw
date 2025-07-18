@@ -1,46 +1,41 @@
+import type React from "react"
 import Link from "next/link"
-import Image from "next/image"
-import { Card, CardContent, CardDescription, CardTitle } from "@/components/ui/card"
-import { getAllBlogPosts } from "@/lib/blog-data" // Import the data function
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
+import { Badge } from "@/components/ui/badge"
+import { getAllPosts, type BlogPost } from "@/lib/blog-data"
 
-export default function BlogGrid() {
-  const posts = getAllBlogPosts() // Fetch posts directly
+const BlogGrid: React.FC = () => {
+  const posts = getAllPosts()
 
   if (!posts || posts.length === 0) {
-    return <div className="text-center py-8">No blog posts found.</div>
+    return (
+      <div className="text-center py-8">
+        <p className="text-gray-600">No blog posts available at the moment.</p>
+      </div>
+    )
   }
 
   return (
-    <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-      {posts.map((post) => (
-        <Card
-          key={post.id}
-          className="flex flex-col overflow-hidden rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300"
-        >
-          <Link href={`/blog/${post.id}`} className="block">
-            <Image
-              src={post.image || "/placeholder.svg?height=200&width=300&text=Blog+Post"}
+    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      {posts.map((post: BlogPost) => (
+        <Card key={post.id} className="hover:shadow-lg transition-shadow">
+          <CardHeader>
+            <img
+              src={post.image || "/placeholder.svg"}
               alt={post.title}
-              width={400}
-              height={250}
-              className="w-full h-48 object-cover"
+              className="w-full h-48 object-cover rounded-t-lg"
             />
-          </Link>
-          <CardContent className="p-4 flex flex-col flex-grow">
-            <CardTitle className="text-xl font-bold mb-2">
-              <Link href={`/blog/${post.id}`} className="hover:underline">
+            <CardTitle className="text-lg">
+              <Link href={`/blog/${post.id}`} className="hover:text-blue-600">
                 {post.title}
               </Link>
             </CardTitle>
-            <CardDescription className="text-gray-600 text-sm mb-3 flex-grow">{post.excerpt}</CardDescription>
-            <div className="flex items-center justify-between text-sm text-gray-500 mt-auto">
-              <span>{post.date}</span>
-              <Link
-                href={`/categories/${post.category.toLowerCase().replace(/\s/g, "-")}`}
-                className="text-blue-600 hover:underline"
-              >
-                {post.category}
-              </Link>
+          </CardHeader>
+          <CardContent>
+            <p className="text-gray-600 mb-4">{post.excerpt}</p>
+            <div className="flex justify-between items-center">
+              <Badge variant="secondary">{post.category}</Badge>
+              <span className="text-sm text-gray-500">{post.date}</span>
             </div>
           </CardContent>
         </Card>
@@ -48,3 +43,5 @@ export default function BlogGrid() {
     </div>
   )
 }
+
+export default BlogGrid

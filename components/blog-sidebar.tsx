@@ -1,54 +1,61 @@
+import type React from "react"
 import Link from "next/link"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
-import { getAllCategories, getRecentPosts } from "@/lib/blog-data" // Import data functions
+import { getAllCategories, getRecentPosts } from "@/lib/blog-data"
 
-export default function BlogSidebar() {
+const BlogSidebar: React.FC = () => {
   const categories = getAllCategories()
-  const recentPosts = getRecentPosts(5) // Get 5 recent posts
+  const recentPosts = getRecentPosts(5)
 
   return (
     <div className="space-y-6">
+      {/* Categories */}
       <Card>
         <CardHeader>
-          <CardTitle className="text-lg font-bold">Categories</CardTitle>
+          <CardTitle>Categories</CardTitle>
         </CardHeader>
         <CardContent>
           {categories && categories.length > 0 ? (
             <ul className="space-y-2">
               {categories.map((category) => (
-                <li key={category.slug}>
-                  <Link href={`/categories/${category.slug}`} className="text-blue-600 hover:underline">
-                    {category.name}
+                <li key={category.id}>
+                  <Link href={`/categories/${category.slug}`} className="flex justify-between hover:text-blue-600">
+                    <span>{category.name}</span>
+                    <span className="text-gray-500">({category.count})</span>
                   </Link>
                 </li>
               ))}
             </ul>
           ) : (
-            <p className="text-gray-500">No categories available.</p>
+            <p className="text-gray-600">No categories available.</p>
           )}
         </CardContent>
       </Card>
 
+      {/* Recent Posts */}
       <Card>
         <CardHeader>
-          <CardTitle className="text-lg font-bold">Recent Posts</CardTitle>
+          <CardTitle>Recent Posts</CardTitle>
         </CardHeader>
         <CardContent>
           {recentPosts && recentPosts.length > 0 ? (
-            <ul className="space-y-2">
+            <ul className="space-y-3">
               {recentPosts.map((post) => (
                 <li key={post.id}>
-                  <Link href={`/blog/${post.id}`} className="text-blue-600 hover:underline">
-                    {post.title}
+                  <Link href={`/blog/${post.id}`} className="block hover:text-blue-600">
+                    <h4 className="font-medium text-sm">{post.title}</h4>
+                    <p className="text-xs text-gray-500 mt-1">{post.date}</p>
                   </Link>
                 </li>
               ))}
             </ul>
           ) : (
-            <p className="text-gray-500">No recent posts available.</p>
+            <p className="text-gray-600">No recent posts available.</p>
           )}
         </CardContent>
       </Card>
     </div>
   )
 }
+
+export default BlogSidebar
