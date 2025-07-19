@@ -1,13 +1,13 @@
 import type { Metadata } from "next"
 import Link from "next/link"
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
-import { Badge } from "@/components/ui/badge"
-import { ArrowRight, DollarSign, Clock, TrendingUp } from "lucide-react"
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
+import { DollarSign, Clock, TrendingUp } from "lucide-react"
+import { getAllCategories, getPostsByCategory } from "@/lib/blog-data"
 
 export const metadata: Metadata = {
-  title: "Side Hustle Categories | SideHustles FromHome.com",
+  title: "All Categories - SideHustlesFromHome.com",
   description:
-    "Explore proven side hustle categories to start earning money from home. Find freelancing, online business, passive income, and local opportunities.",
+    "Explore various side hustle categories including online, creative, gig economy, and passive income opportunities.",
   keywords: "side hustle categories, work from home, online income, freelancing, passive income",
   openGraph: {
     title: "Side Hustle Categories | SideHustles FromHome.com",
@@ -15,89 +15,6 @@ export const metadata: Metadata = {
     type: "website",
   },
 }
-
-const categories = [
-  {
-    title: "Online Side Hustles",
-    slug: "online-side-hustles",
-    description: "Digital opportunities you can start today from anywhere with an internet connection.",
-    icon: "💻",
-    posts: 15,
-    avgIncome: "$500-2000/month",
-    difficulty: "Beginner",
-    timeToStart: "1-7 days",
-  },
-  {
-    title: "Freelancing",
-    slug: "freelancing",
-    description: "Sell your skills and expertise to clients worldwide through freelance platforms.",
-    icon: "🎯",
-    posts: 12,
-    avgIncome: "$1000-5000/month",
-    difficulty: "Intermediate",
-    timeToStart: "1-14 days",
-  },
-  {
-    title: "Passive Income",
-    slug: "passive-income",
-    description: "Build income streams that generate money with minimal ongoing effort.",
-    icon: "💰",
-    posts: 10,
-    avgIncome: "$100-1000/month",
-    difficulty: "Advanced",
-    timeToStart: "30-90 days",
-  },
-  {
-    title: "Digital Products",
-    slug: "digital-products",
-    description: "Create and sell digital products like courses, templates, and software.",
-    icon: "📱",
-    posts: 8,
-    avgIncome: "$200-3000/month",
-    difficulty: "Intermediate",
-    timeToStart: "14-30 days",
-  },
-  {
-    title: "E-commerce",
-    slug: "ecommerce",
-    description: "Start an online store and sell physical or digital products.",
-    icon: "🛒",
-    posts: 11,
-    avgIncome: "$500-10000/month",
-    difficulty: "Advanced",
-    timeToStart: "7-30 days",
-  },
-  {
-    title: "Content Creation",
-    slug: "content-creation",
-    description: "Monetize your creativity through blogging, YouTube, podcasting, and social media.",
-    icon: "🎨",
-    posts: 9,
-    avgIncome: "$100-5000/month",
-    difficulty: "Beginner",
-    timeToStart: "1-7 days",
-  },
-  {
-    title: "Gig Economy",
-    slug: "gig-economy",
-    description: "Flexible work opportunities through apps and platforms.",
-    icon: "🚗",
-    posts: 13,
-    avgIncome: "$300-1500/month",
-    difficulty: "Beginner",
-    timeToStart: "1-3 days",
-  },
-  {
-    title: "Local Job Search",
-    slug: "local-job-search",
-    description: "Find part-time and flexible work opportunities in your local area.",
-    icon: "📍",
-    posts: 7,
-    avgIncome: "$400-2000/month",
-    difficulty: "Beginner",
-    timeToStart: "1-14 days",
-  },
-]
 
 const jsonLd = {
   "@context": "https://schema.org",
@@ -107,20 +24,23 @@ const jsonLd = {
   url: "https://sidehustlesfromhome.com/categories",
   mainEntity: {
     "@type": "ItemList",
-    itemListElement: categories.map((category, index) => ({
+    itemListElement: getAllCategories().map((category, index) => ({
       "@type": "ListItem",
       position: index + 1,
       item: {
         "@type": "Article",
-        name: category.title,
-        description: category.description,
-        url: `https://sidehustlesfromhome.com/categories/${category.slug}`,
+        name: category,
+        description:
+          "Detailed guides, real income examples, and step-by-step tutorials to help you start your side hustle journey.",
+        url: `https://sidehustlesfromhome.com/categories/${category.toLowerCase().replace(/\s+/g, "-")}`,
       },
     })),
   },
 }
 
 export default function CategoriesPage() {
+  const categories = getAllCategories()
+
   return (
     <>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
@@ -151,44 +71,33 @@ export default function CategoriesPage() {
           </div>
 
           {/* Categories Grid */}
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
-            {categories.map((category) => (
-              <Card key={category.slug} className="hover:shadow-lg transition-shadow duration-300 group">
-                <CardHeader>
-                  <div className="flex items-center justify-between mb-2">
-                    <span className="text-3xl">{category.icon}</span>
-                    <Badge variant="secondary">{category.posts} guides</Badge>
-                  </div>
-                  <CardTitle className="text-xl group-hover:text-blue-600 transition-colors">
-                    {category.title}
-                  </CardTitle>
-                  <CardDescription className="text-gray-600">{category.description}</CardDescription>
-                </CardHeader>
-                <CardContent>
-                  <div className="space-y-2 mb-4">
-                    <div className="flex justify-between text-sm">
-                      <span className="text-gray-500">Avg. Income:</span>
-                      <span className="font-semibold text-green-600">{category.avgIncome}</span>
-                    </div>
-                    <div className="flex justify-between text-sm">
-                      <span className="text-gray-500">Difficulty:</span>
-                      <span className="font-medium">{category.difficulty}</span>
-                    </div>
-                    <div className="flex justify-between text-sm">
-                      <span className="text-gray-500">Time to Start:</span>
-                      <span className="font-medium">{category.timeToStart}</span>
-                    </div>
-                  </div>
-                  <Link
-                    href={`/categories/${category.slug}`}
-                    className="inline-flex items-center text-blue-600 hover:text-blue-800 font-medium group-hover:underline"
-                  >
-                    Explore {category.title}
-                    <ArrowRight className="w-4 h-4 ml-1 group-hover:translate-x-1 transition-transform" />
-                  </Link>
-                </CardContent>
-              </Card>
-            ))}
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
+            {categories.map((category) => {
+              const postsInThisCategory = getPostsByCategory(category)
+              return (
+                <Card key={category} className="hover:shadow-lg transition-shadow duration-300 group">
+                  <CardHeader>
+                    <CardTitle className="text-xl font-semibold group-hover:text-blue-600 transition-colors">
+                      <Link
+                        href={`/categories/${category.toLowerCase().replace(/\s+/g, "-")}`}
+                        className="hover:underline"
+                      >
+                        {category}
+                      </Link>
+                    </CardTitle>
+                  </CardHeader>
+                  <CardContent>
+                    <p className="text-gray-600">{postsInThisCategory.length} articles</p>
+                    <Link
+                      href={`/categories/${category.toLowerCase().replace(/\s+/g, "-")}`}
+                      className="text-orange-600 hover:underline mt-2 inline-block"
+                    >
+                      View all in {category} &rarr;
+                    </Link>
+                  </CardContent>
+                </Card>
+              )
+            })}
           </div>
 
           {/* FAQ Section */}
