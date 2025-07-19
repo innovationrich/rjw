@@ -105,6 +105,25 @@ export const categories: Category[] = [
 /*                               Helper functions                             */
 /* -------------------------------------------------------------------------- */
 
+/**
+ * Legacy async helpers – kept for backward compatibility with
+ * components/pages that still import them.
+ */
+
+export async function getPosts(): Promise<BlogPost[]> {
+  // simple passthrough to keep the old API working
+  return blogPosts
+}
+
+export async function getPostsByCategory(category: string): Promise<BlogPost[]> {
+  return blogPosts.filter((post) => post.category.toLowerCase() === category.toLowerCase())
+}
+
+export async function getFeaturedPosts(): Promise<BlogPost[]> {
+  // mimic the previous behaviour: first 3 posts are considered “featured”
+  return blogPosts.slice(0, 3)
+}
+
 export function getAllPosts(): BlogPost[] {
   return blogPosts
 }
