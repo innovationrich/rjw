@@ -10,7 +10,7 @@ import { CheckCircle, AlertCircle, Send } from "lucide-react"
 
 export function IndexNowAdmin() {
   const [urls, setUrls] = useState("")
-  const [host, setHost] = useState("your-domain.com")
+  const [host, setHost] = useState("sidehustlesfromhome.com") // Default to your domain
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [result, setResult] = useState<{ success: boolean; message: string } | null>(null)
 

@@ -1,61 +1,90 @@
-import { blogPosts, categories } from "@/lib/blog-data"
+import type { MetadataRoute } from "next"
+import { getPosts } from "@/lib/blog-data"
 
-export async function GET() {
+export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const baseUrl = "https://sidehustlesfromhome.com" // Replace with your actual domain
 
-  const staticPages = [
-    "", // Home page
-    "/about",
-    "/blog",
-    "/contact",
-    "/privacy-policy",
-    "/terms-of-service",
-    "/affiliate-disclosure",
-    // Removed "/sitemap" from here as it points to the HTML sitemap page
-    "/adsense-verification",
-    "/admin/indexnow",
-  ].map((path) => ({
-    url: `${baseUrl}${path}`,
-    lastModified: new Date().toISOString(),
-    changeFrequency: "daily",
-    priority: path === "" ? 1.0 : 0.8,
-  }))
-
-  const blogPostEntries = blogPosts.map((post) => ({
-    url: `${baseUrl}/blog/${post.slug}`, // Use post.slug
-    lastModified: new Date(post.date).toISOString(),
-    changeFrequency: "weekly",
-    priority: 0.7,
-  }))
-
-  const categoryEntries = categories.map((category) => ({
-    url: `${baseUrl}/categories/${category.slug}`, // Use category.slug
-    lastModified: new Date().toISOString(),
-    changeFrequency: "daily",
-    priority: 0.6,
-  }))
-
-  const allUrls = [...staticPages, ...blogPostEntries, ...categoryEntries]
-
-  const sitemap = `<?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  ${allUrls
-    .map(
-      (url) => `
-    <url>
-      <loc>${url.url}</loc>
-      <lastmod>${url.lastModified}</lastmod>
-      <changefreq>${url.changeFrequency}</changefreq>
-      <priority>${url.priority}</priority>
-    </url>
-  `,
-    )
-    .join("")}
-</urlset>`
-
-  return new Response(sitemap, {
-    headers: {
-      "Content-Type": "application/xml",
+  const staticPages: MetadataRoute.Sitemap = [
+    {
+      url: `${baseUrl}/`,
+      lastModified: new Date(),
+      changeFrequency: "daily",
+      priority: 1,
     },
-  })
+    {
+      url: `${baseUrl}/about`,
+      lastModified: new Date(),
+      changeFrequency: "monthly",
+      priority: 0.8,
+    },
+    {
+      url: `${baseUrl}/blog`,
+      lastModified: new Date(),
+      changeFrequency: "weekly",
+      priority: 0.9,
+    },
+    {
+      url: `${baseUrl}/categories`,
+      lastModified: new Date(),
+      changeFrequency: "monthly",
+      priority: 0.7,
+    },
+    {
+      url: `${baseUrl}/contact`,
+      lastModified: new Date(),
+      changeFrequency: "yearly",
+      priority: 0.5,
+    },
+    {
+      url: `${baseUrl}/privacy-policy`,
+      lastModified: new Date(),
+      changeFrequency: "yearly",
+      priority: 0.3,
+    },
+    {
+      url: `${baseUrl}/terms-of-service`,
+      lastModified: new Date(),
+      changeFrequency: "yearly",
+      priority: 0.3,
+    },
+    {
+      url: `${baseUrl}/affiliate-disclosure`,
+      lastModified: new Date(),
+      changeFrequency: "yearly",
+      priority: 0.3,
+    },
+    {
+      url: `${baseUrl}/adsense-verification`,
+      lastModified: new Date(),
+      changeFrequency: "yearly",
+      priority: 0.3,
+    },
+    {
+      url: `${baseUrl}/admin/indexnow`,
+      lastModified: new Date(),
+      changeFrequency: "weekly",
+      priority: 0.6,
+      // This page is for admin purposes, so it might not need to be indexed
+      // or could have a lower priority. robots.txt should also disallow it.
+    },
+  ]
+
+  const blogPosts = await getPosts()
+  const blogPostEntries: MetadataRoute.Sitemap = blogPosts.map((post) => ({
+    url: `${baseUrl}/blog/${post.slug}`,
+    lastModified: new Date(post.date),
+    changeFrequency: "weekly",
+    priority: 0.9,
+  }))
+
+  // Add category pages dynamically
+  const categories = Array.from(new Set(blogPosts.map((post) => post.category.toLowerCase())))
+  const categoryEntries: MetadataRoute.Sitemap = categories.map((category) => ({
+    url: `${baseUrl}/categories/${category.replace(/\s+/g, "-")}`,
+    lastModified: new Date(),
+    changeFrequency: "weekly",
+    priority: 0.8,
+  }))
+
+  return [...staticPages, ...blogPostEntries, ...categoryEntries]
 }

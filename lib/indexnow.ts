@@ -36,7 +36,7 @@ export async function submitToIndexNow(urls: string | string[], host: string) {
     }
   } catch (error) {
     console.error("IndexNow submission error:", error)
-    return { success: false, error: error }
+    return { success: false, error: String(error) } // Convert error to string for consistent return type
   }
 }
 
