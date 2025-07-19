@@ -1,14 +1,12 @@
-import { NextResponse } from "next/server"
+import type { MetadataRoute } from "next"
 
-export async function GET() {
-  const robotsTxt = `User-agent: *
-Allow: /
-
-Sitemap: https://sidehustles.vercel.app/sitemap.xml`
-
-  return new NextResponse(robotsTxt, {
-    headers: {
-      "Content-Type": "text/plain",
+export default function robots(): MetadataRoute.Robots {
+  return {
+    rules: {
+      userAgent: "*",
+      allow: "/",
+      disallow: ["/admin/", "/private/"], // Disallow admin and private paths
     },
-  })
+    sitemap: "https://sidehustlesfromhome.com/sitemap.xml", // Ensure this points to your sitemap
+  }
 }
