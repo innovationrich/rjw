@@ -394,6 +394,11 @@ export function getPosts(limit?: number) {
   return limit ? sortedPosts.slice(0, limit) : sortedPosts
 }
 
+// Return the N most-recent posts (default 5), keeping the original order newest→oldest
+export function getRecentPosts(limit = 5) {
+  return getAllPosts().slice(0, limit)
+}
+
 export function getPostBySlug(slug: string) {
   return blogPosts.find((post) => post.slug === slug)
 }
