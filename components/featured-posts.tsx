@@ -2,12 +2,15 @@ import Link from "next/link"
 import { Card, CardContent } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { Clock, User, ArrowRight } from "lucide-react"
-import { blogPosts } from "@/lib/blog-data"
+import { getAllPosts } from "@/lib/blog-data" // Changed to getAllPosts
 import Image from "next/image"
 
 export function FeaturedPosts() {
-  const mainPost = blogPosts[0]
-  const otherPosts = blogPosts.slice(1, 4)
+  const allPosts = getAllPosts() // Get all posts, which are already sorted by date (newest first)
+  const mainPost = allPosts[0] // The most recent post
+  const otherPosts = allPosts.slice(1, 4) // The next three most recent posts
+
+  if (!mainPost) return null // Handle case where there are no posts
 
   return (
     <section className="py-16 bg-white">
@@ -25,7 +28,7 @@ export function FeaturedPosts() {
             <div className="aspect-video relative">
               <Image
                 src={mainPost.image || "/placeholder.svg"}
-                alt={mainPost.title}
+                alt={mainPost.alt || mainPost.title}
                 fill
                 className="object-cover"
                 sizes="(max-width: 768px) 100vw, 50vw"
@@ -38,7 +41,7 @@ export function FeaturedPosts() {
                 <span className="text-sm text-gray-500">Featured</span>
               </div>
               <h3 className="text-2xl font-bold text-gray-900 mb-3 leading-tight">
-                <Link href={`/blog/${mainPost.id}`} className="hover:text-orange-600 transition-colors">
+                <Link href={`/blog/${mainPost.slug}`} className="hover:text-orange-600 transition-colors">
                   {mainPost.title}
                 </Link>
               </h3>
@@ -68,7 +71,7 @@ export function FeaturedPosts() {
                     <div className="w-24 h-24 relative rounded-lg overflow-hidden flex-shrink-0">
                       <Image
                         src={post.image || "/placeholder.svg"}
-                        alt={post.title}
+                        alt={post.alt || post.title}
                         fill
                         className="object-cover"
                         sizes="96px"
@@ -77,7 +80,7 @@ export function FeaturedPosts() {
                     <div className="flex-1">
                       <Badge className="bg-orange-100 text-orange-700 hover:bg-orange-200 mb-2">{post.category}</Badge>
                       <h4 className="text-lg font-bold text-gray-900 mb-2 leading-tight">
-                        <Link href={`/blog/${post.id}`} className="hover:text-orange-600 transition-colors">
+                        <Link href={`/blog/${post.slug}`} className="hover:text-orange-600 transition-colors">
                           {post.title}
                         </Link>
                       </h4>

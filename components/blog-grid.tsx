@@ -1,46 +1,53 @@
-import Image from "next/image"
 import Link from "next/link"
-import { getAllPosts, type BlogPost } from "@/lib/blog-data" // Import getAllPosts and BlogPost type
+import Image from "next/image"
 import { Badge } from "@/components/ui/badge"
+import { Card, CardContent } from "@/components/ui/card"
+import { Clock, User } from "lucide-react"
+import { getAllPosts } from "@/lib/blog-data"
 
-export function BlogGrid() {
-  const posts = getAllPosts() // Fetch all posts
-
-  if (!posts || posts.length === 0) {
-    return <p className="py-10 text-center text-gray-600">No blog posts found.</p>
-  }
+export async function BlogGrid() {
+  const posts = getAllPosts() // Ensure this fetches all posts, sorted by date
 
   return (
-    <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-      {posts.map((post: BlogPost) => (
-        <article key={post.id} className="overflow-hidden rounded-lg bg-white shadow hover:shadow-lg">
-          <Link href={`/blog/${post.slug}`}>
-            {" "}
-            {/* Use post.slug here */}
+    <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+      {posts.map((post) => (
+        <Card key={post.id} className="overflow-hidden hover:shadow-lg transition-shadow duration-300">
+          <div className="aspect-video relative">
             <Image
-              src={post.image ?? "/placeholder.svg?height=200&width=400&query=blog+thumbnail"}
-              alt={post.title}
-              width={400}
-              height={200}
-              className="h-48 w-full object-cover"
+              src={post.image || "/placeholder.svg"}
+              alt={post.alt || post.title}
+              fill
+              className="object-cover"
+              sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
             />
-          </Link>
-          <div className="space-y-3 p-4">
-            <Badge variant="secondary">{post.category}</Badge>
-            <h2 className="text-lg font-semibold leading-tight">
-              <Link href={`/blog/${post.slug}`} className="hover:text-emerald-600">
-                {" "}
-                {/* Use post.slug here */}
+            <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent" />
+          </div>
+          <CardContent className="p-6">
+            <div className="flex items-center gap-2 mb-3">
+              <Badge className="bg-orange-100 text-orange-700 hover:bg-orange-200">{post.category}</Badge>
+            </div>
+            <h3 className="text-xl font-bold text-gray-900 mb-3 leading-tight">
+              <Link href={`/blog/${post.slug}`} className="hover:text-orange-600 transition-colors">
                 {post.title}
               </Link>
-            </h2>
-            <p className="text-sm text-gray-600">{post.excerpt}</p>
-            <time className="block text-xs text-gray-500">{new Date(post.date).toLocaleDateString()}</time>
-          </div>
-        </article>
+            </h3>
+            <p className="text-gray-600 mb-4 leading-relaxed line-clamp-3">{post.excerpt}</p>
+            <div className="flex items-center justify-between text-sm text-gray-500">
+              <div className="flex items-center gap-4">
+                <div className="flex items-center gap-1">
+                  <User className="w-4 h-4" />
+                  {post.author}
+                </div>
+                <div className="flex items-center gap-1">
+                  <Clock className="w-4 h-4" />
+                  {post.readTime}
+                </div>
+              </div>
+              <span>{post.date}</span>
+            </div>
+          </CardContent>
+        </Card>
       ))}
     </div>
   )
 }
-
-export default BlogGrid

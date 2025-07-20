@@ -1,6 +1,7 @@
 import { BlogGrid } from "@/components/blog-grid"
 import { BlogSidebar } from "@/components/blog-sidebar"
 import { AdBanner } from "@/components/ad-banner"
+import Link from "next/link"
 
 export const metadata = {
   title: "Entry-Level Jobs - No Experience Required",
@@ -65,6 +66,38 @@ export default function EntryLevelJobsPage() {
                     <li>• Inventory clerks</li>
                   </ul>
                 </div>
+              </div>
+
+              {/* New section for featured entry-level article */}
+              <div className="bg-gray-100 border border-gray-200 p-6 rounded-lg mb-8">
+                <h3 className="text-lg font-semibold text-gray-900 mb-3">
+                  Featured Entry-Level Role: Accounts Payable
+                </h3>
+                <p className="text-gray-700 mb-4">
+                  Explore a detailed guide on the roles, responsibilities, and career outlook for Accounts Payable
+                  positions. This is a great entry point into finance for detail-oriented individuals.
+                </p>
+                <Link
+                  href="/blog/accounts-payable-job-description-roles-responsibilities-career-outlook"
+                  className="text-orange-600 hover:text-orange-700 font-medium flex items-center"
+                >
+                  Read the Full Article{" "}
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="18"
+                    height="18"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    className="ml-1"
+                  >
+                    <path d="M5 12h14" />
+                    <path d="m12 5 7 7-7 7" />
+                  </svg>
+                </Link>
               </div>
 
               <div className="bg-yellow-50 border border-yellow-200 p-6 rounded-lg mb-8">
