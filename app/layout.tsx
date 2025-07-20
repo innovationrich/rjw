@@ -19,6 +19,16 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="en" className={inter.className}>
       <body>
+        {/* Google Tag (gtag.js) */}
+        <script async src="https://www.googletagmanager.com/gtag/js?id=G-JNXZFGWYV9"></script>
+        <script>
+          {`
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', 'G-JNXZFGWYV9');
+          `}
+        </script>
         <ThemeProvider attribute="class" defaultTheme="light" enableSystem>
           <NamedHeader />
           <main className="min-h-[calc(100vh-8rem)]">{children}</main>
