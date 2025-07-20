@@ -1,8 +1,24 @@
-import type { Metadata } from "next"
+import type { Metadata } from "some-module" // Assuming Metadata is imported from a module
+
+// Define a type for your blog post structure
+export type BlogPost = {
+  id: string
+  slug: string
+  title: string
+  excerpt: string
+  content: string
+  author: string
+  date: string // YYYY-MM-DD format
+  readTime: string
+  category: string
+  image?: string // Optional image URL
+  alt?: string // Alt text for the image
+  tags?: string[] // Optional tags
+}
 
 // Dummy blog post data for demonstration purposes
 // In a real application, this data would come from a CMS, database, or markdown files.
-export const blogPosts = [
+export const blogPosts: BlogPost[] = [
   {
     id: "1",
     title: "10 Profitable Side Hustles You Can Start This Weekend",
@@ -22,6 +38,7 @@ export const blogPosts = [
     `,
     image: "/online-side-hustles.png",
     alt: "Person working on laptop with money icons",
+    readTime: "10 min read",
   },
   {
     id: "2",
@@ -42,6 +59,7 @@ export const blogPosts = [
     `,
     image: "/passive-income-growth.png",
     alt: "Financial growth chart with coins",
+    readTime: "8 min read",
   },
   {
     id: "3",
@@ -62,6 +80,7 @@ export const blogPosts = [
     `,
     image: "/gig-work-juggler.png",
     alt: "Person juggling multiple tasks representing gig work",
+    readTime: "7 min read",
   },
   {
     id: "4",
@@ -82,6 +101,7 @@ export const blogPosts = [
     `,
     image: "/new-job-start.png",
     alt: "Person starting a new job",
+    readTime: "6 min read",
   },
   {
     id: "5",
@@ -102,6 +122,7 @@ export const blogPosts = [
     `,
     image: "/local-job-search.png",
     alt: "Map with job search pins",
+    readTime: "8 min read",
   },
   {
     id: "6",
@@ -122,6 +143,7 @@ export const blogPosts = [
     `,
     image: "/financial-growth-coins.png",
     alt: "Stack of coins representing financial growth",
+    readTime: "9 min read",
   },
   {
     id: "7",
@@ -142,6 +164,7 @@ export const blogPosts = [
     `,
     image: "/freelance-writing-workspace.png",
     alt: "Person working on a laptop in a home office",
+    readTime: "7 min read",
   },
   {
     id: "8",
@@ -162,6 +185,7 @@ export const blogPosts = [
     `,
     image: "/digital-products-collage.png",
     alt: "Collage of digital products like e-books and courses",
+    readTime: "6 min read",
   },
   {
     id: "9",
@@ -182,6 +206,7 @@ export const blogPosts = [
     `,
     image: "/e-commerce-concept.png",
     alt: "E-commerce shopping cart with products",
+    readTime: "8 min read",
   },
   {
     id: "10",
@@ -202,6 +227,7 @@ export const blogPosts = [
     `,
     image: "/content-creation-workspace.png",
     alt: "Person editing video on a computer",
+    readTime: "7 min read",
   },
   {
     id: "11",
@@ -222,6 +248,7 @@ export const blogPosts = [
     `,
     image: "/digital-asset-recovery.png",
     alt: "Person working on a laptop with digital assets",
+    readTime: "6 min read",
   },
   {
     id: "12",
@@ -242,6 +269,7 @@ export const blogPosts = [
     `,
     image: "/digital-marketing-strategy-board.png",
     alt: "Digital marketing strategy board",
+    readTime: "7 min read",
   },
   {
     id: "13",
@@ -262,6 +290,7 @@ export const blogPosts = [
     `,
     image: "/online-side-hustles.png",
     alt: "Person working on laptop with money icons",
+    readTime: "8 min read",
   },
   {
     id: "14",
@@ -282,6 +311,7 @@ export const blogPosts = [
     `,
     image: "/specialized-skills.png",
     alt: "Person demonstrating specialized skills",
+    readTime: "7 min read",
   },
   {
     id: "15",
@@ -302,6 +332,7 @@ export const blogPosts = [
     `,
     image: "/digital-marketing-strategy-board.png",
     alt: "Digital marketing strategy board",
+    readTime: "7 min read",
   },
   {
     id: "16",
@@ -322,6 +353,7 @@ export const blogPosts = [
     `,
     image: "/creative-designer.png",
     alt: "Person working on graphic design",
+    readTime: "6 min read",
   },
   {
     id: "17",
@@ -342,6 +374,7 @@ export const blogPosts = [
     `,
     image: "/food-delivery-smartphone.png",
     alt: "Smartphone with food delivery app",
+    readTime: "5 min read",
   },
   {
     id: "18",
@@ -362,6 +395,7 @@ export const blogPosts = [
     `,
     image: "/medical-professional-laptop.png",
     alt: "Medical professional working on a laptop",
+    readTime: "7 min read",
   },
   {
     id: "19",
@@ -382,6 +416,162 @@ export const blogPosts = [
     `,
     image: "/digital-coins-piggy-bank.png",
     alt: "Digital coins falling into a piggy bank",
+    readTime: "6 min read",
+  },
+  {
+    id: "20",
+    title: "Accounts Payable Job Description: Roles, Responsibilities, and Career Outlook",
+    slug: "accounts-payable-job-description-roles-responsibilities-career-outlook",
+    date: "2025-07-20", // Current date
+    category: "Entry-Level Jobs", // Most fitting category
+    excerpt:
+      "Discover the complete accounts payable job description, responsibilities, and career outlook. Learn what duties are involved in AP roles and how they contribute to a business’s success.",
+    content: `
+      <p>In any well-run business, the accounts payable (AP) department plays a critical behind-the-scenes role in managing cash flow and maintaining strong relationships with vendors. If you're curious about what an accounts payable job description includes—or considering a career in this field—this guide breaks it down clearly and practically.</p>
+      <p>Whether you're an employer crafting a job post or someone exploring a new opportunity, understanding the accounts payable job description and duties can help you set clear expectations and build an efficient AP process.</p>
+      <h2>What Is Accounts Payable?</h2>
+      <p>Accounts payable refers to the money a company owes to its suppliers or vendors for goods and services received. It’s listed as a liability on the balance sheet until the company pays the invoice.</p>
+      <p>In real terms, the AP team ensures that payments are made accurately, on time, and with proper documentation. This makes them a key player in budgeting, cash flow management, and maintaining vendor trust.</p>
+      <h2>Core Accounts Payable Job Description</h2>
+      <p>A typical account payable job description includes several essential tasks, all centered around processing and managing a company’s financial obligations.</p>
+      <p>Here’s a standard overview of the accounts payable job description responsibilities:</p>
+      <h3>Primary Duties:</h3>
+      <ul>
+        <li><strong>Invoice Processing:</strong> Receive, review, and verify invoices for accuracy.</li>
+        <li><strong>Vendor Management:</strong> Maintain vendor records and respond to inquiries or disputes.</li>
+        <li><strong>Payment Processing:</strong> Schedule and process payments via checks, ACH, wire transfers, or other methods.</li>
+        <li><strong>Recordkeeping:</strong> Ensure all financial transactions are properly recorded for auditing and compliance.</li>
+        <li><strong>Expense Reporting:</strong> Assist in reconciling corporate credit cards and employee expense reports.</li>
+        <li><strong>Reconciliation:</strong> Match invoices with purchase orders and delivery receipts; resolve discrepancies.</li>
+        <li><strong>Compliance:</strong> Adhere to company policies and legal regulations concerning financial documentation and data security.</li>
+        <li><strong>Month-End Close:</strong> Support financial reporting by preparing AP aging reports and reconciling accounts.</li>
+      </ul>
+      <h2>Accounts Payable Job Description and Duties (Expanded View)</h2>
+      <p>The duties listed above only scratch the surface. Let’s take a deeper look into the day-to-day accounts payable job description and duties typically expected in a mid-sized to large organization:</p>
+      <table>
+        <thead>
+          <tr>
+            <th>Task Description</th>
+            <th>Data Entry</th>
+            <th>Accurately input invoice data into accounting software (e.g., QuickBooks, SAP, Oracle)</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Three-Way Matching</td>
+            <td>Ensure that invoices match purchase orders and receiving documents to prevent overpayment</td>
+            <td></td>
+          </tr>
+          <tr>
+            <td>1099 Preparation</td>
+            <td>Track payments to independent contractors for year-end tax filings</td>
+            <td></td>
+          </tr>
+          <tr>
+            <td>Internal Collaboration</td>
+            <td>Coordinate with procurement, finance, and receiving teams to resolve payment-related issues</td>
+            <td></td>
+          </tr>
+          <tr>
+            <td>Audit Support</td>
+            <td>Prepare documentation for internal and external audits</td>
+            <td></td>
+          </tr>
+          <tr>
+            <td>Fraud Prevention</td>
+            <td>Implement and follow internal controls to prevent fraudulent payments</td>
+            <td></td>
+          </tr>
+        </tbody>
+      </table>
+      <p>These responsibilities ensure smooth operations across departments while upholding financial integrity.</p>
+      <h2>Accounts Payable Accountant Job Description</h2>
+      <p>The accounts payable accountant job description expands on the traditional AP clerk role by adding more analytical responsibilities. In some companies, this title reflects a mid- or senior-level position with oversight of more complex AP processes.</p>
+      <h3>Typical Responsibilities of an Accounts Payable Accountant:</h3>
+      <ul>
+        <li>Perform detailed account analysis and reporting</li>
+        <li>Review and reconcile vendor statements</li>
+        <li>Assist with financial audits and tax preparation</li>
+        <li>Work closely with the general ledger and treasury functions</li>
+        <li>Develop and implement process improvements</li>
+        <li>Train junior AP staff or manage small teams</li>
+      </ul>
+      <p>An accounts payable accountant often acts as a bridge between transactional processing and strategic financial planning.</p>
+      <h2>Accounts Payable Job Description for a Resume (Sample)</h2>
+      <p>If you're applying for a job in this field, your resume should reflect both technical skills and a clear understanding of the AP cycle. Here’s an example of how to phrase it:</p>
+      <p><strong>Accounts Payable Specialist</strong><br />XYZ Corporation – Houston, TX<br />January 2022 – Present</p>
+      <ul>
+        <li>Processed 300+ invoices weekly with 98% accuracy rate</li>
+        <li>Maintained relationships with 75+ vendors; resolved payment issues within 24 hours on average</li>
+        <li>Collaborated with procurement to streamline purchase order workflows, reducing payment errors by 15%</li>
+        <li>Supported month-end close with AP aging reports and reconciliations</li>
+        <li>Assisted in onboarding new vendors and implemented fraud prevention checks</li>
+      </ul>
+      <p>This structure highlights impact, efficiency, and attention to detail—exactly what employers look for in AP roles.</p>
+      <h2>Skills Required for Accounts Payable Roles</h2>
+      <p>Regardless of the job title—whether you're an accounts payable clerk, specialist, or accountant—there are core skills that ensure success in this field:</p>
+      <h3>Hard Skills:</h3>
+      <ul>
+        <li>Proficiency in accounting software (QuickBooks, SAP, NetSuite)</li>
+        <li>Understanding of basic accounting principles (GAAP)</li>
+        <li>Excel (VLOOKUP, Pivot Tables, formulas)</li>
+        <li>Invoice and PO matching</li>
+        <li>Reconciliation techniques</li>
+      </ul>
+      <h3>Soft Skills:</h3>
+      <ul>
+        <li>Attention to detail</li>
+        <li>Strong communication (for dealing with vendors and internal teams)</li>
+        <li>Time management and organizational skills</li>
+        <li>Integrity and discretion</li>
+        <li>Analytical thinking</li>
+      </ul>
+      <p>AP is a role where precision matters. Even a small mistake—like duplicating a payment—can have financial consequences. That’s why reliability and diligence are prized traits.</p>
+      <h2>Career Growth & Salary Expectations</h2>
+      <p>According to the U.S. Bureau of Labor Statistics and Glassdoor, entry-level AP clerks earn around $40,000–$50,000 annually, while experienced accounts payable accountants can earn $60,000–$80,000 or more depending on location, industry, and company size.</p>
+      <h3>Career growth in AP can lead to:</h3>
+      <ul>
+        <li>Senior AP Specialist</li>
+        <li>AP Manager or Supervisor</li>
+        <li>Accounting Analyst</li>
+        <li>Staff Accountant</li>
+        <li>Controller or Director of Finance (with further education or CPA credentials)</li>
+      </ul>
+      <p>This pathway offers solid upward mobility for detail-oriented professionals who want to stay close to operational finance.</p>
+      <h2>How Employers Can Write a Clear Accounts Payable Job Description</h2>
+      <p>If you're hiring for this role, be specific and concise in your listing. Use keywords like:</p>
+      <ul>
+        <li>Accounts payable job description</li>
+        <li>Accounts payable job description responsibilities</li>
+        <li>Account payable job description</li>
+        <li>Accounts payable accountant job description</li>
+      </ul>
+      <p>Here’s a quick sample for a job post:</p>
+      <p><strong>Job Title:</strong> Accounts Payable Specialist<br /><strong>Location:</strong> Remote or On-site | Full-Time<br /><strong>Salary:</strong> $45,000–$55,000</p>
+      <p><strong>Job Description:</strong><br />We are seeking an organized and detail-oriented Accounts Payable Specialist to join our finance team. The ideal candidate will be responsible for managing the full-cycle AP process including invoice processing, vendor communications, reconciliations, and assisting with monthly closings.</p>
+      <h3>Responsibilities:</h3>
+      <ul>
+        <li>Process a high volume of invoices and expense reports</li>
+        <li>Maintain vendor accounts and resolve payment issues</li>
+        <li>Reconcile accounts and prepare AP reports</li>
+        <li>Assist with audits and financial reporting</li>
+      </ul>
+      <h3>Requirements:</h3>
+      <ul>
+        <li>2+ years of experience in AP or similar accounting role</li>
+        <li>Familiarity with accounting software</li>
+        <li>Strong attention to detail and communication skills</li>
+      </ul>
+      <p>This makes it easy for job seekers and search engines to understand exactly what the job entails.</p>
+      <h2>Conclusion: AP Roles Are the Backbone of Financial Operations</h2>
+      <p>The accounts payable job description may not always sound glamorous, but it’s one of the most essential roles in any business that depends on reliable supplier relationships and accurate financial reporting.</p>
+      <p>Whether you're looking to hire, apply, or simply better understand AP as a function, knowing the full scope of accounts payable job description and duties sets you up for smarter decisions and smoother operations.</p>
+      <p>From invoice entry to strategic analysis, the value AP professionals bring to the table is both measurable and indispensable.</p>
+    `,
+    image: "/accounts-payable-review.png",
+    alt: "Accounts payable professional reviewing invoices",
+    tags: ["accounts payable", "job description", "finance", "accounting", "career outlook", "entry-level jobs"],
+    readTime: "7 min read", // Estimated read time for 1500 words
   },
 ]
 
@@ -444,9 +634,6 @@ export function getAllCategories() {
     slug: category.name.toLowerCase().replace(/\s+/g, "-"),
   }))
 }
-
-// Type definition for blog posts
-export type BlogPost = (typeof blogPosts)[0]
 
 // Type definition for category metadata
 export type CategoryMetadata = Metadata & {
