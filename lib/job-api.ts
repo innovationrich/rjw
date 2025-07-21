@@ -20,6 +20,7 @@ export interface JobListing {
   benefits?: string[]
   applyUrl?: string
   source: string // e.g., "SerpApi (Google Jobs)", "direct"
+  url?: string // Added for the JobCard Link
 }
 
 export interface JobSearchResponse {
@@ -49,6 +50,7 @@ const mockJobs: JobListing[] = [
     ],
     benefits: ["Health Insurance", "Paid Time Off", "Career Growth"],
     source: "direct",
+    url: "https://www.amazon.jobs/en/jobs/12345/warehouse-associate",
   },
   {
     id: "mock-2",
@@ -68,6 +70,7 @@ const mockJobs: JobListing[] = [
     ],
     benefits: ["Flexible Schedule", "Training Provided", "Work From Home"],
     source: "direct",
+    url: "https://www.callcentersolutions.com/careers/csr",
   },
   {
     id: "mock-3",
@@ -87,6 +90,7 @@ const mockJobs: JobListing[] = [
     ],
     benefits: ["Employee Discount", "Flexible Hours", "Team Environment"],
     source: "direct",
+    url: "https://corporate.target.com/careers/retail-sales-associate",
   },
   {
     id: "mock-4",
@@ -106,6 +110,7 @@ const mockJobs: JobListing[] = [
     ],
     benefits: ["Free Meals", "Flexible Schedule", "Advancement Opportunities"],
     source: "direct",
+    url: "https://careers.mcdonalds.com/food-service-worker",
   },
   {
     id: "mock-5",
@@ -125,6 +130,7 @@ const mockJobs: JobListing[] = [
     ],
     benefits: ["Health Insurance", "Paid Training", "Tool Allowance"],
     source: "direct",
+    url: "https://www.buildrightconstruction.com/careers/laborer",
   },
 ]
 
@@ -144,6 +150,7 @@ async function fetchJobsFromSerpApi(params: JobSearchParams): Promise<JobListing
         id: `serp-${job.id}`, // Prefix to avoid ID conflicts with mock data
         source: "SerpApi (Google Jobs)",
         applyUrl: `https://careers.google.com/jobs/results/${job.id}`, // Example apply URL
+        url: `https://careers.google.com/jobs/results/${job.id}`, // Example URL
       }))
   }
 
@@ -201,6 +208,7 @@ async function fetchJobsFromSerpApi(params: JobSearchParams): Promise<JobListing
       benefits: job.benefits || [],
       applyUrl: job.apply_link || job.link, // Use apply_link or general link
       source: "SerpApi (Google Jobs)",
+      url: job.link || job.apply_link, // Use the job link for the card
     }))
   } catch (error) {
     console.error("Failed to fetch from SerpApi:", error)

@@ -1,18 +1,20 @@
-/* SERVER-ONLY SEARCH PAGE – 100 % free of client hooks */
+/* SERVER-ONLY SEARCH PAGE – 100% free of client hooks */
 
 import type { Metadata } from "next"
 import Link from "next/link"
 import { searchJobs, type JobListing } from "@/lib/job-api"
 
-/* ––––– <head> metadata ––––– */
+/* ──────────────────────────────
+   <head> metadata
+──────────────────────────────── */
 export const metadata: Metadata = {
   title: "Job Search – Find Your Next Opportunity",
   description:
-    "Search for jobs by keywords, location, and job type. Discover full-time, part-time, contract, and remote roles hiring now.",
+    "Search jobs by keywords, location, and job type. Discover full-time, part-time, contract, and remote roles hiring now.",
   openGraph: {
     title: "Job Search – Find Your Next Opportunity",
     description:
-      "Search for jobs by keywords, location, and job type. Discover full-time, part-time, contract, and remote roles hiring now.",
+      "Search jobs by keywords, location, and job type. Discover full-time, part-time, contract, and remote roles hiring now.",
     url: "https://jobsnearmehiringimmediately.com/search",
     siteName: "Jobs Near Me Hiring Immediately",
     images: [
@@ -29,12 +31,14 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Job Search – Find Your Next Opportunity",
     description:
-      "Search for jobs by keywords, location, and job type. Discover full-time, part-time, contract, and remote roles hiring now.",
+      "Search jobs by keywords, location, and job type. Discover full-time, part-time, contract, and remote roles hiring now.",
     images: ["https://jobsnearmehiringimmediately.com/images/hero-banner.png"],
   },
 }
 
-/* ––––– Page component ––––– */
+/* ──────────────────────────────
+   Page component (pure server)
+──────────────────────────────── */
 interface PageProps {
   searchParams: {
     keywords?: string
@@ -45,14 +49,14 @@ interface PageProps {
 }
 
 export default async function SearchPage({ searchParams }: PageProps) {
-  /* read URL params */
+  /* Read URL params */
   const keywords = searchParams.keywords ?? ""
   const location = searchParams.location ?? ""
   const jobTypeParam = searchParams.jobType ?? "all"
   const page = Number.parseInt(searchParams.page ?? "1", 10) || 1
   const limit = 10
 
-  /* server fetch */
+  /* Server-side fetch */
   const { jobs, totalCount, currentPage, totalPages } = await searchJobs({
     keywords,
     location,
@@ -61,7 +65,7 @@ export default async function SearchPage({ searchParams }: PageProps) {
     limit,
   })
 
-  /* helper */
+  /* Helper to rebuild query-string */
   const buildQS = (extra: Record<string, string>) =>
     new URLSearchParams({
       ...(keywords && { keywords }),
@@ -70,9 +74,10 @@ export default async function SearchPage({ searchParams }: PageProps) {
       ...extra,
     }).toString()
 
-  /* render */
+  /* Render */
   return (
     <main className="min-h-screen bg-gray-50">
+      {/* Search form */}
       <section className="bg-white border-b py-8">
         <div className="max-w-4xl mx-auto px-4">
           <h1 className="text-3xl font-bold mb-6">Job Search</h1>
@@ -101,6 +106,7 @@ export default async function SearchPage({ searchParams }: PageProps) {
         </div>
       </section>
 
+      {/* Results */}
       <section className="max-w-4xl mx-auto px-4 py-10 space-y-6">
         <p className="text-gray-600">
           {totalCount > 0
@@ -114,6 +120,7 @@ export default async function SearchPage({ searchParams }: PageProps) {
           <JobCard key={job.id} job={job} />
         ))}
 
+        {/* Pagination */}
         {totalPages > 1 && (
           <nav className="flex justify-center gap-2 pt-8">
             {currentPage > 1 && (
@@ -142,7 +149,7 @@ export default async function SearchPage({ searchParams }: PageProps) {
   )
 }
 
-/* simple server-rendered card */
+/* Simple server-rendered job card */
 function JobCard({ job }: { job: JobListing }) {
   return (
     <article className="bg-white border rounded-lg p-6 shadow-sm hover:shadow-md transition">
