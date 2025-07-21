@@ -2,11 +2,8 @@ import type { Metadata } from "next"
 import { Suspense } from "react"
 import { searchJobs } from "@/lib/job-api"
 import Loading from "./loading"
-
-/* Client wrapper (defined above) */
 import ClientSearchPage from "./ClientSearchPage"
 
-/* ---------- <head> metadata ---------- */
 export const metadata: Metadata = {
   title: "Job Search - Find Your Next Opportunity",
   description:
@@ -46,7 +43,6 @@ interface SearchPageProps {
   }
 }
 
-/* ---------------- Server Component ---------------- */
 export default async function SearchPage({ searchParams }: SearchPageProps) {
   const keywords = searchParams.keywords || ""
   const location = searchParams.location || ""
@@ -54,7 +50,6 @@ export default async function SearchPage({ searchParams }: SearchPageProps) {
   const page = Number.parseInt(searchParams.page || "1")
   const limit = 10
 
-  /* Pre-fetch first page so hydration is instant */
   const initial = await searchJobs({
     keywords,
     location,

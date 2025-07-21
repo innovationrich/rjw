@@ -1,14 +1,10 @@
 "use client"
 
-import { useState, useEffect, useCallback } from "react"
+import { useState } from "react"
 import { useSearchParams, useRouter } from "next/navigation"
-import { JobListingCard } from "@/components/job-listing-card"
-import { Button } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { searchJobs, type JobListing } from "@/lib/job-api"
-import { Breadcrumb } from "@/components/breadcrumb"
-import { SchemaMarkup } from "@/components/schema-markup"
+import { JobListingCard } from "@/components/job-listing-card"
+import { JobSearchBar } from "@/components/job-search-bar"
 
 export interface SearchPageClientProps {
   initialJobs: JobListing[]
@@ -17,154 +13,184 @@ export interface SearchPageClientProps {
   initialTotalPages: number
 }
 
-function SearchPageClient({
+export function SearchPageClient({
   initialJobs,
   initialTotalCount,
   initialCurrentPage,
   initialTotalPages,
 }: SearchPageClientProps) {
+  const searchParams = useSearchParams()
   const router = useRouter()
-  const urlParams = useSearchParams()
 
-  /* ---------- UI state ---------- */
   const [jobs, setJobs] = useState<JobListing[]>(initialJobs)
   const [totalCount, setTotalCount] = useState(initialTotalCount)
   const [currentPage, setCurrentPage] = useState(initialCurrentPage)
   const [totalPages, setTotalPages] = useState(initialTotalPages)
-  const [loading, setLoading] = useState(false)
-  const [error, setError] = useState<string | null>(null)
+  const [isLoading, setIsLoading] = useState(false)
 
-  const [keywords, setKeywords] = useState(urlParams.get("keywords") || "")
-  const [location, setLocation] = useState(urlParams.get("location") || "")
-  const [jobType, setJobType] = useState(urlParams.get("jobType") || "all")
+  const keywords = searchParams.get("keywords") || ""
+  const location = searchParams.get("location") || ""
+  const jobType = searchParams.get("jobType") || "all"
 
-  /* ---------- search handler ---------- */
-  const runSearch = useCallback(
-    async (page = 1) => {
-      setLoading(true)
-      setError(null)
-      try {
-        const res = await searchJobs({
-          keywords,
-          location,
-          jobType: jobType === "all" ? undefined : jobType,
-          page,
-          limit: 10,
-        })
-        setJobs(res.jobs)
-        setTotalCount(res.totalCount)
-        setCurrentPage(res.currentPage)
-        setTotalPages(res.totalPages)
+  const handleSearch = async (searchData: {
+    keywords: string
+    location: string
+    jobType: string
+  }) => {
+    setIsLoading(true)
 
-        /* Update URL (CSR only) */
-        const p = new URLSearchParams()
-        if (keywords) p.set("keywords", keywords)
-        if (location) p.set("location", location)
-        if (jobType) p.set("jobType", jobType)
-        p.set("page", String(page))
-        router.push(`/search?${p.toString()}`, { scroll: false })
-      } catch (e) {
-        setError("Failed to load jobs. Please try again later.")
-        console.error(e)
-      } finally {
-        setLoading(false)
-      }
-    },
-    [keywords, location, jobType, router],
-  )
+    const params = new URLSearchParams()
+    if (searchData.keywords) params.set("keywords", searchData.keywords)
+    if (searchData.location) params.set("location", searchData.location)
+    if (searchData.jobType && searchData.jobType !== "all") params.set("jobType", searchData.jobType)
+    params.set("page", "1")
 
-  /* ---------- run once on mount if URL params differ ---------- */
-  useEffect(() => {
-    if (urlParams.size > 0 && initialCurrentPage === 1) {
-      runSearch(Number(urlParams.get("page") || 1))
+    router.push(`/search?${params.toString()}`)
+
+    try {
+      const response = await searchJobs({
+        keywords: searchData.keywords,
+        location: searchData.location,
+        jobType: searchData.jobType === "all" ? undefined : searchData.jobType,
+        page: 1,
+        limit: 10,
+      })
+
+      setJobs(response.jobs)
+      setTotalCount(response.totalCount)
+      setCurrentPage(response.currentPage)
+      setTotalPages(response.totalPages)
+    } catch (error) {
+      console.error("Search failed:", error)
+    } finally {
+      setIsLoading(false)
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
+  }
 
-  /* ---------- schema ---------- */
-  const breadcrumbSchema = {
-    "@context": "https://schema.org",
-    "@type": "BreadcrumbList",
-    itemListElement: [
-      {
-        "@type": "ListItem",
-        position: 1,
-        name: "Home",
-        item: "https://jobsnearmehiringimmediately.com/",
-      },
-      {
-        "@type": "ListItem",
-        position: 2,
-        name: "Job Search",
-        item: "https://jobsnearmehiringimmediately.com/search",
-      },
-    ],
+  const handlePageChange = async (page: number) => {
+    setIsLoading(true)
+
+    const params = new URLSearchParams(searchParams.toString())
+    params.set("page", page.toString())
+    router.push(`/search?${params.toString()}`)
+
+    try {
+      const response = await searchJobs({
+        keywords,
+        location,
+        jobType: jobType === "all" ? undefined : jobType,
+        page,
+        limit: 10,
+      })
+
+      setJobs(response.jobs)
+      setTotalCount(response.totalCount)
+      setCurrentPage(response.currentPage)
+      setTotalPages(response.totalPages)
+    } catch (error) {
+      console.error("Page change failed:", error)
+    } finally {
+      setIsLoading(false)
+    }
   }
 
   return (
-    <>
-      <SchemaMarkup schema={breadcrumbSchema} />
-      <div className="container mx-auto px-4 py-8">
-        <Breadcrumb
-          items={[
-            { label: "Home", href: "/" },
-            { label: "Job Search", href: "/search" },
-          ]}
-        />
-
-        {/* --- Search form --- */}
-        <div className="mb-8 grid gap-4 md:grid-cols-3">
-          <Input placeholder="Keywords" value={keywords} onChange={(e) => setKeywords(e.target.value)} />
-          <Input placeholder="Location" value={location} onChange={(e) => setLocation(e.target.value)} />
-          <Select value={jobType} onValueChange={setJobType}>
-            <SelectTrigger>
-              <SelectValue placeholder="Job type" />
-            </SelectTrigger>
-            <SelectContent>
-              <SelectItem value="all">All</SelectItem>
-              <SelectItem value="full-time">Full-time</SelectItem>
-              <SelectItem value="part-time">Part-time</SelectItem>
-              <SelectItem value="contract">Contract</SelectItem>
-            </SelectContent>
-          </Select>
-          <Button onClick={() => runSearch(1)} className="md:col-span-3 w-full" disabled={loading}>
-            {loading ? "Searching…" : "Search"}
-          </Button>
+    <div className="min-h-screen bg-gray-50">
+      <div className="bg-white shadow-sm border-b">
+        <div className="max-w-4xl mx-auto px-4 py-6">
+          <h1 className="text-3xl font-bold text-gray-900 mb-6">Job Search</h1>
+          <JobSearchBar
+            onSearch={handleSearch}
+            initialKeywords={keywords}
+            initialLocation={location}
+            initialJobType={jobType}
+          />
         </div>
+      </div>
 
-        {/* --- Results --- */}
-        {error && <p className="text-red-600">{error}</p>}
-        {!error && (
+      <div className="max-w-4xl mx-auto px-4 py-8">
+        {isLoading ? (
+          <div className="space-y-4">
+            {[...Array(5)].map((_, i) => (
+              <div key={i} className="bg-white p-6 rounded-lg shadow animate-pulse">
+                <div className="h-6 bg-gray-200 rounded w-3/4 mb-2"></div>
+                <div className="h-4 bg-gray-200 rounded w-1/2 mb-4"></div>
+                <div className="h-4 bg-gray-200 rounded w-full"></div>
+              </div>
+            ))}
+          </div>
+        ) : (
           <>
-            <p className="font-semibold mb-4">
-              Showing {jobs.length} of {totalCount} jobs
-            </p>
-            <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-              {jobs.map((job) => (
-                <JobListingCard key={job.id} job={job} />
-              ))}
+            <div className="mb-6">
+              <p className="text-gray-600">
+                {totalCount > 0 ? (
+                  <>
+                    Showing {(currentPage - 1) * 10 + 1}-{Math.min(currentPage * 10, totalCount)} of {totalCount} jobs
+                    {keywords && <span> for "{keywords}"</span>}
+                    {location && <span> in {location}</span>}
+                  </>
+                ) : (
+                  "No jobs found"
+                )}
+              </p>
             </div>
-            {/* --- simple pager --- */}
-            {totalPages > 1 && (
-              <div className="flex gap-2 mt-8">
-                {Array.from({ length: totalPages }, (_, i) => i + 1).map((n) => (
-                  <Button
-                    key={n}
-                    size="sm"
-                    variant={n === currentPage ? "default" : "outline"}
-                    onClick={() => runSearch(n)}
-                  >
-                    {n}
-                  </Button>
+
+            {jobs.length > 0 ? (
+              <div className="space-y-4">
+                {jobs.map((job) => (
+                  <JobListingCard key={job.id} job={job} />
                 ))}
+              </div>
+            ) : (
+              <div className="text-center py-12">
+                <div className="text-gray-500 text-lg mb-4">No jobs found</div>
+                <p className="text-gray-400">Try adjusting your search criteria or browse our job categories.</p>
+              </div>
+            )}
+
+            {totalPages > 1 && (
+              <div className="mt-8 flex justify-center">
+                <nav className="flex items-center space-x-2">
+                  <button
+                    onClick={() => handlePageChange(currentPage - 1)}
+                    disabled={currentPage <= 1}
+                    className="px-3 py-2 text-sm font-medium text-gray-500 bg-white border border-gray-300 rounded-md hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed"
+                  >
+                    Previous
+                  </button>
+
+                  {[...Array(Math.min(5, totalPages))].map((_, i) => {
+                    const pageNum = i + 1
+                    return (
+                      <button
+                        key={pageNum}
+                        onClick={() => handlePageChange(pageNum)}
+                        className={`px-3 py-2 text-sm font-medium rounded-md ${
+                          currentPage === pageNum
+                            ? "bg-blue-600 text-white"
+                            : "text-gray-700 bg-white border border-gray-300 hover:bg-gray-50"
+                        }`}
+                      >
+                        {pageNum}
+                      </button>
+                    )
+                  })}
+
+                  <button
+                    onClick={() => handlePageChange(currentPage + 1)}
+                    disabled={currentPage >= totalPages}
+                    className="px-3 py-2 text-sm font-medium text-gray-500 bg-white border border-gray-300 rounded-md hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed"
+                  >
+                    Next
+                  </button>
+                </nav>
               </div>
             )}
           </>
         )}
       </div>
-    </>
+    </div>
   )
 }
 
-export { SearchPageClient }
 export default SearchPageClient

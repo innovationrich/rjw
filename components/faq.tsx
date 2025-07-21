@@ -1,56 +1,53 @@
-"use client"
-
-import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion"
-
-// Default content shown when no "faqs" prop is supplied
-const defaultFaqs = [
-  {
-    question: "How can I find jobs hiring immediately?",
-    answer:
-      "Focus on industries with high turnover like retail, fast food, warehousing, and gig economy jobs. Look for 'hiring immediately' signs, attend local job fairs, and use online job boards with filters for urgent hiring or quick apply options.",
-  },
-  {
-    question: "What types of jobs are typically available for immediate hire?",
-    answer:
-      "Common roles include warehouse associates, customer service representatives, retail sales associates, food service workers, delivery drivers, and general laborers. These positions often require less specialized experience and have faster hiring processes.",
-  },
-  {
-    question: "Do I need experience to get a job quickly?",
-    answer:
-      "Not always. Many immediate hire positions are entry-level and offer on-the-job training. Highlight transferable skills like reliability, strong work ethic, communication, and eagerness to learn on your resume and during interviews.",
-  },
-  {
-    question: "How can I prepare for a quick interview?",
-    answer:
-      "Be ready to discuss your availability, why you're interested in the role, and how your skills align. Dress professionally, bring copies of your resume, and be prepared to fill out an application on the spot. Practice concise answers to common questions.",
-  },
-  {
-    question: "Are there remote jobs that hire immediately?",
-    answer:
-      "Yes, some remote customer service, data entry, and virtual assistant roles can have quick hiring processes. Look for companies that offer 24/7 support or project-based work, as they often need to fill positions rapidly.",
-  },
-]
-
 interface FAQItem {
   question: string
   answer: string
 }
 
 interface FAQProps {
-  /** Optional: pass your own list, otherwise the defaults above are used */
   faqs?: FAQItem[]
 }
 
-export function FAQ({ faqs }: FAQProps) {
-  const items = faqs ?? defaultFaqs // fallback prevents "undefined.map" crash
+const defaultFAQs: FAQItem[] = [
+  {
+    question: "How quickly can I find a job?",
+    answer:
+      "Many of our users find job opportunities within 24-48 hours of applying. The key is to apply to multiple positions and have a complete profile.",
+  },
+  {
+    question: "Are these jobs really hiring immediately?",
+    answer:
+      "Yes! We focus on companies that need to fill positions quickly. Many offer same-day interviews and quick hiring decisions.",
+  },
+  {
+    question: "Do I need experience for these jobs?",
+    answer:
+      "We have opportunities for all experience levels, including many entry-level positions that provide on-the-job training.",
+  },
+  {
+    question: "How do I apply for jobs?",
+    answer:
+      "Simply click on any job listing to view details and application instructions. Most applications can be completed online in just a few minutes.",
+  },
+  {
+    question: "Are there remote work opportunities?",
+    answer: "Yes! We feature both in-person and remote job opportunities across various industries and skill levels.",
+  },
+]
+
+export function FAQ({ faqs = defaultFAQs }: FAQProps) {
   return (
-    <Accordion type="single" collapsible className="w-full">
-      {items.map((faq, index) => (
-        <AccordionItem key={index} value={`item-${index}`}>
-          <AccordionTrigger className="text-left">{faq.question}</AccordionTrigger>
-          <AccordionContent>{faq.answer}</AccordionContent>
-        </AccordionItem>
-      ))}
-    </Accordion>
+    <section className="py-16 bg-gray-50">
+      <div className="max-w-4xl mx-auto px-4">
+        <h2 className="text-3xl font-bold text-center mb-12">Frequently Asked Questions</h2>
+        <div className="space-y-6">
+          {faqs.map((faq, index) => (
+            <div key={index} className="bg-white rounded-lg shadow-sm p-6">
+              <h3 className="text-lg font-semibold mb-3 text-gray-900">{faq.question}</h3>
+              <p className="text-gray-600 leading-relaxed">{faq.answer}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
   )
 }
