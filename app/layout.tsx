@@ -8,6 +8,7 @@ import { GoogleAdsense } from "@/components/google-adsense"
 import { GoogleAnalytics } from "@/components/google-analytics"
 import { Suspense } from "react"
 import { SchemaMarkup } from "@/components/schema-markup"
+import { Analytics } from "@vercel/analytics/react" // Added Vercel Analytics import
 
 const inter = Inter({ subsets: ["latin"] })
 
@@ -100,6 +101,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           <main className="min-h-screen">{children}</main>
           <Footer />
         </Suspense>
+        <Analytics /> {/* Vercel Analytics component added here */}
       </body>
     </html>
   )
