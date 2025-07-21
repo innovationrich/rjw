@@ -1,15 +1,18 @@
 import type { Metadata } from "next"
-import { searchJobs } from "@/lib/job-api"
+import Link from "next/link"
+import { searchJobs, type JobListing } from "@/lib/job-api"
 
+/* ──────────────────────────────
+   <head> metadata
+──────────────────────────────── */
 export const metadata: Metadata = {
-  title: "Job Search - Find Your Next Opportunity",
+  title: "Job Search – Find Your Next Opportunity",
   description:
-    "Search for jobs by keywords, location, and job type. Find full-time, part-time, contract, and remote jobs.",
-  keywords: ["job search", "find jobs", "job listings", "employment", "career"],
+    "Search jobs by keywords, location, and job type. Discover full-time, part-time, contract, and remote roles hiring now.",
   openGraph: {
-    title: "Job Search - Find Your Next Opportunity",
+    title: "Job Search – Find Your Next Opportunity",
     description:
-      "Search for jobs by keywords, location, and job type. Find full-time, part-time, contract, and remote jobs.",
+      "Search jobs by keywords, location, and job type. Discover full-time, part-time, contract, and remote roles hiring now.",
     url: "https://jobsnearmehiringimmediately.com/search",
     siteName: "Jobs Near Me Hiring Immediately",
     images: [
@@ -17,21 +20,24 @@ export const metadata: Metadata = {
         url: "https://jobsnearmehiringimmediately.com/images/hero-banner.png",
         width: 1200,
         height: 630,
-        alt: "Job Search Page",
+        alt: "Job search hero image",
       },
     ],
     type: "website",
   },
   twitter: {
     card: "summary_large_image",
-    title: "Job Search - Find Your Next Opportunity",
+    title: "Job Search – Find Your Next Opportunity",
     description:
-      "Search for jobs by keywords, location, and job type. Find full-time, part-time, contract, and remote jobs.",
+      "Search jobs by keywords, location, and job type. Discover full-time, part-time, contract, and remote roles hiring now.",
     images: ["https://jobsnearmehiringimmediately.com/images/hero-banner.png"],
   },
 }
 
-interface SearchPageProps {
+/* ──────────────────────────────
+   Page component (Server)
+──────────────────────────────── */
+interface PageProps {
   searchParams: {
     keywords?: string
     location?: string
@@ -40,172 +46,127 @@ interface SearchPageProps {
   }
 }
 
-export default async function SearchPage({ searchParams }: SearchPageProps) {
-  const keywords = searchParams.keywords || ""
-  const location = searchParams.location || ""
-  const jobType = searchParams.jobType || "all"
-  const page = Number.parseInt(searchParams.page || "1")
+export default async function SearchPage({ searchParams }: PageProps) {
+  /* ---------- read URL params ---------- */
+  const keywords = searchParams.keywords ?? ""
+  const location = searchParams.location ?? ""
+  const jobTypeParam = searchParams.jobType ?? "all"
+  const page = Number.parseInt(searchParams.page ?? "1", 10) || 1
   const limit = 10
 
-  const initial = await searchJobs({
+  /* ---------- server-side fetch ---------- */
+  const { jobs, totalCount, currentPage, totalPages } = await searchJobs({
     keywords,
     location,
-    jobType: jobType === "all" ? undefined : jobType,
+    jobType: jobTypeParam === "all" ? undefined : jobTypeParam,
     page,
     limit,
   })
 
+  /* ---------- helper: build query string ---------- */
+  const buildQS = (extra: Record<string, string>) =>
+    new URLSearchParams({
+      ...(keywords && { keywords }),
+      ...(location && { location }),
+      ...(jobTypeParam && jobTypeParam !== "all" && { jobType: jobTypeParam }),
+      ...extra,
+    }).toString()
+
+  /* ---------- render ---------- */
   return (
-    <div className="min-h-screen bg-gray-50">
-      <div className="bg-white shadow-sm border-b">
-        <div className="max-w-4xl mx-auto px-4 py-6">
-          <h1 className="text-3xl font-bold text-gray-900 mb-6">Job Search</h1>
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
+    <main className="min-h-screen bg-gray-50">
+      {/* ── Hero / search form ───────────────────── */}
+      <section className="bg-white border-b py-8">
+        <div className="max-w-4xl mx-auto px-4">
+          <h1 className="text-3xl font-bold mb-6">Job Search</h1>
+          <form method="get" action="/search" className="grid gap-4 md:grid-cols-[repeat(4,1fr)_auto]">
             <input
-              type="text"
-              placeholder="Keywords"
+              name="keywords"
               defaultValue={keywords}
-              className="px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+              placeholder="Keywords"
+              className="px-4 py-2 border rounded-md"
             />
             <input
-              type="text"
-              placeholder="Location"
+              name="location"
               defaultValue={location}
-              className="px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+              placeholder="Location"
+              className="px-4 py-2 border rounded-md"
             />
-            <select
-              defaultValue={jobType}
-              className="px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-            >
-              <option value="all">All Job Types</option>
+            <select name="jobType" defaultValue={jobTypeParam} className="px-4 py-2 border rounded-md">
+              <option value="all">All Types</option>
               <option value="full-time">Full-time</option>
               <option value="part-time">Part-time</option>
               <option value="contract">Contract</option>
             </select>
-            <button className="px-6 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 focus:ring-2 focus:ring-blue-500 focus:ring-offset-2">
-              Search
-            </button>
-          </div>
+            <input type="hidden" name="page" value="1" />
+            <button className="px-6 py-2 bg-blue-600 text-white rounded-md">Search</button>
+          </form>
         </div>
-      </div>
+      </section>
 
-      <div className="max-w-4xl mx-auto px-4 py-8">
-        <div className="mb-6">
-          <p className="text-gray-600">
-            {initial.totalCount > 0 ? (
-              <>
-                Showing {(initial.currentPage - 1) * 10 + 1}-{Math.min(initial.currentPage * 10, initial.totalCount)} of{" "}
-                {initial.totalCount} jobs
-                {keywords && <span> for "{keywords}"</span>}
-                {location && <span> in {location}</span>}
-              </>
-            ) : (
-              "No jobs found"
+      {/* ── Results list ─────────────────────────── */}
+      <section className="max-w-4xl mx-auto px-4 py-10 space-y-6">
+        <p className="text-gray-600">
+          {totalCount > 0
+            ? `Showing ${(currentPage - 1) * limit + 1}-${Math.min(
+                currentPage * limit,
+                totalCount,
+              )} of ${totalCount} jobs`
+            : "No jobs found"}
+        </p>
+
+        {jobs.length === 0 && <div className="text-center text-gray-500">Try broadening your search terms.</div>}
+
+        {jobs.map((job) => (
+          <JobCard key={job.id} job={job} />
+        ))}
+
+        {/* ── Pagination ─────────────────────── */}
+        {totalPages > 1 && (
+          <nav className="flex justify-center gap-2 pt-8">
+            {currentPage > 1 && (
+              <Link href={`/search?${buildQS({ page: String(currentPage - 1) })}`} className="px-3 py-2 border rounded">
+                ‹ Prev
+              </Link>
             )}
-          </p>
-        </div>
 
-        {initial.jobs.length > 0 ? (
-          <div className="space-y-4">
-            {initial.jobs.map((job) => (
-              <div
-                key={job.id}
-                className="bg-white p-6 rounded-lg shadow-sm border border-gray-200 hover:shadow-md transition-shadow"
+            {Array.from({ length: totalPages }, (_, i) => i + 1).map((p) => (
+              <Link
+                key={p}
+                href={`/search?${buildQS({ page: String(p) })}`}
+                className={`px-3 py-2 border rounded ${p === currentPage ? "bg-blue-600 text-white" : ""}`}
               >
-                <div className="flex justify-between items-start mb-4">
-                  <div>
-                    <h3 className="text-xl font-semibold text-gray-900 mb-2">{job.title}</h3>
-                    <p className="text-lg text-gray-700 mb-1">{job.company}</p>
-                    <p className="text-gray-600 mb-2">{job.location}</p>
-                    {job.salary && <p className="text-green-600 font-medium">{job.salary}</p>}
-                  </div>
-                  <div className="text-right">
-                    <span className="inline-block px-3 py-1 bg-blue-100 text-blue-800 text-sm font-medium rounded-full mb-2">
-                      {job.jobType}
-                    </span>
-                    <p className="text-sm text-gray-500">{job.postedDate}</p>
-                  </div>
-                </div>
-
-                <p className="text-gray-700 mb-4 line-clamp-3">{job.description}</p>
-
-                {job.requirements && job.requirements.length > 0 && (
-                  <div className="mb-4">
-                    <h4 className="font-medium text-gray-900 mb-2">Requirements:</h4>
-                    <ul className="list-disc list-inside text-gray-700 space-y-1">
-                      {job.requirements.slice(0, 3).map((req, index) => (
-                        <li key={index} className="text-sm">
-                          {req}
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-                )}
-
-                <div className="flex justify-between items-center">
-                  <div className="flex flex-wrap gap-2">
-                    {job.benefits &&
-                      job.benefits.slice(0, 3).map((benefit, index) => (
-                        <span key={index} className="px-2 py-1 bg-gray-100 text-gray-700 text-xs rounded">
-                          {benefit}
-                        </span>
-                      ))}
-                  </div>
-                  <button className="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-colors">
-                    Apply Now
-                  </button>
-                </div>
-              </div>
+                {p}
+              </Link>
             ))}
-          </div>
-        ) : (
-          <div className="text-center py-12">
-            <div className="text-gray-500 text-lg mb-4">No jobs found</div>
-            <p className="text-gray-400">Try adjusting your search criteria or browse our job categories.</p>
-          </div>
+
+            {currentPage < totalPages && (
+              <Link href={`/search?${buildQS({ page: String(currentPage + 1) })}`} className="px-3 py-2 border rounded">
+                Next ›
+              </Link>
+            )}
+          </nav>
         )}
+      </section>
+    </main>
+  )
+}
 
-        {initial.totalPages > 1 && (
-          <div className="mt-8 flex justify-center">
-            <nav className="flex items-center space-x-2">
-              {initial.currentPage > 1 && (
-                <a
-                  href={`/search?${new URLSearchParams({ ...searchParams, page: String(initial.currentPage - 1) }).toString()}`}
-                  className="px-3 py-2 text-sm font-medium text-gray-500 bg-white border border-gray-300 rounded-md hover:bg-gray-50"
-                >
-                  Previous
-                </a>
-              )}
-
-              {[...Array(Math.min(5, initial.totalPages))].map((_, i) => {
-                const pageNum = i + 1
-                return (
-                  <a
-                    key={pageNum}
-                    href={`/search?${new URLSearchParams({ ...searchParams, page: String(pageNum) }).toString()}`}
-                    className={`px-3 py-2 text-sm font-medium rounded-md ${
-                      initial.currentPage === pageNum
-                        ? "bg-blue-600 text-white"
-                        : "text-gray-700 bg-white border border-gray-300 hover:bg-gray-50"
-                    }`}
-                  >
-                    {pageNum}
-                  </a>
-                )
-              })}
-
-              {initial.currentPage < initial.totalPages && (
-                <a
-                  href={`/search?${new URLSearchParams({ ...searchParams, page: String(initial.currentPage + 1) }).toString()}`}
-                  className="px-3 py-2 text-sm font-medium text-gray-500 bg-white border border-gray-300 rounded-md hover:bg-gray-50"
-                >
-                  Next
-                </a>
-              )}
-            </nav>
-          </div>
-        )}
-      </div>
-    </div>
+/* ──────────────────────────────
+   Tiny job card (no client hooks)
+──────────────────────────────── */
+function JobCard({ job }: { job: JobListing }) {
+  return (
+    <article className="bg-white border rounded-lg p-6 shadow-sm hover:shadow-md transition">
+      <header className="mb-3">
+        <h2 className="text-xl font-semibold">{job.title}</h2>
+        <p className="text-gray-700">{job.company}</p>
+        <p className="text-gray-600">{job.location}</p>
+      </header>
+      <p className="text-gray-700 line-clamp-3 mb-4">{job.description}</p>
+      <Link href={job.url ?? "#"} className="inline-block px-4 py-2 bg-blue-600 text-white rounded">
+        Apply
+      </Link>
+    </article>
   )
 }

@@ -9,6 +9,10 @@ import { Input } from "@/components/ui/input"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { SearchIcon } from "lucide-react"
 
+// This file is no longer needed for the /search page, as its functionality is now
+// integrated directly into app/search/page.tsx.
+// You can safely delete this file.
+
 export function JobSearchBar() {
   const router = useRouter()
   const searchParams = useSearchParams()

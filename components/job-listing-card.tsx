@@ -1,3 +1,7 @@
+// This file is no longer needed for the /search page, as its functionality is now
+// integrated directly into app/search/page.tsx.
+// You can safely delete this file.
+
 import Link from "next/link"
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
