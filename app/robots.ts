@@ -1,7 +1,7 @@
 import type { MetadataRoute } from "next"
 
 export default function robots(): MetadataRoute.Robots {
-  const baseUrl = "https://yourdomain.com" // UPDATE THIS WITH YOUR ACTUAL DOMAIN
+  const baseUrl = "https://jobsnearmehiringimmediately.com" // Updated to your actual domain
 
   return {
     rules: {
@@ -9,7 +9,7 @@ export default function robots(): MetadataRoute.Robots {
       allow: "/",
       disallow: ["/private/", "/admin/"],
     },
-    sitemap: `${baseUrl}/sitemap.xml`, // UPDATE THIS WITH YOUR ACTUAL DOMAIN
-    host: baseUrl, // UPDATE THIS WITH YOUR ACTUAL DOMAIN
+    sitemap: `${baseUrl}/sitemap.xml`, // Updated to your actual domain
+    host: baseUrl, // Updated to your actual domain
   }
 }

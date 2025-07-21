@@ -8,7 +8,7 @@ import { GoogleAdsense } from "@/components/google-adsense"
 import { GoogleAnalytics } from "@/components/google-analytics"
 import { Suspense } from "react"
 import { SchemaMarkup } from "@/components/schema-markup"
-import { Analytics } from "@vercel/analytics/react" // Added Vercel Analytics import
+import { Analytics } from "@vercel/analytics/react"
 
 const inter = Inter({ subsets: ["latin"] })
 
@@ -17,10 +17,10 @@ const websiteSchema = {
   "@context": "https://schema.org",
   "@type": "WebSite",
   name: "Jobs Near Me Hiring Immediately",
-  url: "https://yourdomain.com", // UPDATE THIS WITH YOUR ACTUAL DOMAIN
+  url: "https://jobsnearmehiringimmediately.com", // Updated to your actual domain
   potentialAction: {
     "@type": "SearchAction",
-    target: "https://yourdomain.com/search?q={search_term_string}", // UPDATE THIS
+    target: "https://jobsnearmehiringimmediately.com/search?q={search_term_string}", // Updated to your actual domain
     "query-input": "required name=search_term_string",
   },
 }
@@ -42,15 +42,15 @@ export const metadata: Metadata = {
     address: false,
     telephone: false,
   },
-  metadataBase: new URL("https://yourdomain.com"), // UPDATE THIS WITH YOUR ACTUAL DOMAIN
+  metadataBase: new URL("https://jobsnearmehiringimmediately.com"), // Updated to your actual domain
   alternates: {
-    canonical: "https://yourdomain.com", // UPDATE THIS WITH YOUR ACTUAL DOMAIN
+    canonical: "https://jobsnearmehiringimmediately.com", // Updated to your actual domain
   },
   openGraph: {
     title: "Jobs Near Me Hiring Immediately - Find Work Today",
     description:
       "Find jobs near me hiring immediately. Thousands of companies are hiring today - warehouse, retail, fast food, entry-level positions with no experience required. Start your new job today!",
-    url: "https://yourdomain.com", // UPDATE THIS WITH YOUR ACTUAL DOMAIN
+    url: "https://jobsnearmehiringimmediately.com", // Updated to your actual domain
     siteName: "JobsNearMeHiringImmediately.com",
     images: [
       {
@@ -101,7 +101,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           <main className="min-h-screen">{children}</main>
           <Footer />
         </Suspense>
-        <Analytics /> {/* Vercel Analytics component added here */}
+        <Analytics />
       </body>
     </html>
   )
