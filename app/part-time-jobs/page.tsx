@@ -5,6 +5,7 @@ import { Clock, MapPin, DollarSign } from "lucide-react"
 import { Card, CardContent } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
+import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion"
 
 export const metadata: Metadata = {
   title: "Part Time Jobs Hiring Near Me Immediately - Flexible Work",
@@ -188,6 +189,89 @@ export default function PartTimeJobsPage() {
               Part-time positions often provide valuable work experience, networking opportunities, and a chance to earn
               income without the commitment of a full-time schedule. Many offer immediate start dates.
             </p>
+
+            <h3>Job Outlook and Demand for Part-Time Positions</h3>
+            <p>
+              Part-time jobs are consistently available across various sectors, driven by businesses needing flexible
+              staffing to cover peak hours, seasonal demands, or specific project needs. This makes part-time work an
+              excellent option for students, parents, or anyone seeking supplemental income or a flexible schedule.
+            </p>
+
+            <h3>Typical Roles & Responsibilities in Part-Time Jobs</h3>
+            <ul>
+              <li>
+                <strong>Part-Time Retail Associate:</strong> Assist customers, manage sales, and maintain store
+                appearance during specific shifts.
+              </li>
+              <li>
+                <strong>Food Service Worker:</strong> Serve customers, prepare food, or assist in the kitchen for a few
+                hours a day or on weekends.
+              </li>
+              <li>
+                <strong>Customer Service Representative:</strong> Handle inquiries and provide support during specific
+                hours, often remotely or in a call center.
+              </li>
+              <li>
+                <strong>Delivery Driver:</strong> Transport food or packages on a flexible schedule, often using your
+                own vehicle.
+              </li>
+            </ul>
+
+            <h3>Skills & Qualifications for Part-Time Jobs</h3>
+            <p>Part-time roles often prioritize reliability, customer service, and a willingness to learn:</p>
+            <ul>
+              <li>
+                <strong>Flexibility:</strong> Ability to work varying shifts, including evenings or weekends.
+              </li>
+              <li>
+                <strong>Time Management:</strong> Balancing work with other commitments (e.g., school, family).
+              </li>
+              <li>
+                <strong>Communication:</strong> Clear and effective interaction with customers and colleagues.
+              </li>
+              <li>
+                <strong>Reliability:</strong> Being dependable and punctual for scheduled shifts.
+              </li>
+              <li>
+                <strong>Basic Skills:</strong> Depending on the role, this could include basic math, computer literacy,
+                or physical stamina.
+              </li>
+            </ul>
+
+            <h3>Career Progression from Part-Time</h3>
+            <p>
+              Part-time positions can be a stepping stone to full-time employment within the same company, or they can
+              provide valuable experience for future career opportunities. Many employers offer training and development
+              for part-time staff, and demonstrating strong performance can lead to increased hours or promotions.
+            </p>
+
+            <h3>Related Part-Time Job Titles</h3>
+            <ul>
+              <li>Tutor</li>
+              <li>Dog Walker</li>
+              <li>Babysitter</li>
+              <li>Event Staff</li>
+              <li>Gym Attendant</li>
+              <li>Library Assistant</li>
+            </ul>
+
+            <h3>FAQs About Immediate Part-Time Hiring</h3>
+            <Accordion type="single" collapsible className="w-full">
+              <AccordionItem value="faq-1">
+                <AccordionTrigger className="text-left">Can I work part-time with no experience?</AccordionTrigger>
+                <AccordionContent>
+                  Yes, many part-time jobs, especially in retail, food service, and general labor, are entry-level and
+                  do not require prior experience. They are ideal for students or those new to the workforce.
+                </AccordionContent>
+              </AccordionItem>
+              <AccordionItem value="faq-2">
+                <AccordionTrigger className="text-left">What are the benefits of a part-time job?</AccordionTrigger>
+                <AccordionContent>
+                  Part-time jobs offer flexibility, allowing you to balance work with other commitments. They provide
+                  income, valuable work experience, and opportunities to build your resume and professional network.
+                </AccordionContent>
+              </AccordionItem>
+            </Accordion>
           </div>
         </div>
       </section>

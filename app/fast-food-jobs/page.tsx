@@ -5,6 +5,7 @@ import { Utensils, MapPin, Clock, DollarSign } from "lucide-react"
 import { Card, CardContent } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
+import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion"
 
 export const metadata: Metadata = {
   title: "Fast Food Jobs Hiring Near Me Immediately - Quick Start",
@@ -188,6 +189,88 @@ export default function FastFoodJobsPage() {
               Fast food establishments are almost always hiring, making them a reliable source for immediate work. They
               often offer opportunities for rapid advancement, especially for dedicated and reliable employees.
             </p>
+
+            <h3>Job Outlook and Demand in Fast Food</h3>
+            <p>
+              The fast food industry is a consistent source of immediate employment due to its high volume of customers
+              and frequent staff turnover. Restaurants are always looking for reliable team members, making it an
+              excellent sector for quick hiring, flexible schedules, and entry-level opportunities.
+            </p>
+
+            <h3>Typical Roles & Responsibilities in Fast Food</h3>
+            <ul>
+              <li>
+                <strong>Crew Member:</strong> Take orders, prepare food, serve customers, clean dining areas, and
+                maintain kitchen hygiene.
+              </li>
+              <li>
+                <strong>Cook:</strong> Prepare menu items according to recipes and standards, manage food inventory, and
+                ensure food safety.
+              </li>
+              <li>
+                <strong>Cashier:</strong> Process customer orders and payments accurately, handle cash, and provide
+                friendly service.
+              </li>
+              <li>
+                <strong>Drive-Thru Attendant:</strong> Take orders, process payments, and deliver food efficiently to
+                drive-thru customers.
+              </li>
+            </ul>
+
+            <h3>Skills & Qualifications for Fast Food Jobs</h3>
+            <p>Fast food jobs are often entry-level and focus on a strong work ethic and customer service:</p>
+            <ul>
+              <li>
+                <strong>Customer Service:</strong> Friendly and efficient interaction with customers.
+              </li>
+              <li>
+                <strong>Teamwork:</strong> Ability to work effectively with colleagues in a fast-paced environment.
+              </li>
+              <li>
+                <strong>Speed & Efficiency:</strong> Performing tasks quickly and accurately during busy periods.
+              </li>
+              <li>
+                <strong>Basic Math:</strong> For handling cash and making change.
+              </li>
+              <li>
+                <strong>Food Safety Knowledge:</strong> Understanding and adhering to hygiene standards.
+              </li>
+            </ul>
+
+            <h3>Career Progression in Fast Food</h3>
+            <p>
+              Many fast food chains offer clear paths for advancement. A crew member can become a shift leader, then an
+              assistant manager, and eventually a restaurant general manager. These roles often come with increased
+              responsibilities and better pay.
+            </p>
+
+            <h3>Related Fast Food Job Titles</h3>
+            <ul>
+              <li>Barista</li>
+              <li>Server</li>
+              <li>Dishwasher</li>
+              <li>Kitchen Staff</li>
+              <li>Expeditor</li>
+            </ul>
+
+            <h3>FAQs About Immediate Fast Food Hiring</h3>
+            <Accordion type="single" collapsible className="w-full">
+              <AccordionItem value="faq-1">
+                <AccordionTrigger className="text-left">How old do I need to be for a fast food job?</AccordionTrigger>
+                <AccordionContent>
+                  Most fast food establishments hire individuals aged 16 and older, though some may hire 14 or
+                  15-year-olds for specific roles and hours, adhering to local labor laws.
+                </AccordionContent>
+              </AccordionItem>
+              <AccordionItem value="faq-2">
+                <AccordionTrigger className="text-left">Do fast food jobs offer benefits?</AccordionTrigger>
+                <AccordionContent>
+                  While entry-level roles might not always include full benefits, many larger chains offer health
+                  insurance, paid time off, and even tuition assistance for full-time employees or those in management
+                  roles.
+                </AccordionContent>
+              </AccordionItem>
+            </Accordion>
           </div>
         </div>
       </section>

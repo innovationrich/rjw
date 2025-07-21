@@ -5,6 +5,7 @@ import { Building, MapPin, Clock, DollarSign } from "lucide-react"
 import { Card, CardContent } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
+import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion"
 
 export const metadata: Metadata = {
   title: "Construction Jobs Hiring Near Me Immediately - Build Your Career",
@@ -184,6 +185,98 @@ export default function ConstructionJobsPage() {
               Beyond immediate employment, construction jobs can lead to long-term careers with increasing pay as skills
               are acquired. Many companies offer benefits and opportunities for apprenticeships.
             </p>
+
+            <h3>Job Outlook and Demand in Construction</h3>
+            <p>
+              The construction industry is experiencing robust growth, driven by infrastructure projects, residential
+              development, and commercial building. This creates a consistent and high demand for skilled and unskilled
+              labor, making it a sector with frequent immediate hiring opportunities and competitive wages.
+            </p>
+
+            <h3>Typical Roles & Responsibilities in Construction</h3>
+            <ul>
+              <li>
+                <strong>Construction Laborer:</strong> Perform physical tasks such as digging trenches,
+                loading/unloading materials, site cleanup, and assisting skilled trades.
+              </li>
+              <li>
+                <strong>Heavy Equipment Operator:</strong> Operate machinery like excavators, bulldozers, and forklifts
+                to move earth, materials, and demolish structures.
+              </li>
+              <li>
+                <strong>Carpenter:</strong> Build and repair structures, frameworks, and other wooden installations.
+              </li>
+              <li>
+                <strong>Electrician:</strong> Install, maintain, and repair electrical wiring, systems, and fixtures.
+              </li>
+              <li>
+                <strong>Plumber:</strong> Install and repair pipes, fittings, and fixtures of heating, water, and
+                drainage systems.
+              </li>
+            </ul>
+
+            <h3>Skills & Qualifications for Construction Jobs</h3>
+            <p>
+              While some roles require specialized training, many entry-level construction jobs value practical skills
+              and a strong work ethic:
+            </p>
+            <ul>
+              <li>
+                <strong>Physical Stamina:</strong> Ability to perform demanding physical tasks for extended periods.
+              </li>
+              <li>
+                <strong>Safety Awareness:</strong> Adherence to strict safety protocols and use of personal protective
+                equipment.
+              </li>
+              <li>
+                <strong>Teamwork:</strong> Collaborating effectively with crew members.
+              </li>
+              <li>
+                <strong>Basic Tool Knowledge:</strong> Familiarity with common hand and power tools.
+              </li>
+              <li>
+                <strong>Problem-Solving:</strong> Ability to adapt to changing site conditions and resolve issues.
+              </li>
+            </ul>
+
+            <h3>Career Progression in Construction</h3>
+            <p>
+              Construction offers excellent opportunities for career advancement through apprenticeships,
+              certifications, and on-the-job experience. Laborers can become skilled tradespeople, and experienced
+              workers can move into supervisory roles like foreman or project manager.
+            </p>
+
+            <h3>Related Construction Job Titles</h3>
+            <ul>
+              <li>Painter</li>
+              <li>Roofer</li>
+              <li>Drywall Installer</li>
+              <li>Mason</li>
+              <li>Welder</li>
+              <li>HVAC Technician</li>
+            </ul>
+
+            <h3>FAQs About Immediate Construction Hiring</h3>
+            <Accordion type="single" collapsible className="w-full">
+              <AccordionItem value="faq-1">
+                <AccordionTrigger className="text-left">
+                  Do I need certifications for construction jobs?
+                </AccordionTrigger>
+                <AccordionContent>
+                  For entry-level laborer positions, often no specific certifications are required, though OSHA 10 or
+                  30-hour training is a plus. Skilled trades (electrician, plumber) typically require licenses or
+                  certifications.
+                </AccordionContent>
+              </AccordionItem>
+              <AccordionItem value="faq-2">
+                <AccordionTrigger className="text-left">Are construction jobs dangerous?</AccordionTrigger>
+                <AccordionContent>
+                  Construction involves inherent risks, but strict safety regulations and proper training significantly
+                  reduce hazards. Employers are legally required to provide a safe working environment and safety
+                  equipment.
+                </AccordionContent>
+              </AccordionItem>
+            </Accordion>
           </div>
         </div>
       </section>

@@ -17,6 +17,36 @@ export const metadata: Metadata = {
 
 const blogPosts = [
   {
+    title: "No Experience Part-Time Jobs Hiring Immediately Near Me",
+    excerpt:
+      "Find part-time jobs hiring immediately near you with no experience needed. Discover entry-level opportunities in retail, fast food, warehouse, and more. Start working today!",
+    date: "2024-07-20",
+    author: "JobsNearMeHiringImmediately.com",
+    category: "Entry-Level Jobs",
+    href: "/blog/no-experience-part-time-jobs",
+    readTime: "7 min read",
+  },
+  {
+    title: "Overnight & Night Shift Jobs Hiring Immediately Near Me",
+    excerpt:
+      "Prefer working when the world sleeps? Discover a wide range of overnight and night shift jobs hiring immediately in your local area.",
+    date: "2024-07-20",
+    author: "JobsNearMeHiringImmediately.com",
+    category: "Shift Work",
+    href: "/blog/overnight-night-shift-jobs",
+    readTime: "6 min read",
+  },
+  {
+    title: "Top Job Agencies & Temp Jobs Hiring Immediately Near Me",
+    excerpt:
+      "Need a job fast? Explore how local job agencies and temporary staffing solutions can connect you with immediate hiring opportunities in your area.",
+    date: "2024-07-20",
+    author: "JobsNearMeHiringImmediately.com",
+    category: "Job Search Tools",
+    href: "/blog/job-agencies-temp-jobs",
+    readTime: "8 min read",
+  },
+  {
     title: "How to Get Hired in 24 Hours: A Complete Guide",
     excerpt:
       "Learn the proven strategies to land a job quickly, from application to interview to getting hired the same day. Includes templates and scripts.",
@@ -174,6 +204,21 @@ export default function BlogPage() {
                           Gig Economy
                         </Link>
                       </li>
+                      <li>
+                        <Link href="/blog/category/entry-level-jobs" className="text-gray-600 hover:text-blue-600">
+                          Entry-Level Jobs
+                        </Link>
+                      </li>
+                      <li>
+                        <Link href="/blog/category/shift-work" className="text-gray-600 hover:text-blue-600">
+                          Shift Work
+                        </Link>
+                      </li>
+                      <li>
+                        <Link href="/blog/category/job-search-tools" className="text-gray-600 hover:text-blue-600">
+                          Job Search Tools
+                        </Link>
+                      </li>
                     </ul>
                   </CardContent>
                 </Card>
@@ -207,6 +252,14 @@ export default function BlogPage() {
                           className="text-gray-600 hover:text-blue-600 text-sm"
                         >
                           Warehouse Job Interview Questions and Answers
+                        </Link>
+                      </li>
+                      <li>
+                        <Link
+                          href="/blog/no-experience-part-time-jobs"
+                          className="text-gray-600 hover:text-blue-600 text-sm"
+                        >
+                          No Experience Part-Time Jobs Hiring Immediately
                         </Link>
                       </li>
                     </ul>

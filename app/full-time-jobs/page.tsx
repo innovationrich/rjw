@@ -5,6 +5,7 @@ import { Briefcase, MapPin, Clock, DollarSign } from "lucide-react"
 import { Card, CardContent } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
+import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion"
 
 export const metadata: Metadata = {
   title: "Full Time Jobs Hiring Near Me Immediately - Stable Employment",
@@ -193,6 +194,93 @@ export default function FullTimeJobsPage() {
               Beyond a steady paycheck, full-time positions typically include health insurance, retirement plans, paid
               time off, and opportunities for career growth and professional development.
             </p>
+
+            <h3>Job Outlook and Demand for Full-Time Positions</h3>
+            <p>
+              Full-time jobs represent the backbone of the economy, offering stable employment and comprehensive
+              benefits. Industries across the board, from manufacturing and logistics to healthcare and technology,
+              consistently have a high demand for full-time employees, often leading to immediate hiring opportunities
+              to fill critical roles.
+            </p>
+
+            <h3>Typical Roles & Responsibilities in Full-Time Jobs</h3>
+            <ul>
+              <li>
+                <strong>Production Associate:</strong> Work on assembly lines, operate machinery, and ensure quality
+                control in manufacturing settings.
+              </li>
+              <li>
+                <strong>Logistics Coordinator:</strong> Manage supply chain operations, track shipments, and optimize
+                delivery routes.
+              </li>
+              <li>
+                <strong>Administrative Professional:</strong> Provide extensive support to teams or executives,
+                including scheduling, data management, and project coordination.
+              </li>
+              <li>
+                <strong>Sales Executive:</strong> Develop client relationships, present products/services, and close
+                deals to meet sales targets.
+              </li>
+            </ul>
+
+            <h3>Skills & Qualifications for Full-Time Jobs</h3>
+            <p>Full-time roles often require a blend of technical skills, experience, and professional attributes:</p>
+            <ul>
+              <li>
+                <strong>Professionalism:</strong> Adherence to workplace ethics and conduct.
+              </li>
+              <li>
+                <strong>Problem-Solving:</strong> Ability to analyze complex issues and implement effective solutions.
+              </li>
+              <li>
+                <strong>Adaptability:</strong> Willingness to learn new skills and adjust to changing work environments.
+              </li>
+              <li>
+                <strong>Accountability:</strong> Taking ownership of tasks and responsibilities.
+              </li>
+              <li>
+                <strong>Specific Technical Skills:</strong> Depending on the industry (e.g., software proficiency,
+                machinery operation).
+              </li>
+            </ul>
+
+            <h3>Career Progression in Full-Time Employment</h3>
+            <p>
+              Full-time employment typically offers the most robust career progression opportunities. Employees can
+              advance through promotions, take on leadership roles, specialize in niche areas, or transition into
+              management. Companies often invest in training, mentorship, and professional development for their
+              full-time staff.
+            </p>
+
+            <h3>Related Full-Time Job Titles</h3>
+            <ul>
+              <li>Account Manager</li>
+              <li>Project Manager</li>
+              <li>Human Resources Specialist</li>
+              <li>Marketing Coordinator</li>
+              <li>Financial Analyst</li>
+              <li>Software Developer</li>
+            </ul>
+
+            <h3>FAQs About Immediate Full-Time Hiring</h3>
+            <Accordion type="single" collapsible className="w-full">
+              <AccordionItem value="faq-1">
+                <AccordionTrigger className="text-left">What benefits come with full-time jobs?</AccordionTrigger>
+                <AccordionContent>
+                  Most full-time positions offer comprehensive benefits packages, including health, dental, and vision
+                  insurance, 401(k) or retirement plans, paid time off (vacation, sick leave, holidays), and sometimes
+                  life insurance or disability benefits.
+                </AccordionContent>
+              </AccordionItem>
+              <AccordionItem value="faq-2">
+                <AccordionTrigger className="text-left">Are full-time jobs truly "immediate hiring"?</AccordionTrigger>
+                <AccordionContent>
+                  Yes, many companies have urgent needs for full-time staff, especially in high-turnover or rapidly
+                  expanding sectors. They often streamline their hiring processes to bring qualified candidates on board
+                  quickly.
+                </AccordionContent>
+              </AccordionItem>
+            </Accordion>
           </div>
         </div>
       </section>
