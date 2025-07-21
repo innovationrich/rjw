@@ -1,18 +1,18 @@
-/* SERVER-ONLY SEARCH PAGE  –  NO client hooks */
+/* SERVER-ONLY SEARCH PAGE – 100 % free of client hooks */
 
 import type { Metadata } from "next"
 import Link from "next/link"
 import { searchJobs, type JobListing } from "@/lib/job-api"
 
-/* ─── <head> metadata ────────────────────────────────────────────────────── */
+/* ––––– <head> metadata ––––– */
 export const metadata: Metadata = {
   title: "Job Search – Find Your Next Opportunity",
   description:
-    "Search jobs by keywords, location, and job type. Discover full-time, part-time, contract, and remote roles hiring now.",
+    "Search for jobs by keywords, location, and job type. Discover full-time, part-time, contract, and remote roles hiring now.",
   openGraph: {
     title: "Job Search – Find Your Next Opportunity",
     description:
-      "Search jobs by keywords, location, and job type. Discover full-time, part-time, contract, and remote roles hiring now.",
+      "Search for jobs by keywords, location, and job type. Discover full-time, part-time, contract, and remote roles hiring now.",
     url: "https://jobsnearmehiringimmediately.com/search",
     siteName: "Jobs Near Me Hiring Immediately",
     images: [
@@ -29,12 +29,12 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Job Search – Find Your Next Opportunity",
     description:
-      "Search jobs by keywords, location, and job type. Discover full-time, part-time, contract, and remote roles hiring now.",
+      "Search for jobs by keywords, location, and job type. Discover full-time, part-time, contract, and remote roles hiring now.",
     images: ["https://jobsnearmehiringimmediately.com/images/hero-banner.png"],
   },
 }
 
-/* ─── Page component (pure server) ───────────────────────────────────────── */
+/* ––––– Page component ––––– */
 interface PageProps {
   searchParams: {
     keywords?: string
@@ -45,14 +45,14 @@ interface PageProps {
 }
 
 export default async function SearchPage({ searchParams }: PageProps) {
-  /* Read URL params */
+  /* read URL params */
   const keywords = searchParams.keywords ?? ""
   const location = searchParams.location ?? ""
   const jobTypeParam = searchParams.jobType ?? "all"
   const page = Number.parseInt(searchParams.page ?? "1", 10) || 1
   const limit = 10
 
-  /* Server-side fetch */
+  /* server fetch */
   const { jobs, totalCount, currentPage, totalPages } = await searchJobs({
     keywords,
     location,
@@ -61,7 +61,7 @@ export default async function SearchPage({ searchParams }: PageProps) {
     limit,
   })
 
-  /* Helper to rebuild query-string */
+  /* helper */
   const buildQS = (extra: Record<string, string>) =>
     new URLSearchParams({
       ...(keywords && { keywords }),
@@ -70,10 +70,9 @@ export default async function SearchPage({ searchParams }: PageProps) {
       ...extra,
     }).toString()
 
-  /* Render */
+  /* render */
   return (
     <main className="min-h-screen bg-gray-50">
-      {/* Search form */}
       <section className="bg-white border-b py-8">
         <div className="max-w-4xl mx-auto px-4">
           <h1 className="text-3xl font-bold mb-6">Job Search</h1>
@@ -102,14 +101,10 @@ export default async function SearchPage({ searchParams }: PageProps) {
         </div>
       </section>
 
-      {/* Results */}
       <section className="max-w-4xl mx-auto px-4 py-10 space-y-6">
         <p className="text-gray-600">
           {totalCount > 0
-            ? `Showing ${(currentPage - 1) * limit + 1}-${Math.min(
-                currentPage * limit,
-                totalCount,
-              )} of ${totalCount} jobs`
+            ? `Showing ${(currentPage - 1) * limit + 1}-${Math.min(currentPage * limit, totalCount)} of ${totalCount} jobs`
             : "No jobs found"}
         </p>
 
@@ -119,7 +114,6 @@ export default async function SearchPage({ searchParams }: PageProps) {
           <JobCard key={job.id} job={job} />
         ))}
 
-        {/* Pagination */}
         {totalPages > 1 && (
           <nav className="flex justify-center gap-2 pt-8">
             {currentPage > 1 && (
@@ -127,7 +121,6 @@ export default async function SearchPage({ searchParams }: PageProps) {
                 ‹ Prev
               </Link>
             )}
-
             {Array.from({ length: totalPages }, (_, i) => i + 1).map((p) => (
               <Link
                 key={p}
@@ -137,7 +130,6 @@ export default async function SearchPage({ searchParams }: PageProps) {
                 {p}
               </Link>
             ))}
-
             {currentPage < totalPages && (
               <Link href={`/search?${buildQS({ page: String(currentPage + 1) })}`} className="px-3 py-2 border rounded">
                 Next ›
@@ -150,7 +142,7 @@ export default async function SearchPage({ searchParams }: PageProps) {
   )
 }
 
-/* Job card – no client code */
+/* simple server-rendered card */
 function JobCard({ job }: { job: JobListing }) {
   return (
     <article className="bg-white border rounded-lg p-6 shadow-sm hover:shadow-md transition">
