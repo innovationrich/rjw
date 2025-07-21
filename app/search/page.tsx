@@ -1,8 +1,10 @@
 import { Suspense } from "react"
 import type { Metadata } from "next"
 import { searchJobs } from "@/lib/job-api"
-import { SearchPageClient } from "./SearchPageClient"
+import dynamic from "next/dynamic"
 import Loading from "./loading"
+
+const SearchPageClient = dynamic(() => import("./SearchPageClient").then((m) => m.SearchPageClient), { ssr: false })
 
 export const metadata: Metadata = {
   title: "Job Search - Find Your Next Opportunity",

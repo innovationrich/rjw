@@ -27,13 +27,14 @@ function SearchPageClient() {
     setLoading(true)
     setError(null)
     try {
-      const fetchedJobs = await searchJobs({
-        q: searchTerm,
-        location: location,
-        type: jobType,
-        distance: Number.parseInt(distance),
+      const fetched = await searchJobs({
+        keywords: searchTerm,
+        location,
+        jobType,
+        page: 1,
+        limit: 50,
       })
-      setJobs(fetchedJobs)
+      setJobs(fetched.jobs)
 
       // Update URL parameters
       const params = new URLSearchParams()
