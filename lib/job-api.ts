@@ -269,3 +269,6 @@ export async function searchJobsFromAPIs(params: JobSearchParams): Promise<JobSe
   // For now, it's called by searchJobs to combine results
   return searchJobs(params)
 }
+
+// Alias for legacy imports
+export const fetchJobs = searchJobs

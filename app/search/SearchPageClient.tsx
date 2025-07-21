@@ -6,16 +6,16 @@ import { JobListingCard } from "@/components/job-listing-card"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
-import { fetchJobs } from "@/lib/job-api"
+import { searchJobs } from "@/lib/job-api"
 import { Breadcrumb } from "@/components/breadcrumb"
 import { SchemaMarkup } from "@/components/schema-markup"
-import type { Job } from "@/lib/job-api"
+import type { JobListing } from "@/lib/job-api"
 
-export default function SearchPageClient() {
+function SearchPageClient() {
   const router = useRouter()
   const searchParams = useSearchParams()
 
-  const [jobs, setJobs] = useState<Job[]>([])
+  const [jobs, setJobs] = useState<JobListing[]>([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
   const [searchTerm, setSearchTerm] = useState(searchParams.get("q") || "")
@@ -27,7 +27,7 @@ export default function SearchPageClient() {
     setLoading(true)
     setError(null)
     try {
-      const fetchedJobs = await fetchJobs({
+      const fetchedJobs = await searchJobs({
         q: searchTerm,
         location: location,
         type: jobType,
@@ -143,3 +143,6 @@ export default function SearchPageClient() {
     </>
   )
 }
+
+export { SearchPageClient } // named export for <Suspense>
+export default SearchPageClient // keep default export just in case
