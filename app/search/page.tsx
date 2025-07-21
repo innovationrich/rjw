@@ -4,8 +4,12 @@ import { searchJobs } from "@/lib/job-api"
 import dynamic from "next/dynamic"
 import Loading from "./loading"
 
+/* ------------------------------------------------------------------
+   Dynamically load the client-only component – NO server rendering.
+------------------------------------------------------------------- */
 const SearchPageClient = dynamic(() => import("./SearchPageClient").then((m) => m.SearchPageClient), { ssr: false })
 
+/* ---------- <head> metadata ---------- */
 export const metadata: Metadata = {
   title: "Job Search - Find Your Next Opportunity",
   description:
@@ -46,13 +50,15 @@ interface SearchPageProps {
 }
 
 export default async function SearchPage({ searchParams }: SearchPageProps) {
+  /* ---------- read URL params ---------- */
   const keywords = searchParams.keywords || ""
   const location = searchParams.location || ""
   const jobType = searchParams.jobType || "all"
   const page = Number.parseInt(searchParams.page || "1")
-  const limit = 10 // Consistent with client-side limit
+  const limit = 10
 
-  const initialResponse = await searchJobs({
+  /* ---------- pre-fetch first page so hydration is instant ---------- */
+  const initial = await searchJobs({
     keywords,
     location,
     jobType: jobType === "all" ? undefined : jobType,
@@ -63,10 +69,10 @@ export default async function SearchPage({ searchParams }: SearchPageProps) {
   return (
     <Suspense fallback={<Loading />}>
       <SearchPageClient
-        initialJobs={initialResponse.jobs}
-        initialTotalCount={initialResponse.totalCount}
-        initialCurrentPage={initialResponse.currentPage}
-        initialTotalPages={initialResponse.totalPages}
+        initialJobs={initial.jobs}
+        initialTotalCount={initial.totalCount}
+        initialCurrentPage={initial.currentPage}
+        initialTotalPages={initial.totalPages}
       />
     </Suspense>
   )

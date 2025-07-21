@@ -6,55 +6,82 @@ import { JobListingCard } from "@/components/job-listing-card"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
-import { searchJobs } from "@/lib/job-api"
+import { searchJobs, type JobListing } from "@/lib/job-api"
 import { Breadcrumb } from "@/components/breadcrumb"
 import { SchemaMarkup } from "@/components/schema-markup"
-import type { JobListing } from "@/lib/job-api"
 
-function SearchPageClient() {
+export interface SearchPageClientProps {
+  initialJobs: JobListing[]
+  initialTotalCount: number
+  initialCurrentPage: number
+  initialTotalPages: number
+}
+
+function SearchPageClient({
+  initialJobs,
+  initialTotalCount,
+  initialCurrentPage,
+  initialTotalPages,
+}: SearchPageClientProps) {
   const router = useRouter()
-  const searchParams = useSearchParams()
+  const urlParams = useSearchParams()
 
-  const [jobs, setJobs] = useState<JobListing[]>([])
-  const [loading, setLoading] = useState(true)
+  /* ---------- UI state ---------- */
+  const [jobs, setJobs] = useState<JobListing[]>(initialJobs)
+  const [totalCount, setTotalCount] = useState(initialTotalCount)
+  const [currentPage, setCurrentPage] = useState(initialCurrentPage)
+  const [totalPages, setTotalPages] = useState(initialTotalPages)
+  const [loading, setLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
-  const [searchTerm, setSearchTerm] = useState(searchParams.get("q") || "")
-  const [location, setLocation] = useState(searchParams.get("location") || "")
-  const [jobType, setJobType] = useState(searchParams.get("type") || "all")
-  const [distance, setDistance] = useState(searchParams.get("distance") || "25")
 
-  const handleSearch = useCallback(async () => {
-    setLoading(true)
-    setError(null)
-    try {
-      const fetched = await searchJobs({
-        keywords: searchTerm,
-        location,
-        jobType,
-        page: 1,
-        limit: 50,
-      })
-      setJobs(fetched.jobs)
+  const [keywords, setKeywords] = useState(urlParams.get("keywords") || "")
+  const [location, setLocation] = useState(urlParams.get("location") || "")
+  const [jobType, setJobType] = useState(urlParams.get("jobType") || "all")
 
-      // Update URL parameters
-      const params = new URLSearchParams()
-      if (searchTerm) params.set("q", searchTerm)
-      if (location) params.set("location", location)
-      if (jobType) params.set("type", jobType)
-      if (distance) params.set("distance", distance)
-      router.push(`/search?${params.toString()}`, { scroll: false })
-    } catch (err) {
-      console.error("Failed to fetch jobs:", err)
-      setError("Failed to load jobs. Please try again later.")
-    } finally {
-      setLoading(false)
-    }
-  }, [searchTerm, location, jobType, distance, router])
+  /* ---------- search handler ---------- */
+  const runSearch = useCallback(
+    async (page = 1) => {
+      setLoading(true)
+      setError(null)
+      try {
+        const res = await searchJobs({
+          keywords,
+          location,
+          jobType: jobType === "all" ? undefined : jobType,
+          page,
+          limit: 10,
+        })
+        setJobs(res.jobs)
+        setTotalCount(res.totalCount)
+        setCurrentPage(res.currentPage)
+        setTotalPages(res.totalPages)
 
+        /* Update URL (CSR only) */
+        const p = new URLSearchParams()
+        if (keywords) p.set("keywords", keywords)
+        if (location) p.set("location", location)
+        if (jobType) p.set("jobType", jobType)
+        p.set("page", String(page))
+        router.push(`/search?${p.toString()}`, { scroll: false })
+      } catch (e) {
+        setError("Failed to load jobs. Please try again later.")
+        console.error(e)
+      } finally {
+        setLoading(false)
+      }
+    },
+    [keywords, location, jobType, router],
+  )
+
+  /* ---------- run once on mount if URL params differ ---------- */
   useEffect(() => {
-    handleSearch()
-  }, [handleSearch])
+    if (urlParams.size > 0 && initialCurrentPage === 1) {
+      runSearch(Number(urlParams.get("page") || 1))
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
 
+  /* ---------- schema ---------- */
   const breadcrumbSchema = {
     "@context": "https://schema.org",
     "@type": "BreadcrumbList",
@@ -84,66 +111,60 @@ function SearchPageClient() {
             { label: "Job Search", href: "/search" },
           ]}
         />
-        <h1 className="text-3xl font-bold text-gray-900 mb-6">Job Search</h1>
 
-        <div className="bg-white p-6 rounded-lg shadow-md mb-8 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-          <Input
-            placeholder="Job title, keywords, or company"
-            value={searchTerm}
-            onChange={(e) => setSearchTerm(e.target.value)}
-            aria-label="Job keywords"
-          />
-          <Input
-            placeholder="City, state, or zip code"
-            value={location}
-            onChange={(e) => setLocation(e.target.value)}
-            aria-label="Job location"
-          />
-          <Select value={jobType} onValueChange={setJobType} aria-label="Job type">
+        {/* --- Search form --- */}
+        <div className="mb-8 grid gap-4 md:grid-cols-3">
+          <Input placeholder="Keywords" value={keywords} onChange={(e) => setKeywords(e.target.value)} />
+          <Input placeholder="Location" value={location} onChange={(e) => setLocation(e.target.value)} />
+          <Select value={jobType} onValueChange={setJobType}>
             <SelectTrigger>
-              <SelectValue placeholder="Job Type" />
+              <SelectValue placeholder="Job type" />
             </SelectTrigger>
             <SelectContent>
-              <SelectItem value="all">All Types</SelectItem>
-              <SelectItem value="full-time">Full-Time</SelectItem>
-              <SelectItem value="part-time">Part-Time</SelectItem>
+              <SelectItem value="all">All</SelectItem>
+              <SelectItem value="full-time">Full-time</SelectItem>
+              <SelectItem value="part-time">Part-time</SelectItem>
               <SelectItem value="contract">Contract</SelectItem>
-              <SelectItem value="temporary">Temporary</SelectItem>
-              <SelectItem value="internship">Internship</SelectItem>
             </SelectContent>
           </Select>
-          <Select value={distance} onValueChange={setDistance} aria-label="Search distance">
-            <SelectTrigger>
-              <SelectValue placeholder="Distance" />
-            </SelectTrigger>
-            <SelectContent>
-              <SelectItem value="5">5 miles</SelectItem>
-              <SelectItem value="10">10 miles</SelectItem>
-              <SelectItem value="25">25 miles</SelectItem>
-              <SelectItem value="50">50 miles</SelectItem>
-              <SelectItem value="100">100 miles</SelectItem>
-            </SelectContent>
-          </Select>
-          <Button onClick={handleSearch} className="lg:col-span-4">
-            Search Jobs
+          <Button onClick={() => runSearch(1)} className="md:col-span-3 w-full" disabled={loading}>
+            {loading ? "Searching…" : "Search"}
           </Button>
         </div>
 
-        {loading && <p className="text-center text-gray-600">Loading jobs...</p>}
-        {error && <p className="text-center text-red-600">{error}</p>}
-        {!loading && !error && jobs.length === 0 && (
-          <p className="text-center text-gray-600">No jobs found matching your criteria.</p>
+        {/* --- Results --- */}
+        {error && <p className="text-red-600">{error}</p>}
+        {!error && (
+          <>
+            <p className="font-semibold mb-4">
+              Showing {jobs.length} of {totalCount} jobs
+            </p>
+            <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+              {jobs.map((job) => (
+                <JobListingCard key={job.id} job={job} />
+              ))}
+            </div>
+            {/* --- simple pager --- */}
+            {totalPages > 1 && (
+              <div className="flex gap-2 mt-8">
+                {Array.from({ length: totalPages }, (_, i) => i + 1).map((n) => (
+                  <Button
+                    key={n}
+                    size="sm"
+                    variant={n === currentPage ? "default" : "outline"}
+                    onClick={() => runSearch(n)}
+                  >
+                    {n}
+                  </Button>
+                ))}
+              </div>
+            )}
+          </>
         )}
-
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {jobs.map((job) => (
-            <JobListingCard key={job.id} job={job} />
-          ))}
-        </div>
       </div>
     </>
   )
 }
 
-export { SearchPageClient } // named export for <Suspense>
-export default SearchPageClient // keep default export just in case
+export { SearchPageClient }
+export default SearchPageClient
