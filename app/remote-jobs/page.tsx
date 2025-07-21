@@ -1,286 +1,267 @@
-import type { Metadata } from "next"
-import { SchemaMarkup } from "@/components/schema-markup"
-import { AdBanner } from "@/components/ad-banner"
-import { Home, MapPin, Clock, DollarSign } from "lucide-react"
-import { Card, CardContent } from "@/components/ui/card"
+import Link from "next/link"
+import Image from "next/image"
 import { Button } from "@/components/ui/button"
-import { Badge } from "@/components/ui/badge"
-import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion"
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
+import { SchemaMarkup } from "@/components/schema-markup"
+import { Breadcrumb } from "@/components/breadcrumb"
+import { FAQ } from "@/components/faq"
 
-export const metadata: Metadata = {
-  title: "Remote Jobs Hiring Immediately - Work From Home Today",
+export const metadata = {
+  title: "Remote Jobs Hiring Immediately Near Me",
   description:
-    "Find remote jobs hiring immediately. Explore work-from-home opportunities across various industries, including customer service, tech support, and data entry. Many positions offer quick hiring processes and flexible schedules. Start your remote career today!",
-  keywords:
-    "remote jobs near me hiring immediately, jobs near me hiring immediately remote, work from home jobs, immediate remote jobs, online jobs, remote positions no experience",
-  alternates: {
-    canonical: "/remote-jobs",
+    "Find remote jobs hiring immediately. Explore work-from-home opportunities across various industries and skill levels.",
+  keywords: [
+    "remote jobs",
+    "work from home jobs",
+    "hiring immediately remote",
+    "virtual jobs",
+    "online jobs",
+    "telecommute jobs",
+  ],
+  openGraph: {
+    title: "Remote Jobs Hiring Immediately Near Me",
+    description:
+      "Find remote jobs hiring immediately. Explore work-from-home opportunities across various industries and skill levels.",
+    url: "https://jobsnearmehiringimmediately.com/remote-jobs",
+    siteName: "Jobs Near Me Hiring Immediately",
+    images: [
+      {
+        url: "https://jobsnearmehiringimmediately.com/public/placeholder-v7zml.png", // Placeholder image for remote work
+        width: 1200,
+        height: 630,
+        alt: "Person working remotely on a laptop",
+      },
+    ],
+    type: "website",
   },
-}
-
-const remoteJobs = [
-  {
-    title: "Remote Customer Support Specialist",
-    company: "Global Connect",
-    location: "Work from Home (Anywhere US)",
-    salary: "$18-22/hour",
-    type: "Full-time",
-    description: "Provide email and chat support to customers. Training and equipment provided.",
-    requirements: ["High-speed internet", "Quiet workspace", "Excellent written communication"],
-    urgent: true,
-  },
-  {
-    title: "Virtual Assistant",
-    company: "Executive Solutions",
-    location: "Work from Home",
-    salary: "$20-25/hour",
-    type: "Part-time",
-    description: "Manage schedules, emails, and administrative tasks for clients. Flexible hours.",
-    requirements: ["Organizational skills", "Proficiency with office software", "Self-motivated"],
-    urgent: false,
-  },
-]
-
-const jobPostingSchema = {
-  "@context": "https://schema.org",
-  "@type": "JobPosting",
-  title: "Remote Jobs Hiring Immediately",
-  description: "Find remote jobs hiring immediately, work from home.",
-  datePosted: new Date().toISOString(),
-  employmentType: ["FULL_TIME", "PART_TIME"],
-  hiringOrganization: {
-    "@type": "Organization",
-    name: "Jobs Hiring Near Me Immediately",
-  },
-  jobLocation: {
-    "@type": "Place",
-    address: {
-      "@type": "PostalAddress",
-      addressCountry: "US",
-    },
-  },
-  baseSalary: {
-    "@type": "MonetaryAmount",
-    currency: "USD",
-    value: {
-      "@type": "QuantitativeValue",
-      minValue: 18,
-      maxValue: 25,
-      unitText: "HOUR",
-    },
+  twitter: {
+    card: "summary_large_image",
+    title: "Remote Jobs Hiring Immediately Near Me",
+    description:
+      "Find remote jobs hiring immediately. Explore work-from-home opportunities across various industries and skill levels.",
+    images: ["https://jobsnearmehiringimmediately.com/public/placeholder-v7zml.png"],
   },
 }
 
 export default function RemoteJobsPage() {
+  const faqs = [
+    {
+      question: "What types of jobs can be done remotely?",
+      answer:
+        "Many roles can be remote, including customer service, IT support, software development, digital marketing, writing, data entry, virtual assistant, and some sales positions.",
+    },
+    {
+      question: "Do remote jobs require specific equipment?",
+      answer:
+        "Often, you'll need a reliable computer, stable internet connection, and a quiet workspace. Some companies provide equipment, while others expect you to have your own.",
+    },
+    {
+      question: "How do I stand out when applying for remote jobs?",
+      answer:
+        "Highlight your self-discipline, time management skills, communication abilities (especially written), and any prior experience with remote work or virtual collaboration tools.",
+    },
+    {
+      question: "Are remote jobs less secure than in-office jobs?",
+      answer:
+        "No, remote jobs from legitimate companies are just as secure. Be wary of scams that ask for money upfront or offer unusually high pay for simple tasks.",
+    },
+    {
+      question: "What are the benefits of working remotely?",
+      answer:
+        "Benefits include flexibility, no commute, potential for better work-life balance, access to a wider range of job opportunities regardless of location, and reduced daily expenses.",
+    },
+  ]
+
+  const remoteSchema = {
+    "@context": "https://schema.org",
+    "@type": "CollectionPage",
+    name: "Remote Jobs Hiring Immediately Near Me",
+    description:
+      "Find remote jobs hiring immediately. Explore work-from-home opportunities across various industries and skill levels.",
+    url: "https://jobsnearmehiringimmediately.com/remote-jobs",
+    mainEntityOfPage: {
+      "@type": "WebPage",
+      "@id": "https://jobsnearmehiringimmediately.com/remote-jobs",
+    },
+  }
+
   return (
-    <>
-      <SchemaMarkup schema={jobPostingSchema} />
+    <div className="container mx-auto px-4 py-8">
+      <SchemaMarkup schema={remoteSchema} />
+      <Breadcrumb
+        items={[
+          { name: "Home", href: "/" },
+          { name: "Remote Jobs", href: "/remote-jobs" },
+        ]}
+      />
 
-      <section className="bg-gradient-to-br from-blue-50 to-indigo-100 py-16">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center">
-            <h1 className="text-4xl lg:text-5xl font-bold text-gray-900 mb-6">
-              Remote Jobs Hiring Near Me <span className="text-blue-600">Immediately</span>
-            </h1>
-            <p className="text-xl text-gray-600 mb-8 max-w-3xl mx-auto">
-              Find remote jobs hiring immediately. Explore work-from-home opportunities across various industries,
-              including customer service, tech support, and data entry. Many positions offer quick hiring processes and
-              flexible schedules.
-            </p>
-            <div className="flex items-center justify-center space-x-8 text-lg">
-              <div className="flex items-center">
-                <Home className="h-6 w-6 text-blue-600 mr-2" />
-                <span className="font-semibold">2,400+ Jobs</span>
-              </div>
-              <div className="flex items-center">
-                <Clock className="h-6 w-6 text-green-600 mr-2" />
-                <span className="font-semibold">Work From Home</span>
-              </div>
-              <div className="flex items-center">
-                <DollarSign className="h-6 w-6 text-purple-600 mr-2" />
-                <span className="font-semibold">$18-25/hour</span>
-              </div>
-            </div>
-          </div>
+      <section className="text-center mb-12">
+        <h1 className="text-4xl font-bold text-gray-900 mb-4">Remote Jobs Hiring Immediately Near Me</h1>
+        <p className="text-lg text-gray-700 max-w-2xl mx-auto">
+          Embrace the flexibility of working from anywhere! Discover a wide range of remote jobs hiring immediately,
+          offering opportunities across various industries and skill levels.
+        </p>
+        <Image
+          src="/remote-work-laptop.png"
+          alt="Person working remotely on a laptop"
+          width={800}
+          height={450}
+          className="w-full h-auto rounded-md mt-8 shadow-lg"
+          priority
+        />
+      </section>
+
+      <section className="mb-12">
+        <h2 className="text-3xl font-semibold text-gray-900 mb-6 text-center">Job Outlook and Demand</h2>
+        <p className="mb-4 text-gray-700">
+          The remote job market has expanded significantly, offering unprecedented flexibility and access to a global
+          talent pool. Many companies are now fully remote or offer hybrid models, leading to a continuous demand for
+          skilled professionals who can work effectively from home. This trend is expected to continue, making remote
+          work a stable and growing segment of the job market.
+        </p>
+        <ul className="list-disc list-inside space-y-2 text-gray-700">
+          <li>
+            <strong>Growing Trend:</strong> Remote work is becoming a standard offering for many companies.
+          </li>
+          <li>
+            <strong>Global Opportunities:</strong> Access to jobs regardless of your physical location.
+          </li>
+          <li>
+            <strong>Increased Flexibility:</strong> Better work-life balance for many individuals.
+          </li>
+        </ul>
+      </section>
+
+      <section className="mb-12">
+        <h2 className="text-3xl font-semibold text-gray-900 mb-6 text-center">Typical Roles and Responsibilities</h2>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <Card>
+            <CardHeader>
+              <CardTitle>Customer Service Representative</CardTitle>
+            </CardHeader>
+            <CardContent>
+              <p>
+                Provides support to customers via phone, email, or chat from a home office. Requires strong
+                communication and problem-solving skills.
+              </p>
+            </CardContent>
+          </Card>
+          <Card>
+            <CardHeader>
+              <CardTitle>Virtual Assistant</CardTitle>
+            </CardHeader>
+            <CardContent>
+              <p>
+                Offers administrative, technical, or creative assistance to clients remotely. Tasks can include
+                scheduling, data entry, social media management, or research.
+              </p>
+            </CardContent>
+          </Card>
+          <Card>
+            <CardHeader>
+              <CardTitle>Software Developer/Engineer</CardTitle>
+            </CardHeader>
+            <CardContent>
+              <p>
+                Designs, develops, and maintains software applications. Remote tech roles are highly common, requiring
+                strong coding and collaboration skills.
+              </p>
+            </CardContent>
+          </Card>
+          <Card>
+            <CardHeader>
+              <CardTitle>Digital Marketing Specialist</CardTitle>
+            </CardHeader>
+            <CardContent>
+              <p>
+                Manages online marketing campaigns, social media, SEO, content creation, and analytics to promote
+                products or services.
+              </p>
+            </CardContent>
+          </Card>
         </div>
       </section>
 
-      <AdBanner slot="remote-jobs-top" />
+      <section className="mb-12">
+        <h2 className="text-3xl font-semibold text-gray-900 mb-6 text-center">Skills and Qualifications</h2>
+        <p className="mb-4 text-gray-700">
+          Succeeding in a remote role requires a specific set of skills beyond your technical expertise:
+        </p>
+        <ul className="list-disc list-inside space-y-2 text-gray-700">
+          <li>
+            <strong>Self-Discipline & Motivation:</strong> Ability to stay focused and productive without direct
+            supervision.
+          </li>
+          <li>
+            <strong>Time Management:</strong> Excellent organizational skills to manage tasks and deadlines
+            independently.
+          </li>
+          <li>
+            <strong>Communication (Written & Verbal):</strong> Clear and concise communication, especially in virtual
+            settings.
+          </li>
+          <li>
+            <strong>Tech Savvy:</strong> Proficiency with collaboration tools (e.g., Slack, Zoom), project management
+            software, and general computer literacy.
+          </li>
+          <li>
+            <strong>Problem-Solving:</strong> Ability to troubleshoot issues independently.
+          </li>
+          <li>
+            <strong>Adaptability:</strong> Comfort with changing technologies and work processes.
+          </li>
+          <li>
+            <strong>Dedicated Workspace:</strong> A quiet and distraction-free environment is often essential.
+          </li>
+        </ul>
+      </section>
 
-      <section className="py-16 bg-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h2 className="text-3xl font-bold text-gray-900 mb-8">Featured Remote Jobs Hiring Immediately</h2>
+      <section className="mb-12">
+        <h2 className="text-3xl font-semibold text-gray-900 mb-6 text-center">Career Progression</h2>
+        <p className="mb-4 text-gray-700">
+          Remote work offers diverse career paths, often allowing for rapid skill development and advancement:
+        </p>
+        <ul className="list-disc list-inside space-y-2 text-gray-700">
+          <li>Opportunities to specialize in niche areas within your field.</li>
+          <li>Transition into leadership or management roles, overseeing remote teams.</li>
+          <li>Freelancing or consulting, leveraging your remote experience for independent work.</li>
+          <li>Continuous learning through online courses and certifications to stay competitive.</li>
+        </ul>
+      </section>
 
-          <div className="space-y-6">
-            {remoteJobs.map((job, index) => (
-              <Card key={index} className="hover:shadow-lg transition-shadow duration-200">
-                <CardContent className="p-6">
-                  <div className="flex justify-between items-start mb-4">
-                    <div>
-                      <h3 className="text-2xl font-semibold text-gray-900 mb-2">{job.title}</h3>
-                      <p className="text-lg text-blue-600 font-medium">{job.company}</p>
-                    </div>
-                    {job.urgent && <Badge variant="destructive">Urgent Hiring</Badge>}
-                  </div>
-
-                  <div className="flex flex-wrap items-center gap-4 mb-4 text-gray-600">
-                    <div className="flex items-center">
-                      <MapPin className="h-4 w-4 mr-1" />
-                      {job.location}
-                    </div>
-                    <div className="flex items-center">
-                      <DollarSign className="h-4 w-4 mr-1" />
-                      {job.salary}
-                    </div>
-                    <Badge variant="outline">{job.type}</Badge>
-                  </div>
-
-                  <p className="text-gray-700 mb-4">{job.description}</p>
-
-                  <div className="mb-4">
-                    <h4 className="font-semibold text-gray-900 mb-2">Requirements:</h4>
-                    <ul className="list-disc list-inside text-gray-600 space-y-1">
-                      {job.requirements.map((req, reqIndex) => (
-                        <li key={reqIndex}>{req}</li>
-                      ))}
-                    </ul>
-                  </div>
-
-                  <Button size="lg" className="w-full sm:w-auto">
-                    Apply Now
-                  </Button>
-                </CardContent>
-              </Card>
-            ))}
-          </div>
+      <section className="mb-12">
+        <h2 className="text-3xl font-semibold text-gray-900 mb-6 text-center">Related Job Titles</h2>
+        <div className="flex flex-wrap justify-center gap-3">
+          <Button variant="outline" asChild>
+            <Link href="/search?keywords=online%20tutor">Online Tutor</Link>
+          </Button>
+          <Button variant="outline" asChild>
+            <Link href="/search?keywords=data%20entry%20specialist">Data Entry Specialist</Link>
+          </Button>
+          <Button variant="outline" asChild>
+            <Link href="/search?keywords=content%20writer">Content Writer</Link>
+          </Button>
+          <Button variant="outline" asChild>
+            <Link href="/search?keywords=web%20designer">Web Designer</Link>
+          </Button>
+          <Button variant="outline" asChild>
+            <Link href="/search?keywords=account%20manager%20remote">Remote Account Manager</Link>
+          </Button>
         </div>
       </section>
 
-      <AdBanner slot="remote-jobs-middle" />
-
-      <section className="py-16 bg-gray-50">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h2 className="text-3xl font-bold text-gray-900 mb-8">About Remote Jobs Hiring Immediately</h2>
-
-          <div className="prose prose-lg max-w-none">
-            <p>
-              Remote jobs offer the flexibility of working from home, eliminating commute times and often providing a
-              better work-life balance. Many companies are rapidly expanding their remote workforce, leading to
-              immediate hiring needs.
-            </p>
-
-            <h3>Popular Remote Job Categories</h3>
-            <ul>
-              <li>
-                <strong>Customer Service:</strong> Providing support via phone, email, or chat.
-              </li>
-              <li>
-                <strong>Data Entry:</strong> Inputting and managing information.
-              </li>
-              <li>
-                <strong>Virtual Assistant:</strong> Offering administrative and organizational support.
-              </li>
-              <li>
-                <strong>Tech Support:</strong> Troubleshooting technical issues for users.
-              </li>
-            </ul>
-
-            <h3>What You Need for a Remote Job</h3>
-            <p>
-              Typically, a stable internet connection, a quiet workspace, and good self-discipline are key. Many remote
-              roles are entry-level and provide all necessary training and software.
-            </p>
-
-            <h3>Job Outlook and Demand for Remote Positions</h3>
-            <p>
-              The demand for remote jobs has surged, offering unprecedented flexibility and access to a wider range of
-              opportunities regardless of geographical location. Many companies are embracing remote work models,
-              leading to a continuous need for talent that can work effectively from home.
-            </p>
-
-            <h3>Typical Roles & Responsibilities in Remote Jobs</h3>
-            <ul>
-              <li>
-                <strong>Remote Customer Service:</strong> Provide support and resolve issues for customers via phone,
-                email, or chat from a home office.
-              </li>
-              <li>
-                <strong>Virtual Assistant:</strong> Offer administrative, technical, or creative assistance to clients
-                remotely, managing schedules, emails, and projects.
-              </li>
-              <li>
-                <strong>Data Entry Specialist:</strong> Accurately input, update, and maintain data in various systems
-                from a remote location.
-              </li>
-              <li>
-                <strong>Online Tutor/Teacher:</strong> Provide educational instruction and support to students through
-                virtual platforms.
-              </li>
-            </ul>
-
-            <h3>Skills & Qualifications for Remote Jobs</h3>
-            <p>Successful remote workers often possess a unique blend of technical and soft skills:</p>
-            <ul>
-              <li>
-                <strong>Self-Discipline & Time Management:</strong> Ability to stay focused and manage tasks
-                independently without direct supervision.
-              </li>
-              <li>
-                <strong>Strong Communication:</strong> Excellent written and verbal communication for virtual
-                collaboration.
-              </li>
-              <li>
-                <strong>Tech Proficiency:</strong> Comfort with video conferencing tools, project management software,
-                and cloud-based applications.
-              </li>
-              <li>
-                <strong>Problem-Solving:</strong> Resourcefulness in troubleshooting issues independently.
-              </li>
-              <li>
-                <strong>Reliable Internet & Workspace:</strong> A stable internet connection and a quiet, dedicated work
-                area.
-              </li>
-            </ul>
-
-            <h3>Career Progression in Remote Work</h3>
-            <p>
-              Remote work doesn't limit career growth. Many companies offer remote employees the same advancement
-              opportunities as in-office staff, including promotions to senior roles, team leadership, and specialized
-              positions. Networking and continuous skill development are key.
-            </p>
-
-            <h3>Related Remote Job Titles</h3>
-            <ul>
-              <li>Online Content Moderator</li>
-              <li>Remote Sales Representative</li>
-              <li>Transcriptionist</li>
-              <li>Bookkeeper</li>
-              <li>Social Media Manager</li>
-            </ul>
-
-            <h3>FAQs About Immediate Remote Hiring</h3>
-            <Accordion type="single" collapsible className="w-full">
-              <AccordionItem value="faq-1">
-                <AccordionTrigger className="text-left">Do remote jobs require specific equipment?</AccordionTrigger>
-                <AccordionContent>
-                  Some remote jobs provide company equipment (laptop, headset), while others require you to use your
-                  own. A reliable computer, stable internet, and a quiet workspace are generally essential.
-                </AccordionContent>
-              </AccordionItem>
-              <AccordionItem value="faq-2">
-                <AccordionTrigger className="text-left">Are remote jobs truly "immediate hiring"?</AccordionTrigger>
-                <AccordionContent>
-                  Yes, many companies are rapidly expanding their remote teams and need to fill positions quickly. Roles
-                  like remote customer service or data entry often have streamlined hiring processes for immediate
-                  starts.
-                </AccordionContent>
-              </AccordionItem>
-            </Accordion>
-          </div>
-        </div>
+      <section className="mb-12">
+        <h2 className="text-3xl font-semibold text-gray-900 mb-6 text-center">
+          Frequently Asked Questions about Remote Jobs
+        </h2>
+        <FAQ faqs={faqs} />
       </section>
 
-      <AdBanner slot="remote-jobs-bottom" />
-    </>
+      <div className="text-center mt-8">
+        <Button asChild size="lg">
+          <Link href="/search?keywords=remote">Search All Remote Jobs</Link>
+        </Button>
+      </div>
+    </div>
   )
 }

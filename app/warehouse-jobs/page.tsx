@@ -1,104 +1,93 @@
-import type { Metadata } from "next"
-import { SchemaMarkup } from "@/components/schema-markup"
-import { AdBanner } from "@/components/ad-banner"
-import { Truck, MapPin, Clock, DollarSign } from "lucide-react"
-import { Card, CardContent } from "@/components/ui/card"
+import Link from "next/link"
+import Image from "next/image"
 import { Button } from "@/components/ui/button"
-import { Badge } from "@/components/ui/badge"
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
+import { SchemaMarkup } from "@/components/schema-markup"
 import { Breadcrumb } from "@/components/breadcrumb"
+import { FAQ } from "@/components/faq"
 
-export const metadata: Metadata = {
-  title: "Warehouse Jobs Hiring Near Me Immediately - Start Today",
+export const metadata = {
+  title: "Warehouse Jobs Hiring Immediately Near Me",
   description:
-    "Find warehouse jobs hiring immediately near you. Over 8,100 warehouse positions available including packers, forklift operators, and general laborers. Many positions require no experience and offer same-day interviews. Start your new warehouse job today!",
-  keywords:
-    "warehouse jobs near me hiring immediately, warehouse jobs hiring immediately, forklift operator jobs, packer jobs, warehouse worker, immediate warehouse jobs, no experience warehouse jobs, jobs near me hiring immediately warehouse",
-  alternates: {
-    canonical: "/warehouse-jobs",
-  },
-}
-
-const warehouseJobs = [
-  {
-    title: "Warehouse Associate",
-    company: "Amazon Fulfillment",
-    location: "Multiple Locations",
-    salary: "$18-22/hour",
-    type: "Full-time",
+    "Find warehouse jobs hiring immediately. Explore roles like forklift operator, packer, and sorter with competitive pay and benefits.",
+  keywords: [
+    "warehouse jobs",
+    "hiring immediately warehouse",
+    "forklift operator jobs",
+    "packer jobs",
+    "sorter jobs",
+    "logistics jobs",
+  ],
+  openGraph: {
+    title: "Warehouse Jobs Hiring Immediately Near Me",
     description:
-      "Pick, pack, and ship customer orders. No experience required. Benefits include health insurance, 401k, and paid time off.",
-    requirements: ["Must be 18+", "Able to lift 50lbs", "Pass background check"],
-    urgent: true,
+      "Find warehouse jobs hiring immediately. Explore roles like forklift operator, packer, and sorter with competitive pay and benefits.",
+    url: "https://jobsnearmehiringimmediately.com/warehouse-jobs",
+    siteName: "Jobs Near Me Hiring Immediately",
+    images: [
+      {
+        url: "https://jobsnearmehiringimmediately.com/public/warehouse-handshake.png",
+        width: 1200,
+        height: 630,
+        alt: "Warehouse workers shaking hands",
+      },
+    ],
+    type: "website",
   },
-  {
-    title: "Forklift Operator",
-    company: "FedEx Ground",
-    location: "Houston, TX",
-    salary: "$20-24/hour",
-    type: "Full-time",
+  twitter: {
+    card: "summary_large_image",
+    title: "Warehouse Jobs Hiring Immediately Near Me",
     description:
-      "Operate forklift to move packages and freight. Forklift certification preferred but training provided.",
-    requirements: ["Forklift experience preferred", "Valid driver's license", "Reliable transportation"],
-    urgent: true,
+      "Find warehouse jobs hiring immediately. Explore roles like forklift operator, packer, and sorter with competitive pay and benefits.",
+    images: ["https://jobsnearmehiringimmediately.com/public/warehouse-handshake.png"],
   },
-  {
-    title: "Package Handler",
-    company: "UPS",
-    location: "Chicago, IL",
-    salary: "$16-19/hour",
-    type: "Part-time",
-    description: "Load and unload packages from delivery trucks. Flexible scheduling available.",
-    requirements: ["Must be 18+", "Able to work in fast-paced environment", "Physical stamina required"],
-    urgent: false,
-  },
-]
-
-const jobPostingSchema = {
-  "@context": "https://schema.org",
-  "@type": "JobPosting",
-  title: "Warehouse Jobs Hiring Immediately",
-  description: "Find warehouse jobs hiring immediately near you. Over 8,100 positions available.",
-  datePosted: new Date().toISOString(),
-  employmentType: ["FULL_TIME", "PART_TIME"],
-  hiringOrganization: {
-    "@type": "Organization",
-    name: "Jobs Hiring Near Me Immediately",
-    sameAs: "https://jobsnearmehiringimmediately.com",
-  },
-  jobLocation: {
-    "@type": "Place",
-    address: {
-      "@type": "PostalAddress",
-      addressCountry: "US",
-    },
-  },
-  baseSalary: {
-    "@type": "MonetaryAmount",
-    currency: "USD",
-    value: {
-      "@type": "QuantitativeValue",
-      minValue: 16,
-      maxValue: 24,
-      unitText: "HOUR",
-    },
-  },
-}
-
-const webPageSchema = {
-  "@context": "https://schema.org",
-  "@type": "WebPage",
-  name: "Warehouse Jobs Hiring Near Me Immediately - Start Today",
-  description:
-    "Find warehouse jobs hiring immediately near you. Over 8,100 warehouse positions available including packers, forklift operators, and general laborers. Many positions require no experience and offer same-day interviews. Start your new warehouse job today!",
-  url: "https://jobsnearmehiringimmediately.com/warehouse-jobs",
 }
 
 export default function WarehouseJobsPage() {
-  return (
-    <>
-      <SchemaMarkup schema={jobPostingSchema} />
-      <SchemaMarkup schema={webPageSchema} />
+  const faqs = [
+    {
+      question: "What are the typical responsibilities of a warehouse associate?",
+      answer:
+        "Responsibilities often include receiving and processing incoming stock, picking and packing orders, managing inventory, loading and unloading shipments, and maintaining a clean and organized work environment.",
+    },
+    {
+      question: "Do I need experience to get a warehouse job?",
+      answer:
+        "Many entry-level warehouse positions do not require prior experience, as companies often provide on-the-job training. However, experience with forklifts or other equipment can be a plus.",
+    },
+    {
+      question: "What kind of pay can I expect for warehouse jobs?",
+      answer:
+        "Pay for warehouse jobs varies by location, company, and specific role, but many offer competitive hourly wages, often with opportunities for overtime and benefits.",
+    },
+    {
+      question: "Are warehouse jobs physically demanding?",
+      answer:
+        "Yes, warehouse jobs often involve standing for long periods, lifting heavy objects, bending, and repetitive motions. Physical stamina and the ability to lift a certain weight are usually required.",
+    },
+    {
+      question: "What are the career progression opportunities in a warehouse?",
+      answer:
+        "With experience, warehouse associates can advance to roles like team lead, supervisor, inventory manager, logistics coordinator, or even move into administrative or management positions within the company.",
+    },
+  ]
 
+  const warehouseSchema = {
+    "@context": "https://schema.org",
+    "@type": "CollectionPage",
+    name: "Warehouse Jobs Hiring Immediately Near Me",
+    description:
+      "Find warehouse jobs hiring immediately. Explore roles like forklift operator, packer, and sorter with competitive pay and benefits.",
+    url: "https://jobsnearmehiringimmediately.com/warehouse-jobs",
+    mainEntityOfPage: {
+      "@type": "WebPage",
+      "@id": "https://jobsnearmehiringimmediately.com/warehouse-jobs",
+    },
+  }
+
+  return (
+    <div className="container mx-auto px-4 py-8">
+      <SchemaMarkup schema={warehouseSchema} />
       <Breadcrumb
         items={[
           { name: "Home", href: "/" },
@@ -106,139 +95,175 @@ export default function WarehouseJobsPage() {
         ]}
       />
 
-      {/* Hero Section */}
-      <section className="bg-gradient-to-br from-blue-50 to-indigo-100 py-16">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center">
-            <h1 className="text-4xl lg:text-5xl font-bold text-gray-900 mb-6">
-              Warehouse Jobs Hiring Near Me <span className="text-blue-600">Immediately</span>
-            </h1>
-            <p className="text-xl text-gray-600 mb-8 max-w-3xl mx-auto">
-              Find warehouse jobs hiring immediately near you. Over 8,100 warehouse positions available including
-              packers, forklift operators, and general laborers. Many positions require no experience and offer same-day
-              interviews.
-            </p>
-            <div className="flex items-center justify-center space-x-8 text-lg">
-              <div className="flex items-center">
-                <Truck className="h-6 w-6 text-blue-600 mr-2" />
-                <span className="font-semibold">8,100+ Jobs</span>
-              </div>
-              <div className="flex items-center">
-                <Clock className="h-6 w-6 text-green-600 mr-2" />
-                <span className="font-semibold">Immediate Hiring</span>
-              </div>
-              <div className="flex items-center">
-                <DollarSign className="h-6 w-6 text-purple-600 mr-2" />
-                <span className="font-semibold">$16-24/hour</span>
-              </div>
-            </div>
-          </div>
+      <section className="text-center mb-12">
+        <h1 className="text-4xl font-bold text-gray-900 mb-4">Warehouse Jobs Hiring Immediately Near Me</h1>
+        <p className="text-lg text-gray-700 max-w-2xl mx-auto">
+          Looking for a dynamic role in logistics and supply chain? Discover a wide range of warehouse jobs hiring
+          immediately, from entry-level positions to specialized roles.
+        </p>
+        <Image
+          src="/warehouse-handshake.png"
+          alt="Warehouse workers shaking hands"
+          width={800}
+          height={450}
+          className="w-full h-auto rounded-md mt-8 shadow-lg"
+          priority
+        />
+      </section>
+
+      <section className="mb-12">
+        <h2 className="text-3xl font-semibold text-gray-900 mb-6 text-center">Job Outlook and Demand</h2>
+        <p className="mb-4 text-gray-700">
+          The demand for warehouse and logistics professionals remains consistently high, driven by the growth of
+          e-commerce and global supply chains. Companies are constantly seeking reliable individuals to manage their
+          inventory, fulfill orders, and ensure smooth operations. This sector offers stable employment with
+          opportunities for quick entry and career advancement.
+        </p>
+        <ul className="list-disc list-inside space-y-2 text-gray-700">
+          <li>
+            <strong>High Demand:</strong> E-commerce boom ensures continuous need for warehouse staff.
+          </li>
+          <li>
+            <strong>Growth Opportunities:</strong> Automation and technology are creating new, more specialized roles.
+          </li>
+          <li>
+            <strong>Essential Industry:</strong> Warehouse and logistics are critical components of the economy,
+            offering job security.
+          </li>
+        </ul>
+      </section>
+
+      <section className="mb-12">
+        <h2 className="text-3xl font-semibold text-gray-900 mb-6 text-center">Typical Roles and Responsibilities</h2>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <Card>
+            <CardHeader>
+              <CardTitle>Warehouse Associate</CardTitle>
+            </CardHeader>
+            <CardContent>
+              <p>
+                Responsible for receiving, storing, and distributing products. This includes picking, packing, and
+                shipping orders, as well as maintaining inventory accuracy.
+              </p>
+            </CardContent>
+          </Card>
+          <Card>
+            <CardHeader>
+              <CardTitle>Forklift Operator</CardTitle>
+            </CardHeader>
+            <CardContent>
+              <p>
+                Operates forklifts and other heavy machinery to move materials, load/unload trucks, and stack goods
+                safely within the warehouse. Requires certification.
+              </p>
+            </CardContent>
+          </Card>
+          <Card>
+            <CardHeader>
+              <CardTitle>Picker/Packer</CardTitle>
+            </CardHeader>
+            <CardContent>
+              <p>
+                Locates items in the warehouse according to order lists (picking) and prepares them for shipment by
+                packaging them securely (packing).
+              </p>
+            </CardContent>
+          </Card>
+          <Card>
+            <CardHeader>
+              <CardTitle>Shipping/Receiving Clerk</CardTitle>
+            </CardHeader>
+            <CardContent>
+              <p>
+                Manages incoming and outgoing shipments, verifies contents, prepares documentation, and coordinates with
+                delivery drivers.
+              </p>
+            </CardContent>
+          </Card>
         </div>
       </section>
 
-      <AdBanner slot="warehouse-jobs-top" />
+      <section className="mb-12">
+        <h2 className="text-3xl font-semibold text-gray-900 mb-6 text-center">Skills and Qualifications</h2>
+        <p className="mb-4 text-gray-700">
+          While many warehouse jobs are entry-level, certain skills and qualifications will make you a more attractive
+          candidate:
+        </p>
+        <ul className="list-disc list-inside space-y-2 text-gray-700">
+          <li>
+            <strong>Physical Stamina:</strong> Ability to lift, bend, stand for long periods, and perform repetitive
+            tasks.
+          </li>
+          <li>
+            <strong>Attention to Detail:</strong> Crucial for accurate order picking, packing, and inventory management.
+          </li>
+          <li>
+            <strong>Reliability & Punctuality:</strong> Essential for maintaining smooth operations and meeting
+            deadlines.
+          </li>
+          <li>
+            <strong>Teamwork:</strong> Ability to collaborate effectively with colleagues in a fast-paced environment.
+          </li>
+          <li>
+            <strong>Basic Math Skills:</strong> For counting inventory and verifying quantities.
+          </li>
+          <li>
+            <strong>Safety Consciousness:</strong> Understanding and adherence to safety protocols.
+          </li>
+          <li>
+            <strong>Forklift Certification:</strong> (For operator roles) A significant advantage.
+          </li>
+        </ul>
+      </section>
 
-      {/* Job Listings */}
-      <section className="py-16 bg-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h2 className="text-3xl font-bold text-gray-900 mb-8">Featured Warehouse Jobs Hiring Immediately</h2>
+      <section className="mb-12">
+        <h2 className="text-3xl font-semibold text-gray-900 mb-6 text-center">Career Progression</h2>
+        <p className="mb-4 text-gray-700">
+          Warehouse jobs offer clear paths for career advancement. Starting as an associate, you can move into
+          specialized roles or leadership positions:
+        </p>
+        <ul className="list-disc list-inside space-y-2 text-gray-700">
+          <li>Warehouse Associate → Lead/Trainer → Supervisor → Warehouse Manager</li>
+          <li>
+            Specialized roles like Inventory Control Specialist, Logistics Coordinator, or Quality Control Inspector.
+          </li>
+          <li>Opportunities to cross-train on different equipment or systems.</li>
+        </ul>
+      </section>
 
-          <div className="space-y-6">
-            {warehouseJobs.map((job, index) => (
-              <Card key={index} className="hover:shadow-lg transition-shadow duration-200">
-                <CardContent className="p-6">
-                  <div className="flex justify-between items-start mb-4">
-                    <div>
-                      <h3 className="text-2xl font-semibold text-gray-900 mb-2">{job.title}</h3>
-                      <p className="text-lg text-blue-600 font-medium">{job.company}</p>
-                    </div>
-                    {job.urgent && <Badge variant="destructive">Urgent Hiring</Badge>}
-                  </div>
-
-                  <div className="flex flex-wrap items-center gap-4 mb-4 text-gray-600">
-                    <div className="flex items-center">
-                      <MapPin className="h-4 w-4 mr-1" />
-                      {job.location}
-                    </div>
-                    <div className="flex items-center">
-                      <DollarSign className="h-4 w-4 mr-1" />
-                      {job.salary}
-                    </div>
-                    <Badge variant="outline">{job.type}</Badge>
-                  </div>
-
-                  <p className="text-gray-700 mb-4">{job.description}</p>
-
-                  <div className="mb-4">
-                    <h4 className="font-semibold text-gray-900 mb-2">Requirements:</h4>
-                    <ul className="list-disc list-inside text-gray-600 space-y-1">
-                      {job.requirements.map((req, reqIndex) => (
-                        <li key={reqIndex}>{req}</li>
-                      ))}
-                    </ul>
-                  </div>
-
-                  <Button size="lg" className="w-full sm:w-auto">
-                    Apply Now
-                  </Button>
-                </CardContent>
-              </Card>
-            ))}
-          </div>
+      <section className="mb-12">
+        <h2 className="text-3xl font-semibold text-gray-900 mb-6 text-center">Related Job Titles</h2>
+        <div className="flex flex-wrap justify-center gap-3">
+          <Button variant="outline" asChild>
+            <Link href="/search?keywords=logistics%20coordinator">Logistics Coordinator</Link>
+          </Button>
+          <Button variant="outline" asChild>
+            <Link href="/search?keywords=inventory%20specialist">Inventory Specialist</Link>
+          </Button>
+          <Button variant="outline" asChild>
+            <Link href="/search?keywords=material%20handler">Material Handler</Link>
+          </Button>
+          <Button variant="outline" asChild>
+            <Link href="/search?keywords=delivery%20driver">Delivery Driver</Link>
+          </Button>
+          <Button variant="outline" asChild>
+            <Link href="/search?keywords=supply%20chain%20assistant">Supply Chain Assistant</Link>
+          </Button>
         </div>
       </section>
 
-      <AdBanner slot="warehouse-jobs-middle" />
-
-      {/* Information Section */}
-      <section className="py-16 bg-gray-50">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h2 className="text-3xl font-bold text-gray-900 mb-8">About Warehouse Jobs Hiring Immediately</h2>
-
-          <div className="prose prose-lg max-w-none">
-            <p>
-              Warehouse jobs hiring immediately are among the most accessible entry points into the workforce. These
-              positions typically offer competitive hourly wages, benefits, and opportunities for advancement without
-              requiring extensive prior experience.
-            </p>
-
-            <h3>Types of Warehouse Positions Available</h3>
-            <ul>
-              <li>
-                <strong>Warehouse Associates:</strong> General laborers who pick, pack, and ship orders
-              </li>
-              <li>
-                <strong>Forklift Operators:</strong> Specialized workers who move heavy materials and products
-              </li>
-              <li>
-                <strong>Package Handlers:</strong> Workers who sort and process packages for shipping
-              </li>
-              <li>
-                <strong>Inventory Clerks:</strong> Staff who track and manage warehouse inventory
-              </li>
-              <li>
-                <strong>Loading Dock Workers:</strong> Team members who load and unload delivery trucks
-              </li>
-            </ul>
-
-            <h3>Benefits of Warehouse Employment</h3>
-            <p>
-              Many warehouse employers offer competitive benefits packages including health insurance, 401k retirement
-              plans, paid time off, and employee discounts. Some companies also provide tuition assistance and career
-              advancement programs.
-            </p>
-
-            <h3>Getting Started in Warehouse Work</h3>
-            <p>
-              Most warehouse positions require minimal qualifications - typically just the ability to lift 50 pounds,
-              pass a background check, and work in a fast-paced environment. Many employers provide on-the-job training
-              for specialized equipment like forklifts.
-            </p>
-          </div>
-        </div>
+      <section className="mb-12">
+        <h2 className="text-3xl font-semibold text-gray-900 mb-6 text-center">
+          Frequently Asked Questions about Warehouse Jobs
+        </h2>
+        <FAQ faqs={faqs} />
       </section>
 
-      <AdBanner slot="warehouse-jobs-bottom" />
-    </>
+      <div className="text-center mt-8">
+        <Button asChild size="lg">
+          <Link href="/search?keywords=warehouse">Search All Warehouse Jobs</Link>
+        </Button>
+      </div>
+    </div>
   )
 }

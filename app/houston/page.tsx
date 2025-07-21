@@ -1,82 +1,59 @@
-import type { Metadata } from "next"
-import { SchemaMarkup } from "@/components/schema-markup"
-import { AdBanner } from "@/components/ad-banner"
-import { MapPin, Building, TrendingUp } from "lucide-react"
-import { Card, CardContent } from "@/components/ui/card"
 import { Breadcrumb } from "@/components/breadcrumb"
+import { SchemaMarkup } from "@/components/schema-markup"
+import { FAQ } from "@/components/faq"
+import { AdBanner } from "@/components/ad-banner"
+import type { Metadata } from "next"
 
 export const metadata: Metadata = {
-  title: "Jobs Hiring Immediately in Houston, TX - 12,500+ Positions",
+  title: "Jobs Hiring Immediately in Houston, TX - Apply Now",
   description:
-    "Find jobs hiring immediately in Houston, Texas. Over 12,500 immediate hiring opportunities in warehouses, retail, restaurants, and more. Apply today and start working this week in Houston!",
-  keywords:
-    "jobs hiring immediately Houston TX, Houston jobs, immediate hiring Houston, warehouse jobs Houston, retail jobs Houston, fast food jobs Houston, Houston TX jobs, jobs near me hiring immediately Houston",
+    "Find jobs hiring immediately in Houston, TX. Explore opportunities in various industries including energy, healthcare, logistics, and more. Your Houston career starts here!",
   alternates: {
     canonical: "/houston",
   },
 }
 
-const houstonEmployers = [
-  {
-    name: "Amazon Fulfillment Centers",
-    jobCount: "2,500+",
-    types: ["Warehouse Associate", "Forklift Operator", "Package Handler"],
-    hiring: "Immediate",
-  },
-  {
-    name: "H-E-B Grocery",
-    jobCount: "800+",
-    types: ["Cashier", "Stock Clerk", "Deli Associate"],
-    hiring: "Same Day",
-  },
-  {
-    name: "FedEx Ground",
-    jobCount: "600+",
-    types: ["Package Handler", "Loader", "Sorter"],
-    hiring: "Immediate",
-  },
-  {
-    name: "Walmart Distribution",
-    jobCount: "450+",
-    types: ["Order Filler", "Forklift Operator", "Maintenance"],
-    hiring: "This Week",
-  },
-]
-
-const localBusinessSchema = {
+const houstonJobsSchema = {
   "@context": "https://schema.org",
-  "@type": "LocalBusiness",
-  name: "Jobs Hiring Immediately Houston",
-  description: "Find immediate hiring jobs in Houston, Texas",
-  address: {
-    "@type": "PostalAddress",
-    addressLocality: "Houston",
-    addressRegion: "TX",
-    addressCountry: "US",
-  },
-  geo: {
-    "@type": "GeoCoordinates",
-    latitude: 29.7604,
-    longitude: -95.3698,
-  },
-  url: "https://jobsnearmehiringimmediately.com/houston",
-}
-
-const webPageSchema = {
-  "@context": "https://schema.org",
-  "@type": "WebPage",
-  name: "Jobs Hiring Immediately in Houston, TX - 12,500+ Positions",
+  "@type": "CollectionPage",
+  name: "Jobs Hiring Immediately in Houston, TX",
   description:
-    "Find jobs hiring immediately in Houston, Texas. Over 12,500 immediate hiring opportunities in warehouses, retail, restaurants, and more. Apply today and start working this week in Houston!",
+    "Find jobs hiring immediately in Houston, TX. Explore opportunities in various industries including energy, healthcare, logistics, and more. Your Houston career starts here!",
   url: "https://jobsnearmehiringimmediately.com/houston",
 }
 
 export default function HoustonJobsPage() {
+  const faqs = [
+    {
+      question: "What are the major industries hiring in Houston?",
+      answer:
+        "Houston's economy is diverse, with major industries including energy (oil & gas, renewables), healthcare, aerospace, manufacturing, logistics, and technology. This variety creates a wide range of job opportunities.",
+    },
+    {
+      question: "Are there many entry-level jobs available in Houston?",
+      answer:
+        "Yes, Houston has a robust job market with numerous entry-level positions, particularly in sectors like retail, food service, customer support, and warehousing. Many companies offer on-the-job training for new hires.",
+    },
+    {
+      question: "What is the cost of living like in Houston?",
+      answer:
+        "Houston generally has a lower cost of living compared to other major U.S. cities, especially regarding housing. This makes it an attractive city for job seekers looking for affordable living combined with strong job prospects.",
+    },
+    {
+      question: "How is the transportation in Houston for commuters?",
+      answer:
+        "Houston is a large, sprawling city, and while public transportation (METRO) is available, many residents rely on personal vehicles. Traffic can be heavy during peak hours, so considering commute times and location is important.",
+    },
+    {
+      question: "What kind of job growth can I expect in Houston?",
+      answer:
+        "Houston consistently ranks among the top U.S. cities for job growth, driven by its strong economic diversity and continuous investment in key industries. This translates to ongoing opportunities for both new and experienced professionals.",
+    },
+  ]
+
   return (
     <>
-      <SchemaMarkup schema={localBusinessSchema} />
-      <SchemaMarkup schema={webPageSchema} />
-
+      <SchemaMarkup schema={houstonJobsSchema} />
       <Breadcrumb
         items={[
           { name: "Home", href: "/" },
@@ -84,159 +61,113 @@ export default function HoustonJobsPage() {
         ]}
       />
 
-      {/* Hero Section */}
-      <section className="bg-gradient-to-br from-blue-50 to-indigo-100 py-16">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center">
-            <h1 className="text-4xl lg:text-5xl font-bold text-gray-900 mb-6">
-              Jobs Hiring Immediately in <span className="text-blue-600">Houston, TX</span>
-            </h1>
-            <p className="text-xl text-gray-600 mb-8 max-w-3xl mx-auto">
-              Find jobs hiring immediately in Houston, Texas. Over 12,500 immediate hiring opportunities in warehouses,
-              retail, restaurants, and more. Major employers are actively recruiting for positions that start this week.
-            </p>
-            <div className="flex items-center justify-center space-x-8 text-lg">
-              <div className="flex items-center">
-                <Building className="h-6 w-6 text-blue-600 mr-2" />
-                <span className="font-semibold">12,500+ Jobs</span>
-              </div>
-              <div className="flex items-center">
-                <MapPin className="h-6 w-6 text-green-600 mr-2" />
-                <span className="font-semibold">Houston Metro</span>
-              </div>
-              <div className="flex items-center">
-                <TrendingUp className="h-6 w-6 text-purple-600 mr-2" />
-                <span className="font-semibold">Trending: Logistics</span>
-              </div>
+      <section className="py-12 md:py-20 bg-gradient-to-r from-red-700 to-orange-800 text-white">
+        <div className="container mx-auto px-4 text-center">
+          <h1 className="text-3xl md:text-5xl font-bold mb-4">Jobs Hiring Immediately in Houston, TX</h1>
+          <p className="text-lg md:text-xl max-w-3xl mx-auto">
+            Discover immediate hiring opportunities across Houston's thriving industries. Your next career move in the
+            Energy Capital of the World starts here.
+          </p>
+        </div>
+      </section>
+
+      <section className="py-12 md:py-16 bg-white">
+        <div className="container mx-auto px-4">
+          <div className="grid md:grid-cols-2 gap-12 items-start">
+            <div>
+              <h2 className="text-2xl md:text-3xl font-bold text-gray-900 mb-6">Houston Job Market Overview</h2>
+              <p className="text-gray-700 mb-4">
+                Houston, Texas, boasts a dynamic and diverse job market, consistently ranking as one of the top cities
+                for job growth in the U.S. Known as the "Energy Capital of the World," it's a hub for oil, gas, and
+                renewable energy sectors. Beyond energy, Houston's economy is bolstered by a massive healthcare industry
+                (home to the Texas Medical Center), robust manufacturing, thriving logistics and transportation, and a
+                growing tech scene. This economic diversity ensures a wide array of immediate hiring opportunities
+                across various skill levels and industries.
+              </p>
+              <h2 className="text-2xl md:text-3xl font-bold text-gray-900 mb-6">Key Industries Hiring in Houston</h2>
+              <ul className="list-disc list-inside text-gray-700 space-y-2 mb-6">
+                <li>
+                  **Energy:** Engineers, technicians, field operators, administrative support in oil & gas, solar, and
+                  wind.
+                </li>
+                <li>
+                  **Healthcare:** Nurses, medical assistants, administrative staff, lab technicians, and specialists at
+                  hospitals and clinics.
+                </li>
+                <li>**Manufacturing:** Production workers, assemblers, quality control, and supply chain roles.</li>
+                <li>
+                  **Logistics & Transportation:** Warehouse associates, truck drivers, dispatchers, and operations
+                  managers.
+                </li>
+                <li>
+                  **Technology:** Software developers, IT support, data analysts, and cybersecurity professionals.
+                </li>
+                <li>
+                  **Retail & Food Service:** Sales associates, cashiers, crew members, and customer service roles.
+                </li>
+              </ul>
+
+              <h2 className="text-2xl md:text-3xl font-bold text-gray-900 mb-6">Living and Working in Houston</h2>
+              <p className="text-gray-700 mb-4">
+                Houston offers a relatively low cost of living compared to other major metropolitan areas, particularly
+                when it comes to housing. The city is known for its vibrant culture, diverse culinary scene, and
+                numerous parks and recreational facilities. While traffic can be a factor, the extensive highway system
+                and growing public transit options help connect the sprawling city. Houston's lack of state income tax
+                is another financial benefit for residents.
+              </p>
+            </div>
+            <div>
+              <img
+                src="/houston-skyline-diverse.png"
+                alt="Houston skyline with diverse people"
+                width={600}
+                height={400}
+                className="rounded-lg shadow-lg mb-8"
+              />
+              <h2 className="text-2xl md:text-3xl font-bold text-gray-900 mb-6">Tips for Job Seekers in Houston</h2>
+              <ul className="list-disc list-inside text-gray-700 space-y-2 mb-6">
+                <li>**Tailor your resume:** Highlight skills and experiences relevant to Houston's key industries.</li>
+                <li>
+                  **Network:** Attend local job fairs, industry events, and connect with professionals on LinkedIn.
+                </li>
+                <li>
+                  **Consider certifications:** For specialized roles in energy or healthcare, relevant certifications
+                  can boost your chances.
+                </li>
+                <li>
+                  **Be flexible:** Many immediate hiring roles are in sectors like retail, food service, and warehousing
+                  which often have varied shifts.
+                </li>
+                <li>
+                  **Research companies:** Look into major employers in your target industry and check their career pages
+                  directly.
+                </li>
+              </ul>
+
+              <h2 className="text-2xl md:text-3xl font-bold text-gray-900 mb-6">Related Job Titles in Houston</h2>
+              <ul className="list-disc list-inside text-gray-700 space-y-2">
+                <li>Petroleum Engineer</li>
+                <li>Registered Nurse (RN)</li>
+                <li>CDL Driver</li>
+                <li>Welder</li>
+                <li>Biomedical Technician</li>
+                <li>Supply Chain Analyst</li>
+              </ul>
             </div>
           </div>
         </div>
       </section>
 
-      <AdBanner slot="houston-jobs-top" />
+      <AdBanner />
 
-      {/* Major Employers */}
-      <section className="py-16 bg-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h2 className="text-3xl font-bold text-gray-900 mb-8">Major Houston Employers Hiring Immediately</h2>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            {houstonEmployers.map((employer, index) => (
-              <Card key={index} className="hover:shadow-lg transition-shadow duration-200">
-                <CardContent className="p-6">
-                  <div className="flex justify-between items-start mb-4">
-                    <h3 className="text-xl font-semibold text-gray-900">{employer.name}</h3>
-                    <span className="text-sm bg-green-100 text-green-800 px-2 py-1 rounded-full">
-                      {employer.hiring}
-                    </span>
-                  </div>
-                  <p className="text-blue-600 font-medium mb-3">{employer.jobCount} positions available</p>
-                  <div className="space-y-1">
-                    {employer.types.map((type, typeIndex) => (
-                      <span
-                        key={typeIndex}
-                        className="inline-block bg-gray-100 text-gray-700 px-2 py-1 rounded text-sm mr-2 mb-1"
-                      >
-                        {type}
-                      </span>
-                    ))}
-                  </div>
-                </CardContent>
-              </Card>
-            ))}
-          </div>
+      <section className="py-12 md:py-16 bg-gray-50">
+        <div className="container mx-auto px-4">
+          <h2 className="text-3xl md:text-4xl font-bold text-center text-gray-900 mb-8">
+            Frequently Asked Questions about Jobs in Houston
+          </h2>
+          <FAQ faqs={faqs} />
         </div>
       </section>
-
-      <AdBanner slot="houston-jobs-middle" />
-
-      {/* Houston Job Market Info */}
-      <section className="py-16 bg-gray-50">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h2 className="text-3xl font-bold text-gray-900 mb-8">Houston Job Market Overview</h2>
-
-          <div className="prose prose-lg max-w-none">
-            <p>
-              Houston's job market is thriving with immediate hiring opportunities across multiple industries. As the
-              fourth-largest city in the United States and a major hub for energy, logistics, and healthcare, Houston
-              offers diverse employment opportunities for job seekers at all experience levels.
-            </p>
-
-            <h3>Top Industries Hiring Immediately in Houston</h3>
-            <ul>
-              <li>
-                <strong>Logistics & Warehousing:</strong> With the Port of Houston and major distribution centers,
-                warehouse jobs are abundant
-              </li>
-              <li>
-                <strong>Retail & Customer Service:</strong> Major retailers like H-E-B, Walmart, and Target are
-                constantly hiring
-              </li>
-              <li>
-                <strong>Food Service & Hospitality:</strong> Restaurants and hotels throughout the metro area need
-                immediate staff
-              </li>
-              <li>
-                <strong>Healthcare Support:</strong> Hospitals and clinics need support staff, orderlies, and
-                administrative workers
-              </li>
-              <li>
-                <strong>Construction & Manufacturing:</strong> Houston's growing economy drives demand for construction
-                and manufacturing workers
-              </li>
-            </ul>
-
-            <h3>Houston Neighborhoods with High Job Availability</h3>
-            <p>Job opportunities are concentrated in several key areas of Houston:</p>
-            <ul>
-              <li>
-                <strong>Northwest Houston (77040, 77041):</strong> Major distribution centers and warehouses
-              </li>
-              <li>
-                <strong>Southwest Houston (77074, 77036):</strong> Retail and service industry jobs
-              </li>
-              <li>
-                <strong>East Houston (77015, 77020):</strong> Port-related logistics and manufacturing
-              </li>
-              <li>
-                <strong>North Houston (77060, 77032):</strong> Airport area with hospitality and service jobs
-              </li>
-            </ul>
-
-            <h3>Average Wages for Immediate Hiring Jobs in Houston</h3>
-            <p>Houston offers competitive wages for immediate hiring positions:</p>
-            <ul>
-              <li>Warehouse Associates: $16-22/hour</li>
-              <li>Retail Associates: $14-18/hour</li>
-              <li>Food Service Workers: $13-16/hour + tips</li>
-              <li>Customer Service Representatives: $15-20/hour</li>
-              <li>Construction Laborers: $18-25/hour</li>
-            </ul>
-          </div>
-        </div>
-      </section>
-
-      {/* Google Map Embed */}
-      <section className="py-16 bg-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h2 className="text-3xl font-bold text-gray-900 mb-8 text-center">Houston Job Locations</h2>
-          <div className="aspect-w-16 aspect-h-9">
-            <iframe
-              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3464.0!2d-95.3698!3d29.7604!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8640b7b4b8b8b8b8%3A0x8640b7b4b8b8b8b8!2sHouston%2C%20TX!5e0!3m2!1sen!2sus!4v1234567890"
-              width="100%"
-              height="400"
-              style={{ border: 0 }}
-              allowFullScreen
-              loading="lazy"
-              referrerPolicy="no-referrer-when-downgrade"
-              className="rounded-lg shadow-lg"
-              title="Google Map of Houston, TX" // Added title for accessibility
-            />
-          </div>
-        </div>
-      </section>
-
-      <AdBanner slot="houston-jobs-bottom" />
     </>
   )
 }

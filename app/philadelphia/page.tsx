@@ -1,180 +1,261 @@
-import type { Metadata } from "next"
+import Link from "next/link"
+import Image from "next/image"
+import { Button } from "@/components/ui/button"
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { SchemaMarkup } from "@/components/schema-markup"
-import { AdBanner } from "@/components/ad-banner"
-import { MapPin, Building, TrendingUp } from "lucide-react"
-import { Card, CardContent } from "@/components/ui/card"
+import { Breadcrumb } from "@/components/breadcrumb"
+import { FAQ } from "@/components/faq"
 
-export const metadata: Metadata = {
-  title: "Jobs Hiring Immediately in Philadelphia, PA - 5,900+ Positions",
+export const metadata = {
+  title: "Jobs in Philadelphia, PA - Hiring Immediately",
   description:
-    "Find jobs hiring immediately in Philadelphia, Pennsylvania. Over 5,900 immediate hiring opportunities in healthcare, education, hospitality, and retail. Apply today and start working this week in Philadelphia!",
-  keywords:
-    "jobs hiring immediately Philadelphia PA, Philadelphia jobs, immediate hiring Philadelphia, healthcare jobs Philadelphia, retail jobs Philadelphia, hospitality jobs Philadelphia, Philadelphia PA jobs",
-  alternates: {
-    canonical: "/philadelphia",
+    "Find immediate hiring opportunities in Philadelphia, PA. Explore various industries, job types, and companies looking for talent now.",
+  keywords: [
+    "jobs Philadelphia",
+    "hiring Philadelphia",
+    "Philadelphia jobs immediately",
+    "Philadelphia employment",
+    "jobs in Pennsylvania",
+  ],
+  openGraph: {
+    title: "Jobs in Philadelphia, PA - Hiring Immediately",
+    description:
+      "Find immediate hiring opportunities in Philadelphia, PA. Explore various industries, job types, and companies looking for talent now.",
+    url: "https://jobsnearmehiringimmediately.com/philadelphia",
+    siteName: "Jobs Near Me Hiring Immediately",
+    images: [
+      {
+        url: "https://jobsnearmehiringimmediately.com/public/placeholder-v7zml.png", // Placeholder image for Philadelphia
+        width: 1200,
+        height: 630,
+        alt: "Philadelphia city skyline",
+      },
+    ],
+    type: "website",
   },
-}
-
-const philadelphiaEmployers = [
-  {
-    name: "University of Pennsylvania Health System",
-    jobCount: "1,000+",
-    types: ["CNA", "Patient Transporter", "Administrative Assistant"],
-    hiring: "Immediate",
+  twitter: {
+    card: "summary_large_image",
+    title: "Jobs in Philadelphia, PA - Hiring Immediately",
+    description:
+      "Find immediate hiring opportunities in Philadelphia, PA. Explore various industries, job types, and companies looking for talent now.",
+    images: ["https://jobsnearmehiringimmediately.com/public/placeholder-v7zml.png"], // Placeholder image for Philadelphia
   },
-  {
-    name: "Wawa",
-    jobCount: "600+",
-    types: ["Customer Service Associate", "Food Service Associate"],
-    hiring: "Same Day",
-  },
-  {
-    name: "Jefferson Health",
-    jobCount: "500+",
-    types: ["Medical Assistant", "Environmental Services"],
-    hiring: "Immediate",
-  },
-]
-
-const localBusinessSchema = {
-  "@context": "https://schema.org",
-  "@type": "LocalBusiness",
-  name: "Jobs Hiring Immediately Philadelphia",
-  description: "Find immediate hiring jobs in Philadelphia, Pennsylvania",
-  address: {
-    "@type": "PostalAddress",
-    addressLocality: "Philadelphia",
-    addressRegion: "PA",
-    addressCountry: "US",
-  },
-  geo: {
-    "@type": "GeoCoordinates",
-    latitude: 39.9526,
-    longitude: -75.1652,
-  },
-  url: "https://jobshiringnearmeimmediately.com/philadelphia",
 }
 
 export default function PhiladelphiaJobsPage() {
+  const faqs = [
+    {
+      question: "What are the leading industries for jobs in Philadelphia?",
+      answer:
+        "Philadelphia's economy is strong in healthcare, education, life sciences, technology, and tourism/hospitality. Manufacturing and logistics also provide significant employment.",
+    },
+    {
+      question: "Are there many entry-level jobs in Philadelphia?",
+      answer:
+        "Yes, Philadelphia offers numerous entry-level positions, particularly in healthcare support, retail, food service, and administrative roles, often with opportunities for on-the-job training.",
+    },
+    {
+      question: "What is the cost of living in Philadelphia?",
+      answer:
+        "Philadelphia generally has a lower cost of living compared to other major East Coast cities like New York or Boston, making it an attractive option for many job seekers.",
+    },
+    {
+      question: "How can I find jobs hiring immediately in Philadelphia?",
+      answer:
+        "Check local job boards, company career pages for 'walk-in interview' events, and consider registering with local staffing agencies that specialize in quick placements.",
+    },
+    {
+      question: "Is public transportation good for commuting to jobs in Philadelphia?",
+      answer:
+        "SEPTA (Southeastern Pennsylvania Transportation Authority) provides extensive public transit options, including buses, subways, trolleys, and regional rail, making commuting convenient throughout the city and suburbs.",
+    },
+  ]
+
+  const philadelphiaSchema = {
+    "@context": "https://schema.org",
+    "@type": "City",
+    name: "Philadelphia, PA",
+    url: "https://jobsnearmehiringimmediately.com/philadelphia",
+    mainEntityOfPage: {
+      "@type": "WebPage",
+      "@id": "https://jobsnearmehiringimmediately.com/philadelphia",
+    },
+  }
+
   return (
-    <>
-      <SchemaMarkup schema={localBusinessSchema} />
+    <div className="container mx-auto px-4 py-8">
+      <SchemaMarkup schema={philadelphiaSchema} />
+      <Breadcrumb
+        items={[
+          { name: "Home", href: "/" },
+          { name: "Jobs in Philadelphia", href: "/philadelphia" },
+        ]}
+      />
 
-      <section className="bg-gradient-to-br from-blue-50 to-indigo-100 py-16">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center">
-            <h1 className="text-4xl lg:text-5xl font-bold text-gray-900 mb-6">
-              Jobs Hiring Immediately in <span className="text-blue-600">Philadelphia, PA</span>
-            </h1>
-            <p className="text-xl text-gray-600 mb-8 max-w-3xl mx-auto">
-              Find jobs hiring immediately in Philadelphia, Pennsylvania. Over 5,900 immediate hiring opportunities in
-              healthcare, education, hospitality, and retail. Major employers are actively recruiting for positions that
-              start this week.
-            </p>
-            <div className="flex items-center justify-center space-x-8 text-lg">
-              <div className="flex items-center">
-                <Building className="h-6 w-6 text-blue-600 mr-2" />
-                <span className="font-semibold">5,900+ Jobs</span>
-              </div>
-              <div className="flex items-center">
-                <MapPin className="h-6 w-6 text-green-600 mr-2" />
-                <span className="font-semibold">Philadelphia Metro</span>
-              </div>
-              <div className="flex items-center">
-                <TrendingUp className="h-6 w-6 text-purple-600 mr-2" />
-                <span className="font-semibold">Trending: Healthcare</span>
-              </div>
-            </div>
-          </div>
+      <section className="text-center mb-12">
+        <h1 className="text-4xl font-bold text-gray-900 mb-4">Jobs in Philadelphia, PA - Hiring Immediately</h1>
+        <p className="text-lg text-gray-700 max-w-2xl mx-auto">
+          Discover immediate hiring opportunities in the historic and vibrant city of Philadelphia, Pennsylvania. The
+          "City of Brotherly Love" offers diverse roles across thriving sectors.
+        </p>
+        <Image
+          src="/philadelphia-skyline.png"
+          alt="Philadelphia city skyline"
+          width={800}
+          height={450}
+          className="w-full h-auto rounded-md mt-8 shadow-lg"
+          priority
+        />
+      </section>
+
+      <section className="mb-12">
+        <h2 className="text-3xl font-semibold text-gray-900 mb-6 text-center">Top Industries Hiring in Philadelphia</h2>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <Card>
+            <CardHeader>
+              <CardTitle>Healthcare & Life Sciences</CardTitle>
+            </CardHeader>
+            <CardContent>
+              <p>
+                Home to numerous hospitals and research institutions, Philadelphia has a robust demand for medical
+                professionals, researchers, and support staff.
+              </p>
+              <Button asChild variant="link" className="p-0 h-auto mt-2">
+                <Link href="/healthcare-jobs?location=Philadelphia">View Healthcare Jobs</Link>
+              </Button>
+            </CardContent>
+          </Card>
+          <Card>
+            <CardHeader>
+              <CardTitle>Education</CardTitle>
+            </CardHeader>
+            <CardContent>
+              <p>
+                With many universities and schools, there's a consistent need for educators, administrative staff, and
+                support roles across all levels of education.
+              </p>
+              <Button asChild variant="link" className="p-0 h-auto mt-2">
+                <Link href="/search?keywords=education&location=Philadelphia">View Education Jobs</Link>
+              </Button>
+            </CardContent>
+          </Card>
+          <Card>
+            <CardHeader>
+              <CardTitle>Tourism & Hospitality</CardTitle>
+            </CardHeader>
+            <CardContent>
+              <p>
+                As a city rich in history and attractions, Philadelphia offers numerous jobs in hotels, restaurants,
+                museums, and event management.
+              </p>
+              <Button asChild variant="link" className="p-0 h-auto mt-2">
+                <Link href="/search?keywords=hospitality&location=Philadelphia">View Hospitality Jobs</Link>
+              </Button>
+            </CardContent>
+          </Card>
+          <Card>
+            <CardHeader>
+              <CardTitle>Technology</CardTitle>
+            </CardHeader>
+            <CardContent>
+              <p>
+                Philadelphia's tech scene is growing, with opportunities in software development, IT support, and
+                digital marketing across various startups and established firms.
+              </p>
+              <Button asChild variant="link" className="p-0 h-auto mt-2">
+                <Link href="/search?keywords=tech&location=Philadelphia">View Tech Jobs</Link>
+              </Button>
+            </CardContent>
+          </Card>
+          <Card>
+            <CardHeader>
+              <CardTitle>Retail & Customer Service</CardTitle>
+            </CardHeader>
+            <CardContent>
+              <p>
+                The city's diverse neighborhoods and shopping districts provide ongoing demand for retail sales
+                associates, cashiers, and customer service representatives.
+              </p>
+              <Button asChild variant="link" className="p-0 h-auto mt-2">
+                <Link href="/retail-jobs?location=Philadelphia">View Retail Jobs</Link>
+              </Button>
+            </CardContent>
+          </Card>
+          <Card>
+            <CardHeader>
+              <CardTitle>Manufacturing & Logistics</CardTitle>
+            </CardHeader>
+            <CardContent>
+              <p>
+                With its port and strategic location, Philadelphia has a need for warehouse workers, production staff,
+                and logistics coordinators.
+              </p>
+              <Button asChild variant="link" className="p-0 h-auto mt-2">
+                <Link href="/warehouse-jobs?location=Philadelphia">View Warehouse Jobs</Link>
+              </Button>
+            </CardContent>
+          </Card>
         </div>
       </section>
 
-      <AdBanner slot="philadelphia-jobs-top" />
-
-      <section className="py-16 bg-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h2 className="text-3xl font-bold text-gray-900 mb-8">Major Philadelphia Employers Hiring Immediately</h2>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            {philadelphiaEmployers.map((employer, index) => (
-              <Card key={index} className="hover:shadow-lg transition-shadow duration-200">
-                <CardContent className="p-6">
-                  <div className="flex justify-between items-start mb-4">
-                    <h3 className="text-xl font-semibold text-gray-900">{employer.name}</h3>
-                    <span className="text-sm bg-green-100 text-green-800 px-2 py-1 rounded-full">
-                      {employer.hiring}
-                    </span>
-                  </div>
-                  <p className="text-blue-600 font-medium mb-3">{employer.jobCount} positions available</p>
-                  <div className="space-y-1">
-                    {employer.types.map((type, typeIndex) => (
-                      <span
-                        key={typeIndex}
-                        className="inline-block bg-gray-100 text-gray-700 px-2 py-1 rounded text-sm mr-2 mb-1"
-                      >
-                        {type}
-                      </span>
-                    ))}
-                  </div>
-                </CardContent>
-              </Card>
-            ))}
-          </div>
+      <section className="mb-12">
+        <h2 className="text-3xl font-semibold text-gray-900 mb-6 text-center">Why Work in Philadelphia?</h2>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <Card>
+            <CardHeader>
+              <CardTitle>Rich History & Culture</CardTitle>
+            </CardHeader>
+            <CardContent>
+              <p>
+                Immerse yourself in American history, world-class museums, vibrant arts, and a renowned culinary scene.
+              </p>
+            </CardContent>
+          </Card>
+          <Card>
+            <CardHeader>
+              <CardTitle>Affordable Major City</CardTitle>
+            </CardHeader>
+            <CardContent>
+              <p>
+                Enjoy the benefits of a major East Coast city with a more accessible cost of living compared to its
+                neighbors.
+              </p>
+            </CardContent>
+          </Card>
+          <Card>
+            <CardHeader>
+              <CardTitle>Strong Healthcare Sector</CardTitle>
+            </CardHeader>
+            <CardContent>
+              <p>
+                A hub for medical innovation and education, offering numerous opportunities in healthcare and life
+                sciences.
+              </p>
+            </CardContent>
+          </Card>
+          <Card>
+            <CardHeader>
+              <CardTitle>Excellent Public Transit</CardTitle>
+            </CardHeader>
+            <CardContent>
+              <p>Navigate the city easily with SEPTA's comprehensive network of trains, subways, and buses.</p>
+            </CardContent>
+          </Card>
         </div>
       </section>
 
-      <AdBanner slot="philadelphia-jobs-middle" />
-
-      <section className="py-16 bg-gray-50">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h2 className="text-3xl font-bold text-gray-900 mb-8">Philadelphia Job Market Overview</h2>
-
-          <div className="prose prose-lg max-w-none">
-            <p>
-              Philadelphia's robust economy, particularly in healthcare and education, provides a steady stream of
-              immediate hiring opportunities. Its rich history and vibrant culture also fuel a strong hospitality
-              sector.
-            </p>
-
-            <h3>Top Industries Hiring Immediately in Philadelphia</h3>
-            <ul>
-              <li>
-                <strong>Healthcare:</strong> Home to numerous hospitals and medical research institutions.
-              </li>
-              <li>
-                <strong>Education:</strong> Many universities and schools.
-              </li>
-              <li>
-                <strong>Hospitality & Food Service:</strong> Driven by tourism and a diverse culinary scene.
-              </li>
-            </ul>
-
-            <h3>Philadelphia Neighborhoods with High Job Availability</h3>
-            <p>Job opportunities are concentrated in several key areas of Philadelphia:</p>
-            <ul>
-              <li>
-                <strong>Center City:</strong> Retail, hospitality, and corporate roles.
-              </li>
-              <li>
-                <strong>University City:</strong> Healthcare and education-related positions.
-              </li>
-              <li>
-                <strong>Northeast Philadelphia:</strong> Industrial and retail jobs.
-              </li>
-            </ul>
-
-            <h3>Average Wages for Immediate Hiring Jobs in Philadelphia</h3>
-            <p>Philadelphia offers competitive wages for immediate hiring positions:</p>
-            <ul>
-              <li>Healthcare Support: $17-23/hour</li>
-              <li>Retail Associates: $14-18/hour</li>
-              <li>Food Service Workers: $13-16/hour + tips</li>
-            </ul>
-          </div>
-        </div>
+      <section className="mb-12">
+        <h2 className="text-3xl font-semibold text-gray-900 mb-6 text-center">
+          Frequently Asked Questions about Jobs in Philadelphia
+        </h2>
+        <FAQ faqs={faqs} />
       </section>
 
-      <AdBanner slot="philadelphia-jobs-bottom" />
-    </>
+      <div className="text-center mt-8">
+        <Button asChild size="lg">
+          <Link href="/search?location=Philadelphia">Search All Philadelphia Jobs</Link>
+        </Button>
+      </div>
+    </div>
   )
 }

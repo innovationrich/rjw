@@ -1,180 +1,265 @@
-import type { Metadata } from "next"
+import Link from "next/link"
+import Image from "next/image"
+import { Button } from "@/components/ui/button"
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { SchemaMarkup } from "@/components/schema-markup"
-import { AdBanner } from "@/components/ad-banner"
-import { MapPin, Building, TrendingUp } from "lucide-react"
-import { Card, CardContent } from "@/components/ui/card"
+import { Breadcrumb } from "@/components/breadcrumb"
+import { FAQ } from "@/components/faq"
 
-export const metadata: Metadata = {
-  title: "Jobs Hiring Immediately in San Antonio, TX - 5,400+ Positions",
+export const metadata = {
+  title: "Jobs in San Antonio, TX - Hiring Immediately",
   description:
-    "Find jobs hiring immediately in San Antonio, Texas. Over 5,400 immediate hiring opportunities in retail, hospitality, military support, and healthcare. Apply today and start working this week in San Antonio!",
-  keywords:
-    "jobs hiring immediately San Antonio TX, San Antonio jobs, immediate hiring San Antonio, retail jobs San Antonio, hospitality jobs San Antonio, healthcare jobs San Antonio, San Antonio TX jobs",
-  alternates: {
-    canonical: "/san-antonio",
+    "Find immediate hiring opportunities in San Antonio, TX. Explore various industries, job types, and companies looking for talent now.",
+  keywords: [
+    "jobs San Antonio",
+    "hiring San Antonio",
+    "San Antonio jobs immediately",
+    "San Antonio employment",
+    "jobs in Texas",
+  ],
+  openGraph: {
+    title: "Jobs in San Antonio, TX - Hiring Immediately",
+    description:
+      "Find immediate hiring opportunities in San Antonio, TX. Explore various industries, job types, and companies looking for talent now.",
+    url: "https://jobsnearmehiringimmediately.com/san-antonio",
+    siteName: "Jobs Near Me Hiring Immediately",
+    images: [
+      {
+        url: "https://jobsnearmehiringimmediately.com/public/placeholder-v7zml.png", // Placeholder image for San Antonio
+        width: 1200,
+        height: 630,
+        alt: "San Antonio Riverwalk",
+      },
+    ],
+    type: "website",
   },
-}
-
-const sanAntonioEmployers = [
-  {
-    name: "H-E-B Grocery",
-    jobCount: "700+",
-    types: ["Cashier", "Stock Clerk", "Deli Associate"],
-    hiring: "Same Day",
+  twitter: {
+    card: "summary_large_image",
+    title: "Jobs in San Antonio, TX - Hiring Immediately",
+    description:
+      "Find immediate hiring opportunities in San Antonio, TX. Explore various industries, job types, and companies looking for talent now.",
+    images: ["https://jobsnearmehiringimmediately.com/public/placeholder-v7zml.png"], // Placeholder image for San Antonio
   },
-  {
-    name: "USAA",
-    jobCount: "500+",
-    types: ["Customer Service Rep", "Claims Adjuster (Entry-Level)"],
-    hiring: "Immediate",
-  },
-  {
-    name: "Six Flags Fiesta Texas",
-    jobCount: "400+",
-    types: ["Ride Operator", "Food Service", "Retail"],
-    hiring: "Seasonal Immediate",
-  },
-]
-
-const localBusinessSchema = {
-  "@context": "https://schema.org",
-  "@type": "LocalBusiness",
-  name: "Jobs Hiring Immediately San Antonio",
-  description: "Find immediate hiring jobs in San Antonio, Texas",
-  address: {
-    "@type": "PostalAddress",
-    addressLocality: "San Antonio",
-    addressRegion: "TX",
-    addressCountry: "US",
-  },
-  geo: {
-    "@type": "GeoCoordinates",
-    latitude: 29.4241,
-    longitude: -98.4936,
-  },
-  url: "https://jobshiringnearmeimmediately.com/san-antonio",
 }
 
 export default function SanAntonioJobsPage() {
+  const faqs = [
+    {
+      question: "What are the key industries hiring in San Antonio?",
+      answer:
+        "San Antonio's economy is driven by military and defense, healthcare, tourism, cybersecurity, and manufacturing. Retail and food service also have consistent hiring needs.",
+    },
+    {
+      question: "Is San Antonio a good place for entry-level jobs?",
+      answer:
+        "Yes, San Antonio offers numerous entry-level opportunities, particularly in customer service, retail, hospitality, and administrative support, with many companies providing training.",
+    },
+    {
+      question: "What is the cost of living like in San Antonio?",
+      answer:
+        "San Antonio is known for its relatively affordable cost of living compared to other major Texas cities like Austin or Dallas, especially in terms of housing.",
+    },
+    {
+      question: "How can I find jobs hiring immediately in San Antonio?",
+      answer:
+        "Look for 'Now Hiring' signs in local businesses, check online job boards with 'immediate hire' filters, and consider temporary staffing agencies that specialize in quick placements.",
+    },
+    {
+      question: "Is public transportation widely used in San Antonio?",
+      answer:
+        "VIA Metropolitan Transit provides bus services throughout San Antonio. While many residents rely on cars, public transit is available for commuting to key areas.",
+    },
+  ]
+
+  const sanAntonioSchema = {
+    "@context": "https://schema.org",
+    "@type": "City",
+    name: "San Antonio, TX",
+    url: "https://jobsnearmehiringimmediately.com/san-antonio",
+    mainEntityOfPage: {
+      "@type": "WebPage",
+      "@id": "https://jobsnearmehiringimmediately.com/san-antonio",
+    },
+  }
+
   return (
-    <>
-      <SchemaMarkup schema={localBusinessSchema} />
+    <div className="container mx-auto px-4 py-8">
+      <SchemaMarkup schema={sanAntonioSchema} />
+      <Breadcrumb
+        items={[
+          { name: "Home", href: "/" },
+          { name: "Jobs in San Antonio", href: "/san-antonio" },
+        ]}
+      />
 
-      <section className="bg-gradient-to-br from-blue-50 to-indigo-100 py-16">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center">
-            <h1 className="text-4xl lg:text-5xl font-bold text-gray-900 mb-6">
-              Jobs Hiring Immediately in <span className="text-blue-600">San Antonio, TX</span>
-            </h1>
-            <p className="text-xl text-gray-600 mb-8 max-w-3xl mx-auto">
-              Find jobs hiring immediately in San Antonio, Texas. Over 5,400 immediate hiring opportunities in retail,
-              hospitality, military support, and healthcare. Major employers are actively recruiting for positions that
-              start this week.
-            </p>
-            <div className="flex items-center justify-center space-x-8 text-lg">
-              <div className="flex items-center">
-                <Building className="h-6 w-6 text-blue-600 mr-2" />
-                <span className="font-semibold">5,400+ Jobs</span>
-              </div>
-              <div className="flex items-center">
-                <MapPin className="h-6 w-6 text-green-600 mr-2" />
-                <span className="font-semibold">San Antonio Metro</span>
-              </div>
-              <div className="flex items-center">
-                <TrendingUp className="h-6 w-6 text-purple-600 mr-2" />
-                <span className="font-semibold">Trending: Retail & Hospitality</span>
-              </div>
-            </div>
-          </div>
+      <section className="text-center mb-12">
+        <h1 className="text-4xl font-bold text-gray-900 mb-4">Jobs in San Antonio, TX - Hiring Immediately</h1>
+        <p className="text-lg text-gray-700 max-w-2xl mx-auto">
+          Explore immediate hiring opportunities in the historic and rapidly growing city of San Antonio, Texas. Find
+          your next career in a diverse and welcoming community.
+        </p>
+        <Image
+          src="/san-antonio-riverwalk.png"
+          alt="San Antonio Riverwalk"
+          width={800}
+          height={450}
+          className="w-full h-auto rounded-md mt-8 shadow-lg"
+          priority
+        />
+      </section>
+
+      <section className="mb-12">
+        <h2 className="text-3xl font-semibold text-gray-900 mb-6 text-center">Top Industries Hiring in San Antonio</h2>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <Card>
+            <CardHeader>
+              <CardTitle>Military & Defense</CardTitle>
+            </CardHeader>
+            <CardContent>
+              <p>
+                With several major military bases, San Antonio has a strong demand for civilian support staff,
+                contractors, and cybersecurity professionals.
+              </p>
+              <Button asChild variant="link" className="p-0 h-auto mt-2">
+                <Link href="/search?keywords=defense&location=San%20Antonio">View Defense Jobs</Link>
+              </Button>
+            </CardContent>
+          </Card>
+          <Card>
+            <CardHeader>
+              <CardTitle>Healthcare</CardTitle>
+            </CardHeader>
+            <CardContent>
+              <p>
+                San Antonio is a major medical hub in South Texas, offering numerous roles for nurses, doctors, medical
+                technicians, and administrative staff.
+              </p>
+              <Button asChild variant="link" className="p-0 h-auto mt-2">
+                <Link href="/healthcare-jobs?location=San%20Antonio">View Healthcare Jobs</Link>
+              </Button>
+            </CardContent>
+          </Card>
+          <Card>
+            <CardHeader>
+              <CardTitle>Tourism & Hospitality</CardTitle>
+            </CardHeader>
+            <CardContent>
+              <p>
+                Home to the Alamo and Riverwalk, tourism is a major industry, creating demand for hotel staff,
+                restaurant workers, and attraction employees.
+              </p>
+              <Button asChild variant="link" className="p-0 h-auto mt-2">
+                <Link href="/search?keywords=hospitality&location=San%20Antonio">View Hospitality Jobs</Link>
+              </Button>
+            </CardContent>
+          </Card>
+          <Card>
+            <CardHeader>
+              <CardTitle>Cybersecurity</CardTitle>
+            </CardHeader>
+            <CardContent>
+              <p>
+                San Antonio is a growing cybersecurity hub, with opportunities in IT security, network defense, and
+                information assurance.
+              </p>
+              <Button asChild variant="link" className="p-0 h-auto mt-2">
+                <Link href="/search?keywords=cybersecurity&location=San%20Antonio">View Cybersecurity Jobs</Link>
+              </Button>
+            </CardContent>
+          </Card>
+          <Card>
+            <CardHeader>
+              <CardTitle>Manufacturing</CardTitle>
+            </CardHeader>
+            <CardContent>
+              <p>
+                The city has a significant manufacturing sector, particularly in automotive, with demand for production
+                workers, engineers, and quality control.
+              </p>
+              <Button asChild variant="link" className="p-0 h-auto mt-2">
+                <Link href="/search?keywords=manufacturing&location=San%20Antonio">View Manufacturing Jobs</Link>
+              </Button>
+            </CardContent>
+          </Card>
+          <Card>
+            <CardHeader>
+              <CardTitle>Retail & Food Service</CardTitle>
+            </CardHeader>
+            <CardContent>
+              <p>
+                With a growing population and tourist influx, retail sales associates, cashiers, servers, and cooks are
+                consistently in demand.
+              </p>
+              <Button asChild variant="link" className="p-0 h-auto mt-2">
+                <Link href="/retail-jobs?location=San%20Antonio">View Retail Jobs</Link>
+              </Button>
+            </CardContent>
+          </Card>
         </div>
       </section>
 
-      <AdBanner slot="san-antonio-jobs-top" />
-
-      <section className="py-16 bg-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h2 className="text-3xl font-bold text-gray-900 mb-8">Major San Antonio Employers Hiring Immediately</h2>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            {sanAntonioEmployers.map((employer, index) => (
-              <Card key={index} className="hover:shadow-lg transition-shadow duration-200">
-                <CardContent className="p-6">
-                  <div className="flex justify-between items-start mb-4">
-                    <h3 className="text-xl font-semibold text-gray-900">{employer.name}</h3>
-                    <span className="text-sm bg-green-100 text-green-800 px-2 py-1 rounded-full">
-                      {employer.hiring}
-                    </span>
-                  </div>
-                  <p className="text-blue-600 font-medium mb-3">{employer.jobCount} positions available</p>
-                  <div className="space-y-1">
-                    {employer.types.map((type, typeIndex) => (
-                      <span
-                        key={typeIndex}
-                        className="inline-block bg-gray-100 text-gray-700 px-2 py-1 rounded text-sm mr-2 mb-1"
-                      >
-                        {type}
-                      </span>
-                    ))}
-                  </div>
-                </CardContent>
-              </Card>
-            ))}
-          </div>
+      <section className="mb-12">
+        <h2 className="text-3xl font-semibold text-gray-900 mb-6 text-center">Why Work in San Antonio?</h2>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <Card>
+            <CardHeader>
+              <CardTitle>Affordable Living</CardTitle>
+            </CardHeader>
+            <CardContent>
+              <p>
+                San Antonio offers a lower cost of living compared to many other major U.S. cities, making it an
+                attractive place to settle.
+              </p>
+            </CardContent>
+          </Card>
+          <Card>
+            <CardHeader>
+              <CardTitle>Rich Culture & History</CardTitle>
+            </CardHeader>
+            <CardContent>
+              <p>
+                Experience a unique blend of Texan and Mexican cultures, historic sites like the Alamo, and vibrant
+                festivals.
+              </p>
+            </CardContent>
+          </Card>
+          <Card>
+            <CardHeader>
+              <CardTitle>Growing Job Market</CardTitle>
+            </CardHeader>
+            <CardContent>
+              <p>
+                The city's economy is expanding, particularly in healthcare, tech, and manufacturing, creating new job
+                opportunities.
+              </p>
+            </CardContent>
+          </Card>
+          <Card>
+            <CardHeader>
+              <CardTitle>Family-Friendly Environment</CardTitle>
+            </CardHeader>
+            <CardContent>
+              <p>
+                San Antonio is known for its family-friendly atmosphere, good schools, and numerous recreational
+                activities.
+              </p>
+            </CardContent>
+          </Card>
         </div>
       </section>
 
-      <AdBanner slot="san-antonio-jobs-middle" />
-
-      <section className="py-16 bg-gray-50">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h2 className="text-3xl font-bold text-gray-900 mb-8">San Antonio Job Market Overview</h2>
-
-          <div className="prose prose-lg max-w-none">
-            <p>
-              San Antonio's economy is diverse, with strong sectors in military, healthcare, tourism, and retail,
-              creating consistent demand for immediate hires.
-            </p>
-
-            <h3>Top Industries Hiring Immediately in San Antonio</h3>
-            <ul>
-              <li>
-                <strong>Retail & Sales:</strong> Numerous shopping centers and a growing population.
-              </li>
-              <li>
-                <strong>Hospitality & Tourism:</strong> Driven by its popular tourist attractions like the Alamo and
-                Riverwalk.
-              </li>
-              <li>
-                <strong>Healthcare:</strong> A significant number of hospitals and medical facilities.
-              </li>
-            </ul>
-
-            <h3>San Antonio Neighborhoods with High Job Availability</h3>
-            <p>Job opportunities are concentrated in several key areas of San Antonio:</p>
-            <ul>
-              <li>
-                <strong>Downtown/Riverwalk:</strong> Hospitality and retail jobs.
-              </li>
-              <li>
-                <strong>Northwest San Antonio:</strong> Retail, healthcare, and corporate offices.
-              </li>
-              <li>
-                <strong>Military Bases:</strong> Support roles for military personnel and families.
-              </li>
-            </ul>
-
-            <h3>Average Wages for Immediate Hiring Jobs in San Antonio</h3>
-            <p>San Antonio offers competitive wages for immediate hiring positions:</p>
-            <ul>
-              <li>Retail Associates: $13-17/hour</li>
-              <li>Food Service Workers: $12-15/hour + tips</li>
-              <li>Healthcare Support: $15-20/hour</li>
-            </ul>
-          </div>
-        </div>
+      <section className="mb-12">
+        <h2 className="text-3xl font-semibold text-gray-900 mb-6 text-center">
+          Frequently Asked Questions about Jobs in San Antonio
+        </h2>
+        <FAQ faqs={faqs} />
       </section>
 
-      <AdBanner slot="san-antonio-jobs-bottom" />
-    </>
+      <div className="text-center mt-8">
+        <Button asChild size="lg">
+          <Link href="/search?location=San%20Antonio">Search All San Antonio Jobs</Link>
+        </Button>
+      </div>
+    </div>
   )
 }

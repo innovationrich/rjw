@@ -1,11 +1,20 @@
+import Script from "next/script"
+
 export function GoogleAdsense() {
+  const googleAdsenseClientId = process.env.NEXT_PUBLIC_GOOGLE_ADSENSE_CLIENT_ID
+
+  if (!googleAdsenseClientId) {
+    console.warn("NEXT_PUBLIC_GOOGLE_ADSENSE_CLIENT_ID is not set. Google AdSense will not load.")
+    return null
+  }
+
   return (
     <>
-      <meta name="google-adsense-account" content="ca-pub-7250819478010326" />
-      <script
+      <Script
         async
-        src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7250819478010326"
+        src={`https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${googleAdsenseClientId}`}
         crossOrigin="anonymous"
+        strategy="afterInteractive"
       />
     </>
   )

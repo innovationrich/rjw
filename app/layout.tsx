@@ -6,58 +6,32 @@ import { Navigation } from "@/components/navigation"
 import { Footer } from "@/components/footer"
 import { GoogleAdsense } from "@/components/google-adsense"
 import { GoogleAnalytics } from "@/components/google-analytics"
-import { Suspense } from "react"
-import { SchemaMarkup } from "@/components/schema-markup"
-import { Analytics } from "@vercel/analytics/react"
 
 const inter = Inter({ subsets: ["latin"] })
 
-// WebSite Schema for the entire site
-const websiteSchema = {
-  "@context": "https://schema.org",
-  "@type": "WebSite",
-  name: "Jobs Near Me Hiring Immediately",
-  url: "https://jobsnearmehiringimmediately.com", // Updated to your actual domain
-  potentialAction: {
-    "@type": "SearchAction",
-    target: "https://jobsnearmehiringimmediately.com/search?q={search_term_string}", // Updated to your actual domain
-    "query-input": "required name=search_term_string",
-  },
-}
-
 export const metadata: Metadata = {
+  metadataBase: new URL("https://jobsnearmehiringimmediately.com"),
   title: {
-    default: "Jobs Near Me Hiring Immediately - Find Work Today",
+    default: "Jobs Near Me Hiring Immediately - Find Your Next Job Today",
     template: "%s | Jobs Near Me Hiring Immediately",
   },
   description:
-    "Find jobs near me hiring immediately. Thousands of companies are hiring today - warehouse, retail, fast food, entry-level positions with no experience required. Start your new job today!",
-  keywords:
-    "jobs hiring immediately, jobs near me, immediate hiring, no experience jobs, warehouse jobs, retail jobs, fast food jobs, entry-level jobs, remote jobs, construction jobs, part-time jobs, full-time jobs",
-  authors: [{ name: "JobsNearMeHiringImmediately.com" }],
-  creator: "JobsNearMeHiringImmediately.com",
-  publisher: "JobsNearMeHiringImmediately.com",
-  formatDetection: {
-    email: false,
-    address: false,
-    telephone: false,
-  },
-  metadataBase: new URL("https://jobsnearmehiringimmediately.com"), // Updated to your actual domain
+    "Find jobs hiring immediately near you. Explore full-time, part-time, remote, and local opportunities. Your next career starts here!",
   alternates: {
-    canonical: "https://jobsnearmehiringimmediately.com", // Updated to your actual domain
+    canonical: "/",
   },
   openGraph: {
-    title: "Jobs Near Me Hiring Immediately - Find Work Today",
+    title: "Jobs Near Me Hiring Immediately - Find Your Next Job Today",
     description:
-      "Find jobs near me hiring immediately. Thousands of companies are hiring today - warehouse, retail, fast food, entry-level positions with no experience required. Start your new job today!",
-    url: "https://jobsnearmehiringimmediately.com", // Updated to your actual domain
-    siteName: "JobsNearMeHiringImmediately.com",
+      "Find jobs hiring immediately near you. Explore full-time, part-time, remote, and local opportunities. Your next career starts here!",
+    url: "https://jobsnearmehiringimmediately.com",
+    siteName: "Jobs Near Me Hiring Immediately",
     images: [
       {
-        url: "/jobs-hiring-banner.png",
+        url: "https://jobsnearmehiringimmediately.com/jobs-hiring-banner.png", // Replace with your actual image path
         width: 1200,
         height: 630,
-        alt: "Jobs Hiring Near Me Immediately - Find Work Today",
+        alt: "Jobs Near Me Hiring Immediately Banner",
       },
     ],
     locale: "en_US",
@@ -65,10 +39,10 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Jobs Near Me Hiring Immediately - Find Work Today",
+    title: "Jobs Near Me Hiring Immediately - Find Your Next Job Today",
     description:
-      "Find jobs near me hiring immediately. Thousands of companies are hiring today - warehouse, retail, fast food, entry-level positions with no experience required. Start your new job today!",
-    images: ["/jobs-hiring-banner.png"],
+      "Find jobs hiring immediately near you. Explore full-time, part-time, remote, and local opportunities. Your next career starts here!",
+    images: ["https://jobsnearmehiringimmediately.com/jobs-hiring-banner.png"], // Replace with your actual image path
   },
   robots: {
     index: true,
@@ -82,26 +56,24 @@ export const metadata: Metadata = {
     },
   },
   verification: {
-    google: "your-google-verification-code", // REMINDER: Replace with your actual Google Search Console verification code
+    google: "YOUR_GOOGLE_SITE_VERIFICATION_CODE", // Replace with your Google Site Verification code
   },
     generator: 'v0.dev'
 }
 
-export default function RootLayout({ children }: { children: React.ReactNode }) {
+export default function RootLayout({
+  children,
+}: Readonly<{
+  children: React.ReactNode
+}>) {
   return (
     <html lang="en">
-      <head>
-        <GoogleAdsense />
-        <GoogleAnalytics />
-        <SchemaMarkup schema={websiteSchema} />
-      </head>
       <body className={inter.className}>
-        <Suspense fallback={<div>Loading...</div>}>
-          <Navigation />
-          <main className="min-h-screen">{children}</main>
-          <Footer />
-        </Suspense>
-        <Analytics />
+        <GoogleAdsense pId={process.env.NEXT_PUBLIC_GOOGLE_ADSENSE_CLIENT_ID || ""} />
+        <GoogleAnalytics gaId={process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID || ""} />
+        <Navigation />
+        <main>{children}</main>
+        <Footer />
       </body>
     </html>
   )

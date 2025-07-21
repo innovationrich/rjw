@@ -1,234 +1,258 @@
-import type { Metadata } from "next"
 import Link from "next/link"
-import { Calendar, User } from "lucide-react"
-import { Card, CardContent } from "@/components/ui/card"
-import { AdBanner } from "@/components/ad-banner"
+import Image from "next/image"
+import { Button } from "@/components/ui/button"
 import { SchemaMarkup } from "@/components/schema-markup"
-import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion"
 import { Breadcrumb } from "@/components/breadcrumb"
+import { FAQ } from "@/components/faq"
 
-export const metadata: Metadata = {
-  title: "Overnight & Night Shift Jobs Hiring Immediately Near Me",
+export const metadata = {
+  title: "Overnight & Night Shift Jobs: Opportunities and Benefits",
   description:
-    "Find overnight and night shift jobs hiring immediately in your area. Explore opportunities in warehouse, healthcare, security, and more for those who prefer working late.",
-  keywords:
-    "overnight jobs, night shift jobs, jobs hiring immediately night, immediate hiring overnight, late night jobs, third shift jobs, warehouse night jobs, security night jobs",
-  alternates: {
-    canonical: "/blog/overnight-night-shift-jobs",
+    "Explore industries offering overnight and night shift jobs. Learn about the benefits, challenges, and what employers look for in night shift workers.",
+  keywords: [
+    "overnight jobs",
+    "night shift jobs",
+    "graveyard shift",
+    "third shift",
+    "night work benefits",
+    "jobs hiring overnight",
+  ],
+  openGraph: {
+    title: "Overnight & Night Shift Jobs: Opportunities and Benefits",
+    description:
+      "Explore industries offering overnight and night shift jobs. Learn about the benefits, challenges, and what employers look for in night shift workers.",
+    url: "https://jobsnearmehiringimmediately.com/blog/overnight-night-shift-jobs",
+    siteName: "Jobs Near Me Hiring Immediately",
+    images: [
+      {
+        url: "https://jobsnearmehiringimmediately.com/public/night-work.png",
+        width: 1200,
+        height: 630,
+        alt: "Person working a night shift in a warehouse",
+      },
+    ],
+    type: "article",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Overnight & Night Shift Jobs: Opportunities and Benefits",
+    description:
+      "Explore industries offering overnight and night shift jobs. Learn about the benefits, challenges, and what employers look for in night shift workers.",
+    images: ["https://jobsnearmehiringimmediately.com/public/night-work.png"],
   },
 }
-
-const articleSchema = {
-  "@context": "https://schema.org",
-  "@type": "Article",
-  headline: "Overnight & Night Shift Jobs Hiring Immediately Near Me",
-  image: "https://jobsnearmehiringimmediately.com/images/hero-banner.png",
-  author: {
-    "@type": "Organization",
-    name: "JobsNearMeHiringImmediately.com",
-  },
-  publisher: {
-    "@type": "Organization",
-    name: "JobsNearMeHiringImmediately.com",
-    logo: {
-      "@type": "ImageObject",
-      url: "https://jobsnearmehiringimmediately.com/logo.png",
-    },
-  },
-  datePublished: "2024-07-20",
-  dateModified: "2024-07-20",
-  description:
-    "Find overnight and night shift jobs hiring immediately in your area. Explore opportunities in warehouse, healthcare, security, and more for those who prefer working late.",
-  mainEntityOfPage: {
-    "@type": "WebPage",
-    "@id": "https://jobsnearmehiringimmediately.com/blog/overnight-night-shift-jobs",
-  },
-}
-
-const breadcrumbs = [
-  { name: "Home", href: "/" },
-  { name: "Blog", href: "/blog" },
-  { name: "Overnight & Night Shift Jobs", href: "/blog/overnight-night-shift-jobs" },
-]
 
 export default function OvernightNightShiftJobsPage() {
+  const faqs = [
+    {
+      question: "What is a 'night shift' or 'overnight shift'?",
+      answer:
+        "A night shift typically refers to work hours that fall predominantly during the night, often starting in the evening (e.g., 10 PM) and ending in the morning (e.g., 6 AM). It's also known as the 'graveyard shift' or 'third shift'.",
+    },
+    {
+      question: "Do night shift jobs pay more?",
+      answer:
+        "Often, yes. Many companies offer a 'shift differential' or 'night shift premium' – an additional hourly wage or percentage increase – to compensate for working unconventional hours.",
+    },
+    {
+      question: "How can I adjust to working night shifts?",
+      answer:
+        "Maintain a consistent sleep schedule even on days off, create a dark and quiet sleep environment, limit caffeine and heavy meals before sleep, and prioritize healthy eating and exercise.",
+    },
+    {
+      question: "Are there health risks associated with night shifts?",
+      answer:
+        "Long-term night shift work can be associated with increased risks of sleep disorders, digestive issues, and cardiovascular problems. It's important to prioritize sleep and a healthy lifestyle.",
+    },
+    {
+      question: "What qualities are important for night shift workers?",
+      answer:
+        "Reliability, self-motivation, ability to work independently, strong focus, and good time management are crucial, as supervision may be less direct during these hours.",
+    },
+  ]
+
+  const articleSchema = {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    headline: "Overnight & Night Shift Jobs: Opportunities and Benefits",
+    image: "https://jobsnearmehiringimmediately.com/public/night-work.png",
+    author: {
+      "@type": "Organization",
+      name: "Jobs Near Me Hiring Immediately",
+    },
+    publisher: {
+      "@type": "Organization",
+      name: "Jobs Near Me Hiring Immediately",
+      logo: {
+        "@type": "ImageObject",
+        url: "https://jobsnearmehiringimmediately.com/public/jobs-near-me-immediately-logo.png",
+      },
+    },
+    datePublished: "2024-07-20T13:00:00+08:00",
+    dateModified: "2024-07-20T13:00:00+08:00",
+    description:
+      "Explore industries offering overnight and night shift jobs. Learn about the benefits, challenges, and what employers look for in night shift workers.",
+    mainEntityOfPage: {
+      "@type": "WebPage",
+      "@id": "https://jobsnearmehiringimmediately.com/blog/overnight-night-shift-jobs",
+    },
+  }
+
   return (
-    <>
+    <div className="container mx-auto px-4 py-8">
       <SchemaMarkup schema={articleSchema} />
-      <section className="bg-gradient-to-br from-blue-50 to-indigo-100 py-8 md:py-12">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <Breadcrumb items={breadcrumbs} />
-          <div className="text-center mt-6">
-            <h1 className="text-4xl lg:text-5xl font-bold text-gray-900 mb-6">
-              Overnight & Night Shift Jobs Hiring Immediately Near Me
-            </h1>
-            <p className="text-xl text-gray-600 mb-8 max-w-3xl mx-auto">
-              Prefer working when the world sleeps? Discover a wide range of overnight and night shift jobs hiring
-              immediately in your local area.
-            </p>
-            <div className="flex items-center justify-center text-sm text-gray-500">
-              <User className="h-4 w-4 mr-1" />
-              JobsNearMeHiringImmediately.com
-              <Calendar className="h-4 w-4 ml-4 mr-1" />
-              July 20, 2024
-            </div>
-          </div>
+      <Breadcrumb
+        items={[
+          { name: "Home", href: "/" },
+          { name: "Blog", href: "/blog" },
+          { name: "Overnight & Night Shift Jobs", href: "/blog/overnight-night-shift-jobs" },
+        ]}
+      />
+
+      <article className="max-w-3xl mx-auto bg-white p-6 rounded-lg shadow-md">
+        <h1 className="text-4xl font-bold text-center mb-6">
+          Overnight & Night Shift Jobs: Opportunities and Benefits
+        </h1>
+        <Image
+          src="/night-work.png"
+          alt="Person working a night shift in a warehouse"
+          width={800}
+          height={450}
+          className="w-full h-auto rounded-md mb-6"
+          priority
+        />
+
+        <p className="text-lg text-gray-700 mb-6">
+          For many, the idea of working while the rest of the world sleeps might seem daunting. However, overnight and
+          night shift jobs offer unique advantages, from higher pay to fewer distractions. These roles are crucial for
+          industries that operate 24/7, ensuring essential services and goods are available around the clock. If you're
+          a night owl or seeking a different work-life balance, exploring night shift opportunities could be your next
+          career move.
+        </p>
+
+        <section className="mb-8">
+          <h2 className="text-3xl font-semibold mb-4">Industries with Consistent Night Shift Needs</h2>
+          <p className="mb-4">
+            Many sectors rely heavily on a workforce that operates outside traditional 9-to-5 hours.
+          </p>
+          <ul className="list-disc list-inside space-y-2 mb-4">
+            <li>
+              <strong>Healthcare:</strong> Nurses, doctors, medical technicians, paramedics, and support staff are
+              needed 24/7 in hospitals, emergency rooms, and long-term care facilities.
+            </li>
+            <li>
+              <strong>Manufacturing & Production:</strong> Factories and plants often run multiple shifts to maximize
+              production, requiring operators, assemblers, and quality control staff overnight.
+            </li>
+            <li>
+              <strong>Logistics & Warehouse:</strong> Fulfillment centers, shipping hubs, and warehouses (like Amazon,
+              FedEx, UPS) operate continuously to sort, pack, and dispatch goods. Roles include warehouse associates,
+              forklift operators, and sorters.
+            </li>
+            <li>
+              <strong>Security Services:</strong> Security guards, surveillance operators, and patrol officers are
+              essential for protecting properties and assets during off-hours.
+            </li>
+            <li>
+              <strong>Transportation:</strong> Truck drivers, airline ground crew, train operators, and public transit
+              drivers often work night shifts to move goods and people.
+            </li>
+            <li>
+              <strong>Customer Service & Call Centers:</strong> Many global companies offer 24/7 customer support,
+              leading to a demand for night shift representatives.
+            </li>
+            <li>
+              <strong>Hospitality:</strong> Hotel front desk staff, night auditors, and some cleaning crews work
+              overnight to serve guests and prepare for the next day.
+            </li>
+            <li>
+              <strong>Emergency Services:</strong> Police, firefighters, and dispatchers are always on duty.
+            </li>
+          </ul>
+        </section>
+
+        <section className="mb-8">
+          <h2 className="text-3xl font-semibold mb-4">Benefits of Working Overnight/Night Shifts</h2>
+          <p className="mb-4">Beyond the unconventional hours, night shifts can offer several appealing advantages:</p>
+          <ul className="list-disc list-inside space-y-2 mb-4">
+            <li>
+              <strong>Higher Pay (Shift Differential):</strong> Many employers offer a higher hourly wage for night
+              shifts to incentivize employees, known as a "shift differential" or "night premium."
+            </li>
+            <li>
+              <strong>Fewer Distractions:</strong> A quieter work environment with fewer meetings and less foot traffic
+              can lead to increased focus and productivity.
+            </li>
+            <li>
+              <strong>Better Work-Life Balance for Some:</strong> Daytimes are free for appointments, errands, childcare
+              (if a partner works days), or pursuing hobbies when others are at work.
+            </li>
+            <li>
+              <strong>Reduced Commute:</strong> Less traffic during off-peak hours can mean a quicker and less stressful
+              commute.
+            </li>
+            <li>
+              <strong>Increased Independence:</strong> Often, there's less direct supervision, allowing for more
+              autonomy in completing tasks.
+            </li>
+            <li>
+              <strong>Faster Career Progression:</strong> Sometimes, there are fewer applicants for night shifts,
+              potentially making it easier to get hired or advance.
+            </li>
+          </ul>
+        </section>
+
+        <section className="mb-8">
+          <h2 className="text-3xl font-semibold mb-4">What Employers Look For in Night Shift Workers</h2>
+          <p className="mb-4">
+            Beyond the standard qualifications, certain traits are highly valued for overnight roles:
+          </p>
+          <ul className="list-disc list-inside space-y-2 mb-4">
+            <li>
+              <strong>Reliability & Punctuality:</strong> Crucial when staffing is leaner and operations depend on
+              consistent presence.
+            </li>
+            <li>
+              <strong>Self-Motivation & Independence:</strong> Ability to stay productive without constant supervision.
+            </li>
+            <li>
+              <strong>Strong Focus & Attention to Detail:</strong> Especially important in quieter environments where
+              errors might be less immediately noticed.
+            </li>
+            <li>
+              <strong>Problem-Solving Skills:</strong> Being able to handle unexpected issues independently or with
+              minimal support.
+            </li>
+            <li>
+              <strong>Adaptability:</strong> Willingness to adjust to a different sleep schedule and lifestyle.
+            </li>
+            <li>
+              <strong>Safety Consciousness:</strong> Adherence to safety protocols is always important, but especially
+              when fewer people are around.
+            </li>
+          </ul>
+        </section>
+
+        <section className="mb-8">
+          <h2 className="text-3xl font-semibold mb-4">Conclusion</h2>
+          <p className="mb-4">
+            Overnight and night shift jobs offer a viable and often rewarding career path for those who can adapt to the
+            schedule. With opportunities spanning numerous essential industries and benefits like increased pay and
+            autonomy, they present a compelling alternative to traditional daytime employment.
+          </p>
+        </section>
+
+        <section className="mb-8">
+          <h2 className="text-3xl font-semibold mb-4">FAQs about Overnight & Night Shift Jobs</h2>
+          <FAQ faqs={faqs} />
+        </section>
+
+        <div className="text-center mt-8">
+          <Button asChild>
+            <Link href="/search?jobType=full-time&keywords=night%20shift">Find Night Shift Jobs</Link>
+          </Button>
         </div>
-      </section>
-
-      <AdBanner slot="article-top" />
-
-      <section className="py-16 bg-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-1 lg:grid-cols-3 gap-12">
-          <div className="lg:col-span-2 prose prose-lg max-w-none">
-            <h2>Benefits of Working Overnight or Night Shift</h2>
-            <p>
-              Working the night shift offers unique advantages, including potentially higher pay (shift differentials),
-              fewer distractions, and the ability to manage daytime responsibilities. It's ideal for night owls,
-              students, or those with specific family needs.
-            </p>
-
-            <h2>Common Overnight & Night Shift Job Opportunities</h2>
-            <p>Many industries operate 24/7, creating a constant need for night staff:</p>
-            <ul>
-              <li>
-                <strong>Warehouse & Logistics:</strong> Distribution centers and fulfillment warehouses often have their
-                busiest operations overnight. Roles include order pickers, packers, and forklift operators.
-                <Link href="/warehouse-jobs" className="text-blue-600 hover:underline ml-2">
-                  Browse Warehouse Jobs
-                </Link>
-              </li>
-              <li>
-                <strong>Healthcare:</strong> Hospitals, nursing homes, and assisted living facilities require 24/7 care.
-                Look for positions like CNAs, nurses, and medical assistants.
-                <Link href="/healthcare-jobs" className="text-blue-600 hover:underline ml-2">
-                  Browse Healthcare Jobs
-                </Link>
-              </li>
-              <li>
-                <strong>Security:</strong> Many businesses and residential complexes need overnight security guards to
-                monitor premises.
-              </li>
-              <li>
-                <strong>Manufacturing & Factory:</strong> Production lines often run continuously, requiring night shift
-                operators and assemblers.
-              </li>
-              <li>
-                <strong>Retail (Stocking/Cleaning):</strong> Large retail stores often hire overnight staff for stocking
-                shelves, cleaning, and preparing for the next day.
-              </li>
-              <li>
-                <strong>Hospitality:</strong> Hotels need front desk agents and night auditors, while some restaurants
-                and bars have late-night shifts.
-              </li>
-            </ul>
-
-            <h2>Tips for Finding and Succeeding in Night Shift Jobs</h2>
-            <p>To maximize your chances of landing and thriving in an overnight role:</p>
-            <ol>
-              <li>
-                <strong>Adjust Your Sleep Schedule:</strong> Gradually shift your sleep patterns before starting to
-                ensure you're well-rested for your shifts.
-              </li>
-              <li>
-                <strong>Prioritize Health:</strong> Maintain a healthy diet, exercise, and ensure your sleep environment
-                is conducive to daytime rest.
-              </li>
-              <li>
-                <strong>Communicate Availability:</strong> Clearly state your preference for night shifts during the
-                application process.
-              </li>
-              <li>
-                <strong>Highlight Reliability:</strong> Emphasize your punctuality and commitment, as these are crucial
-                for roles with less direct supervision.
-              </li>
-              <li>
-                <strong>Check Transportation:</strong> Ensure you have reliable transportation for late-night or
-                early-morning commutes.
-              </li>
-            </ol>
-
-            <h2>FAQs About Overnight & Night Shift Jobs</h2>
-            <Accordion type="single" collapsible className="w-full">
-              <AccordionItem value="item-1">
-                <AccordionTrigger>Are night shift jobs paid more?</AccordionTrigger>
-                <AccordionContent>
-                  Often, yes. Many companies offer a "shift differential" or higher hourly rates for night shifts to
-                  compensate for the less conventional hours.
-                </AccordionContent>
-              </AccordionItem>
-              <AccordionItem value="item-2">
-                <AccordionTrigger>What are the typical hours for an overnight shift?</AccordionTrigger>
-                <AccordionContent>
-                  Overnight shifts typically start in the evening (e.g., 10 PM or 11 PM) and end in the morning (e.g., 6
-                  AM or 7 AM). Some may be shorter or longer depending on the role.
-                </AccordionContent>
-              </AccordionItem>
-              <AccordionItem value="item-3">
-                <AccordionTrigger>Is it hard to adjust to night shift work?</AccordionTrigger>
-                <AccordionContent>
-                  It can take some time to adjust, but many people adapt well. Establishing a consistent sleep routine
-                  and minimizing distractions during your daytime sleep are key.
-                </AccordionContent>
-              </AccordionItem>
-              <AccordionItem value="item-4">
-                <AccordionTrigger>Do I need special qualifications for night jobs?</AccordionTrigger>
-                <AccordionContent>
-                  Not necessarily. Many entry-level positions are available. Specific qualifications depend on the
-                  industry (e.g., CNA certification for healthcare, security license for security roles).
-                </AccordionContent>
-              </AccordionItem>
-            </Accordion>
-
-            <AdBanner slot="article-middle" />
-
-            <h2>Find Your Next Night Shift Opportunity</h2>
-            <p>
-              If working overnight aligns with your lifestyle, there are plenty of immediate hiring opportunities
-              waiting for you. Start your search today and embrace the unique rhythm of night work!
-            </p>
-          </div>
-
-          {/* Sidebar */}
-          <div className="lg:col-span-1">
-            <div className="sticky top-8 space-y-8">
-              <Card>
-                <CardContent className="p-6">
-                  <h3 className="text-xl font-bold text-gray-900 mb-4">Related Articles</h3>
-                  <ul className="space-y-3">
-                    <li>
-                      <Link href="/warehouse-jobs" className="text-gray-600 hover:text-blue-600 text-sm">
-                        Explore Warehouse Jobs
-                      </Link>
-                    </li>
-                    <li>
-                      <Link href="/healthcare-jobs" className="text-gray-600 hover:text-blue-600 text-sm">
-                        Browse Healthcare Jobs
-                      </Link>
-                    </li>
-                    <li>
-                      <Link href="/full-time-jobs" className="text-gray-600 hover:text-blue-600 text-sm">
-                        Discover Full-Time Opportunities
-                      </Link>
-                    </li>
-                    <li>
-                      <Link
-                        href="/blog/how-to-get-hired-in-24-hours"
-                        className="text-gray-600 hover:text-blue-600 text-sm"
-                      >
-                        How to Get Hired in 24 Hours
-                      </Link>
-                    </li>
-                  </ul>
-                </CardContent>
-              </Card>
-              <AdBanner slot="article-sidebar" />
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <AdBanner slot="article-bottom" />
-    </>
+      </article>
+    </div>
   )
 }

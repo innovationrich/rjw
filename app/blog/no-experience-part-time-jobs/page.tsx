@@ -1,234 +1,260 @@
-import type { Metadata } from "next"
 import Link from "next/link"
-import { Calendar, User } from "lucide-react"
-import { Card, CardContent } from "@/components/ui/card"
-import { AdBanner } from "@/components/ad-banner"
+import Image from "next/image"
+import { Button } from "@/components/ui/button"
 import { SchemaMarkup } from "@/components/schema-markup"
-import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion"
 import { Breadcrumb } from "@/components/breadcrumb"
+import { FAQ } from "@/components/faq"
 
-export const metadata: Metadata = {
-  title: "No Experience Part-Time Jobs Hiring Immediately Near Me",
+export const metadata = {
+  title: "No Experience Part-Time Jobs: Your Guide to Flexible Entry-Level Roles",
   description:
-    "Find part-time jobs hiring immediately near you with no experience needed. Discover entry-level opportunities in retail, fast food, warehouse, and more. Start working today!",
-  keywords:
-    "part-time jobs no experience, jobs hiring immediately no experience, entry-level part-time jobs, immediate hiring part-time, no experience needed jobs, part-time jobs near me",
-  alternates: {
-    canonical: "/blog/no-experience-part-time-jobs",
+    "Find part-time jobs that don't require prior experience. Explore industries, highlight transferable skills, and get tips for landing your first flexible role.",
+  keywords: [
+    "no experience part-time jobs",
+    "entry-level part-time",
+    "flexible jobs no experience",
+    "first part-time job",
+    "student jobs",
+    "teen jobs",
+  ],
+  openGraph: {
+    title: "No Experience Part-Time Jobs: Your Guide to Flexible Entry-Level Roles",
+    description:
+      "Find part-time jobs that don't require prior experience. Explore industries, highlight transferable skills, and get tips for landing your first flexible role.",
+    url: "https://jobsnearmehiringimmediately.com/blog/no-experience-part-time-jobs",
+    siteName: "Jobs Near Me Hiring Immediately",
+    images: [
+      {
+        url: "https://jobsnearmehiringimmediately.com/public/retail-worker-smiling.png",
+        width: 1200,
+        height: 630,
+        alt: "Smiling retail worker, suitable for part-time jobs",
+      },
+    ],
+    type: "article",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "No Experience Part-Time Jobs: Your Guide to Flexible Entry-Level Roles",
+    description:
+      "Find part-time jobs that don't require prior experience. Explore industries, highlight transferable skills, and get tips for landing your first flexible role.",
+    images: ["https://jobsnearmehiringimmediately.com/public/retail-worker-smiling.png"],
   },
 }
-
-const articleSchema = {
-  "@context": "https://schema.org",
-  "@type": "Article",
-  headline: "No Experience Part-Time Jobs Hiring Immediately Near Me",
-  image: "https://jobsnearmehiringimmediately.com/images/hero-banner.png",
-  author: {
-    "@type": "Organization",
-    name: "JobsNearMeHiringImmediately.com",
-  },
-  publisher: {
-    "@type": "Organization",
-    name: "JobsNearMeHiringImmediately.com",
-    logo: {
-      "@type": "ImageObject",
-      url: "https://jobsnearmehiringimmediately.com/logo.png",
-    },
-  },
-  datePublished: "2024-07-20",
-  dateModified: "2024-07-20",
-  description:
-    "Find part-time jobs hiring immediately near you with no experience needed. Discover entry-level opportunities in retail, fast food, warehouse, and more. Start working today!",
-  mainEntityOfPage: {
-    "@type": "WebPage",
-    "@id": "https://jobsnearmehiringimmediately.com/blog/no-experience-part-time-jobs",
-  },
-}
-
-const breadcrumbs = [
-  { name: "Home", href: "/" },
-  { name: "Blog", href: "/blog" },
-  { name: "No Experience Part-Time Jobs", href: "/blog/no-experience-part-time-jobs" },
-]
 
 export default function NoExperiencePartTimeJobsPage() {
+  const faqs = [
+    {
+      question: "What's the difference between part-time and full-time?",
+      answer:
+        "Part-time typically means working fewer than 30-35 hours per week, while full-time usually means 35-40 hours or more. Part-time roles often offer more flexibility.",
+    },
+    {
+      question: "Can I get benefits with a part-time job?",
+      answer:
+        "Some part-time jobs, especially in larger companies, may offer prorated benefits like health insurance or paid time off, but it's less common than with full-time roles.",
+    },
+    {
+      question: "How do I find part-time jobs near me?",
+      answer:
+        "Use online job boards (Indeed, Snagajob) with location filters, check local business windows for 'Now Hiring' signs, and network within your community.",
+    },
+    {
+      question: "What should I put on my resume if I have no work experience?",
+      answer:
+        "Focus on academic achievements, volunteer work, extracurricular activities, relevant coursework, and transferable skills like communication, teamwork, and reliability.",
+    },
+    {
+      question: "Are there age restrictions for part-time jobs?",
+      answer:
+        "Yes, minimum age requirements vary by state and type of job. Generally, you must be at least 14 or 16 years old, with restrictions on hours for minors.",
+    },
+  ]
+
+  const articleSchema = {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    headline: "No Experience Part-Time Jobs: Your Guide to Flexible Entry-Level Roles",
+    image: "https://jobsnearmehiringimmediately.com/public/retail-worker-smiling.png",
+    author: {
+      "@type": "Organization",
+      name: "Jobs Near Me Hiring Immediately",
+    },
+    publisher: {
+      "@type": "Organization",
+      name: "Jobs Near Me Hiring Immediately",
+      logo: {
+        "@type": "ImageObject",
+        url: "https://jobsnearmehiringimmediately.com/public/jobs-near-me-immediately-logo.png",
+      },
+    },
+    datePublished: "2024-07-20T12:00:00+08:00",
+    dateModified: "2024-07-20T12:00:00+08:00",
+    description:
+      "Find part-time jobs that don't require prior experience. Explore industries, highlight transferable skills, and get tips for landing your first flexible role.",
+    mainEntityOfPage: {
+      "@type": "WebPage",
+      "@id": "https://jobsnearmehiringimmediately.com/blog/no-experience-part-time-jobs",
+    },
+  }
+
   return (
-    <>
+    <div className="container mx-auto px-4 py-8">
       <SchemaMarkup schema={articleSchema} />
-      <section className="bg-gradient-to-br from-blue-50 to-indigo-100 py-8 md:py-12">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <Breadcrumb items={breadcrumbs} />
-          <div className="text-center mt-6">
-            <h1 className="text-4xl lg:text-5xl font-bold text-gray-900 mb-6">
-              No Experience Part-Time Jobs Hiring Immediately Near Me
-            </h1>
-            <p className="text-xl text-gray-600 mb-8 max-w-3xl mx-auto">
-              Looking for flexible work that starts now, even without prior experience? Discover the best part-time
-              opportunities hiring immediately in your area.
-            </p>
-            <div className="flex items-center justify-center text-sm text-gray-500">
-              <User className="h-4 w-4 mr-1" />
-              JobsNearMeHiringImmediately.com
-              <Calendar className="h-4 w-4 ml-4 mr-1" />
-              July 20, 2024
-            </div>
-          </div>
+      <Breadcrumb
+        items={[
+          { name: "Home", href: "/" },
+          { name: "Blog", href: "/blog" },
+          { name: "No Experience Part-Time Jobs", href: "/blog/no-experience-part-time-jobs" },
+        ]}
+      />
+
+      <article className="max-w-3xl mx-auto bg-white p-6 rounded-lg shadow-md">
+        <h1 className="text-4xl font-bold text-center mb-6">
+          No Experience Part-Time Jobs: Your Guide to Flexible Entry-Level Roles
+        </h1>
+        <Image
+          src="/retail-worker-smiling.png"
+          alt="Smiling retail worker, suitable for part-time jobs"
+          width={800}
+          height={450}
+          className="w-full h-auto rounded-md mb-6"
+          priority
+        />
+
+        <p className="text-lg text-gray-700 mb-6">
+          Whether you're a student, a parent, or simply looking for supplemental income, part-time jobs offer
+          flexibility and a pathway into the workforce. The great news is that many part-time roles don't require prior
+          experience, making them perfect for those just starting out. This guide will help you discover these
+          opportunities and equip you with tips to land your first flexible role.
+        </p>
+
+        <section className="mb-8">
+          <h2 className="text-3xl font-semibold mb-4">Industries with No-Experience Part-Time Roles</h2>
+          <p className="mb-4">
+            Several sectors are consistently in need of part-time staff and are often willing to train new hires.
+          </p>
+          <ul className="list-disc list-inside space-y-2 mb-4">
+            <li>
+              <strong>Retail:</strong> Sales associate, cashier, stock clerk, fitting room attendant. These roles are
+              often flexible and focus on customer service and basic store operations.
+            </li>
+            <li>
+              <strong>Food Service:</strong> Barista, server, host/hostess, busser, kitchen helper, delivery driver.
+              High demand for part-time staff, especially during peak hours.
+            </li>
+            <li>
+              <strong>Customer Service:</strong> Call center agent, online chat support, front desk receptionist. Many
+              companies offer comprehensive training for these communication-focused roles.
+            </li>
+            <li>
+              <strong>Hospitality:</strong> Hotel front desk, housekeeping, event staff. Often seasonal or weekend
+              heavy, ideal for flexible schedules.
+            </li>
+            <li>
+              <strong>General Labor:</strong> Landscaping assistant, cleaner, warehouse packer/sorter, dog walker, pet
+              sitter. These roles value reliability and physical capability.
+            </li>
+            <li>
+              <strong>Childcare:</strong> Babysitter, after-school program assistant. Often requires a background check
+              and a genuine interest in working with children.
+            </li>
+            <li>
+              <strong>Tutoring/Teaching Assistant:</strong> If you excel in a particular subject, you might find
+              part-time tutoring gigs, especially for younger students.
+            </li>
+          </ul>
+        </section>
+
+        <section className="mb-8">
+          <h2 className="text-3xl font-semibold mb-4">Skills to Highlight (Even Without Experience)</h2>
+          <p className="mb-4">
+            Even if you haven't had a formal job, you've developed valuable skills through school, volunteering, or
+            personal projects.
+          </p>
+          <ul className="list-disc list-inside space-y-2 mb-4">
+            <li>
+              <strong>Reliability & Punctuality:</strong> Show you can be counted on to show up on time and complete
+              tasks.
+            </li>
+            <li>
+              <strong>Strong Work Ethic:</strong> Demonstrate your willingness to learn, take initiative, and put in
+              effort.
+            </li>
+            <li>
+              <strong>Communication Skills:</strong> Ability to listen, speak clearly, and interact politely with
+              customers or colleagues.
+            </li>
+            <li>
+              <strong>Teamwork:</strong> Experience collaborating in school projects, sports, or group activities.
+            </li>
+            <li>
+              <strong>Problem-Solving:</strong> How you've handled challenges or found solutions in everyday situations.
+            </li>
+            <li>
+              <strong>Adaptability:</strong> Your ability to learn new tasks quickly and adjust to different situations.
+            </li>
+            <li>
+              <strong>Basic Math & Computer Skills:</strong> Essential for many retail and administrative roles.
+            </li>
+          </ul>
+        </section>
+
+        <section className="mb-8">
+          <h2 className="text-3xl font-semibold mb-4">Tips for Finding and Landing No-Experience Part-Time Jobs</h2>
+          <ul className="list-disc list-inside space-y-2 mb-4">
+            <li>
+              <strong>Tailor Your Resume:</strong> Focus on your education, relevant coursework, volunteer experience,
+              and extracurricular activities. Highlight the transferable skills mentioned above.
+            </li>
+            <li>
+              <strong>Write a Compelling Cover Letter:</strong> Use it to explain your interest in the specific role and
+              company, and how your enthusiasm and transferable skills make you a great fit, despite lacking formal
+              experience.
+            </li>
+            <li>
+              <strong>Network:</strong> Tell friends, family, teachers, and mentors that you're looking for a part-time
+              job. Personal connections can often lead to opportunities.
+            </li>
+            <li>
+              <strong>Walk-in Applications:</strong> For retail and food service, sometimes walking in with a resume and
+              asking to speak to a manager can lead to an on-the-spot interview.
+            </li>
+            <li>
+              <strong>Online Job Boards:</strong> Use filters for "part-time" and "entry-level" on sites like Indeed,
+              Snagajob, and LinkedIn.
+            </li>
+            <li>
+              <strong>Be Prepared for an Interview:</strong> Practice answering common questions about your
+              availability, strengths, weaknesses, and why you want the job. Show enthusiasm and a positive attitude.
+            </li>
+            <li>
+              <strong>Highlight Availability:</strong> Clearly state your availability and flexibility, as this is a
+              major plus for part-time roles.
+            </li>
+          </ul>
+        </section>
+
+        <section className="mb-8">
+          <h2 className="text-3xl font-semibold mb-4">Conclusion</h2>
+          <p className="mb-4">
+            Don't let a lack of experience deter you from seeking part-time employment. With the right approach,
+            focusing on your strengths, and targeting the right industries, you can successfully find a flexible role
+            that fits your needs and helps you gain valuable work experience.
+          </p>
+        </section>
+
+        <section className="mb-8">
+          <h2 className="text-3xl font-semibold mb-4">FAQs about No Experience Part-Time Jobs</h2>
+          <FAQ faqs={faqs} />
+        </section>
+
+        <div className="text-center mt-8">
+          <Button asChild>
+            <Link href="/part-time-jobs">Explore Part-Time Jobs</Link>
+          </Button>
         </div>
-      </section>
-
-      <AdBanner slot="article-top" />
-
-      <section className="py-16 bg-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-1 lg:grid-cols-3 gap-12">
-          <div className="lg:col-span-2 prose prose-lg max-w-none">
-            <h2>Why Choose Part-Time Jobs with No Experience?</h2>
-            <p>
-              Part-time jobs are an excellent way to gain experience, earn income, and maintain flexibility. For those
-              new to the workforce, students, or individuals looking for supplemental income, these roles offer a low
-              barrier to entry and often provide on-the-job training. The demand for immediate hiring in these sectors
-              means you can start earning quickly.
-            </p>
-
-            <h2>Top Industries Hiring Immediately with No Experience</h2>
-            <p>Several sectors are consistently looking for part-time help and are willing to train new employees:</p>
-            <ul>
-              <li>
-                <strong>Retail:</strong> Many stores need sales associates, stockers, and cashiers, especially during
-                peak seasons.
-                <Link href="/retail-jobs" className="text-blue-600 hover:underline ml-2">
-                  Browse Retail Jobs
-                </Link>
-              </li>
-              <li>
-                <strong>Fast Food & Restaurants:</strong> High turnover and constant demand make these ideal for quick
-                hires. Roles include crew members, servers, and kitchen staff.
-                <Link href="/fast-food-jobs" className="text-blue-600 hover:underline ml-2">
-                  Browse Fast Food Jobs
-                </Link>
-              </li>
-              <li>
-                <strong>Warehouse & Logistics:</strong> Entry-level positions like package handlers, sorters, and
-                loaders are often available with minimal requirements.
-                <Link href="/warehouse-jobs" className="text-blue-600 hover:underline ml-2">
-                  Browse Warehouse Jobs
-                </Link>
-              </li>
-              <li>
-                <strong>Customer Service:</strong> Call centers and online support roles sometimes offer part-time,
-                entry-level positions, some even remote.
-              </li>
-              <li>
-                <strong>Gig Economy:</strong> Delivery driving, ride-sharing, and freelance tasks offer ultimate
-                flexibility and immediate start.
-              </li>
-            </ul>
-
-            <h2>How to Land a Part-Time Job with No Experience</h2>
-            <p>Even without experience, you can make a strong impression:</p>
-            <ol>
-              <li>
-                <strong>Highlight Transferable Skills:</strong> Focus on soft skills like reliability, punctuality,
-                communication, teamwork, and a willingness to learn.
-              </li>
-              <li>
-                <strong>Tailor Your Resume:</strong> Even if it's short, make sure it's clean, error-free, and
-                highlights any relevant volunteer work, school projects, or extracurricular activities.
-              </li>
-              <li>
-                <strong>Prepare for the Interview:</strong> Research the company, dress appropriately, and be ready to
-                discuss why you're a good fit and eager to learn.
-              </li>
-              <li>
-                <strong>Be Flexible:</strong> Show willingness to work various shifts, including evenings or weekends,
-                as this can be a major advantage for part-time roles.
-              </li>
-              <li>
-                <strong>Apply Widely:</strong> Don't put all your eggs in one basket. Apply to multiple positions that
-                interest you.
-              </li>
-            </ol>
-
-            <h2>FAQs About No Experience Part-Time Jobs</h2>
-            <Accordion type="single" collapsible className="w-full">
-              <AccordionItem value="item-1">
-                <AccordionTrigger>What kind of part-time jobs can I get without experience?</AccordionTrigger>
-                <AccordionContent>
-                  Common roles include retail associate, fast food crew member, warehouse worker, delivery driver,
-                  customer service representative, and general labor.
-                </AccordionContent>
-              </AccordionItem>
-              <AccordionItem value="item-2">
-                <AccordionTrigger>How quickly can I get hired for these jobs?</AccordionTrigger>
-                <AccordionContent>
-                  Many companies in these sectors offer immediate hiring processes, sometimes even same-day interviews
-                  and offers, especially for high-demand roles.
-                </AccordionContent>
-              </AccordionItem>
-              <AccordionItem value="item-3">
-                <AccordionTrigger>Do I need a resume for these jobs?</AccordionTrigger>
-                <AccordionContent>
-                  While some might hire without one, having a basic resume that highlights your contact information,
-                  education, and any transferable skills (like teamwork or communication) is always beneficial.
-                </AccordionContent>
-              </AccordionItem>
-              <AccordionItem value="item-4">
-                <AccordionTrigger>Are these jobs flexible?</AccordionTrigger>
-                <AccordionContent>
-                  Many part-time roles offer flexible scheduling, making them ideal for students or those with other
-                  commitments. Be sure to discuss your availability during the application process.
-                </AccordionContent>
-              </AccordionItem>
-            </Accordion>
-
-            <AdBanner slot="article-middle" />
-
-            <h2>Ready to Start Your Part-Time Career?</h2>
-            <p>
-              Don't let a lack of experience hold you back. There are countless opportunities for immediate part-time
-              work. Start exploring our listings today and take the first step towards your new job!
-            </p>
-          </div>
-
-          {/* Sidebar */}
-          <div className="lg:col-span-1">
-            <div className="sticky top-8 space-y-8">
-              <Card>
-                <CardContent className="p-6">
-                  <h3 className="text-xl font-bold text-gray-900 mb-4">Related Articles</h3>
-                  <ul className="space-y-3">
-                    <li>
-                      <Link href="/blog/jobs-with-no-experience" className="text-gray-600 hover:text-blue-600 text-sm">
-                        Tips for Landing a Job with No Experience
-                      </Link>
-                    </li>
-                    <li>
-                      <Link
-                        href="/blog/how-to-get-hired-in-24-hours"
-                        className="text-gray-600 hover:text-blue-600 text-sm"
-                      >
-                        How to Get Hired in 24 Hours: A Complete Guide
-                      </Link>
-                    </li>
-                    <li>
-                      <Link href="/part-time-jobs" className="text-gray-600 hover:text-blue-600 text-sm">
-                        Browse All Part-Time Jobs
-                      </Link>
-                    </li>
-                    <li>
-                      <Link href="/entry-level-jobs" className="text-gray-600 hover:text-blue-600 text-sm">
-                        Explore Entry-Level Jobs
-                      </Link>
-                    </li>
-                  </ul>
-                </CardContent>
-              </Card>
-              <AdBanner slot="article-sidebar" />
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <AdBanner slot="article-bottom" />
-    </>
+      </article>
+    </div>
   )
 }

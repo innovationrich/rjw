@@ -1,111 +1,135 @@
 import Link from "next/link"
-import { Briefcase, Facebook, Twitter, Linkedin } from "lucide-react"
+import Image from "next/image"
 
 export function Footer() {
   return (
-    <footer className="bg-gray-900 text-white">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
-          {/* Brand */}
-          <div className="col-span-1 md:col-span-2">
-            <div className="flex items-center space-x-2 mb-4">
-              <Briefcase className="h-8 w-8 text-blue-400" />
-              <span className="font-bold text-xl">JobsNearMeHiringImmediately.com</span>
-            </div>
-            <p className="text-gray-300 mb-4 max-w-md">
-              Find jobs hiring near you immediately. We connect job seekers with employers looking to hire today across
-              all industries and experience levels.
-            </p>
-            <div className="flex space-x-4">
-              <Facebook className="h-6 w-6 text-gray-400 hover:text-white cursor-pointer" />
-              <Twitter className="h-6 w-6 text-gray-400 hover:text-white cursor-pointer" />
-              <Linkedin className="h-6 w-6 text-gray-400 hover:text-white cursor-pointer" />
-            </div>
-          </div>
-
-          {/* Job Categories */}
-          <div>
-            <h3 className="font-semibold text-lg mb-4">Job Categories</h3>
-            <ul className="space-y-2">
-              <li>
-                <Link href="/warehouse-jobs" className="text-gray-300 hover:text-white">
-                  Warehouse Jobs
-                </Link>
-              </li>
-              <li>
-                <Link href="/retail-jobs" className="text-gray-300 hover:text-white">
-                  Retail Jobs
-                </Link>
-              </li>
-              <li>
-                <Link href="/fast-food-jobs" className="text-gray-300 hover:text-white">
-                  Fast Food Jobs
-                </Link>
-              </li>
-              <li>
-                <Link href="/entry-level-jobs" className="text-gray-300 hover:text-white">
-                  Entry Level Jobs
-                </Link>
-              </li>
-              <li>
-                <Link href="/remote-jobs" className="text-gray-300 hover:text-white">
-                  Remote Jobs
-                </Link>
-              </li>
-              <li>
-                <Link href="/construction-jobs" className="text-gray-300 hover:text-white">
-                  Construction Jobs
-                </Link>
-              </li>
-            </ul>
-          </div>
-
-          {/* Company */}
-          <div>
-            <h3 className="font-semibold text-lg mb-4">Company</h3>
-            <ul className="space-y-2">
-              <li>
-                <Link href="/about" className="text-gray-300 hover:text-white">
-                  About Us
-                </Link>
-              </li>
-              <li>
-                <Link href="/blog" className="text-gray-300 hover:text-white">
-                  Blog
-                </Link>
-              </li>
-              <li>
-                <Link href="/faq" className="text-gray-300 hover:text-white">
-                  FAQ
-                </Link>
-              </li>
-              <li>
-                <Link href="/contact" className="text-gray-300 hover:text-white">
-                  Contact
-                </Link>
-              </li>
-              <li>
-                <Link href="/sitemap" className="text-gray-300 hover:text-white">
-                  Sitemap
-                </Link>
-              </li>
-            </ul>
-          </div>
+    <footer className="bg-gray-900 text-gray-300 py-10">
+      <div className="container mx-auto px-4 grid grid-cols-1 md:grid-cols-4 gap-8">
+        <div className="col-span-1">
+          <Link href="/" className="flex items-center mb-4">
+            <Image
+              src="/jobs-near-me-immediately-logo.png"
+              alt="Jobs Near Me Immediately Logo"
+              width={40}
+              height={40}
+              className="mr-2"
+            />
+            <span className="text-xl font-bold text-white">Jobs Near Me</span>
+          </Link>
+          <p className="text-sm">Your go-to source for finding immediate hiring opportunities in your local area.</p>
         </div>
 
-        <div className="border-t border-gray-800 mt-8 pt-8">
-          <div className="flex flex-col md:flex-row justify-between items-center">
-            <p className="text-gray-400 text-sm">© 2024 Jobs Hiring Near Me Immediately. All rights reserved.</p>
-            <div className="flex space-x-6 mt-4 md:mt-0">
-              <Link href="/privacy" className="text-gray-400 hover:text-white text-sm">
+        <div className="col-span-1">
+          <h3 className="text-lg font-semibold text-white mb-4">Job Categories</h3>
+          <ul className="space-y-2">
+            <li>
+              <Link href="/full-time-jobs" className="hover:text-white transition-colors">
+                Full-Time Jobs
+              </Link>
+            </li>
+            <li>
+              <Link href="/part-time-jobs" className="hover:text-white transition-colors">
+                Part-Time Jobs
+              </Link>
+            </li>
+            <li>
+              <Link href="/entry-level-jobs" className="hover:text-white transition-colors">
+                Entry-Level Jobs
+              </Link>
+            </li>
+            <li>
+              <Link href="/remote-jobs" className="hover:text-white transition-colors">
+                Remote Jobs
+              </Link>
+            </li>
+            <li>
+              <Link href="/warehouse-jobs" className="hover:text-white transition-colors">
+                Warehouse Jobs
+              </Link>
+            </li>
+            <li>
+              <Link href="/retail-jobs" className="hover:text-white transition-colors">
+                Retail Jobs
+              </Link>
+            </li>
+          </ul>
+        </div>
+
+        <div className="col-span-1">
+          <h3 className="text-lg font-semibold text-white mb-4">Popular Cities</h3>
+          <ul className="space-y-2">
+            <li>
+              <Link href="/houston" className="hover:text-white transition-colors">
+                Houston Jobs
+              </Link>
+            </li>
+            <li>
+              <Link href="/chicago" className="hover:text-white transition-colors">
+                Chicago Jobs
+              </Link>
+            </li>
+            <li>
+              <Link href="/atlanta" className="hover:text-white transition-colors">
+                Atlanta Jobs
+              </Link>
+            </li>
+            <li>
+              <Link href="/phoenix" className="hover:text-white transition-colors">
+                Phoenix Jobs
+              </Link>
+            </li>
+            <li>
+              <Link href="/philadelphia" className="hover:text-white transition-colors">
+                Philadelphia Jobs
+              </Link>
+            </li>
+            <li>
+              <Link href="/san-antonio" className="hover:text-white transition-colors">
+                San Antonio Jobs
+              </Link>
+            </li>
+          </ul>
+        </div>
+
+        <div className="col-span-1">
+          <h3 className="text-lg font-semibold text-white mb-4">Quick Links</h3>
+          <ul className="space-y-2">
+            <li>
+              <Link href="/search" className="hover:text-white transition-colors">
+                Job Search
+              </Link>
+            </li>
+            <li>
+              <Link href="/blog" className="hover:text-white transition-colors">
+                Blog
+              </Link>
+            </li>
+            <li>
+              <Link href="/about" className="hover:text-white transition-colors">
+                About Us
+              </Link>
+            </li>
+            <li>
+              <Link href="/contact" className="hover:text-white transition-colors">
+                Contact
+              </Link>
+            </li>
+            <li>
+              <Link href="/privacy-policy" className="hover:text-white transition-colors">
                 Privacy Policy
               </Link>
-              <Link href="/terms" className="text-gray-400 hover:text-white text-sm">
-                Terms of Use
+            </li>
+            <li>
+              <Link href="/terms-of-service" className="hover:text-white transition-colors">
+                Terms of Service
               </Link>
-            </div>
-          </div>
+            </li>
+          </ul>
         </div>
+      </div>
+
+      <div className="border-t border-gray-700 mt-8 pt-6 text-center text-sm">
+        <p>&copy; {new Date().getFullYear()} Jobs Near Me Immediately. All rights reserved.</p>
       </div>
     </footer>
   )

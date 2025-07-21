@@ -1,102 +1,108 @@
+import type React from "react"
 import Link from "next/link"
-import { Truck, ShoppingBag, Utensils, Users, Home, Building, Clock, Briefcase } from "lucide-react"
-import { Card, CardContent } from "@/components/ui/card"
-
-const categories = [
-  {
-    title: "Warehouse Jobs",
-    description: "Immediate hiring for warehouse workers, packers, and forklift operators",
-    icon: Truck,
-    href: "/warehouse-jobs",
-    count: "8,100+ jobs",
-  },
-  {
-    title: "Retail Jobs",
-    description: "Sales associates, cashiers, and customer service positions",
-    icon: ShoppingBag,
-    href: "/retail-jobs",
-    count: "1,300+ jobs",
-  },
-  {
-    title: "Fast Food Jobs",
-    description: "Restaurant crew, cooks, and shift managers hiring today",
-    icon: Utensils,
-    href: "/fast-food-jobs",
-    count: "880+ jobs",
-  },
-  {
-    title: "Entry Level Jobs",
-    description: "No experience required - perfect for first-time job seekers",
-    icon: Users,
-    href: "/entry-level-jobs",
-    count: "480+ jobs",
-  },
-  {
-    title: "Remote Jobs",
-    description: "Work from home opportunities with immediate start dates",
-    icon: Home,
-    href: "/remote-jobs",
-    count: "2,400+ jobs",
-  },
-  {
-    title: "Construction Jobs",
-    description: "Construction workers, laborers, and skilled trades",
-    icon: Building,
-    href: "/construction-jobs",
-    count: "880+ jobs",
-  },
-  {
-    title: "Part Time Jobs",
-    description: "Flexible hours for students, parents, or supplemental income",
-    icon: Clock,
-    href: "/part-time-jobs",
-    count: "2,900+ jobs",
-  },
-  {
-    title: "Full Time Jobs",
-    description: "Stable employment with competitive salaries and benefits",
-    icon: Briefcase,
-    href: "/full-time-jobs",
-    count: "6,600+ jobs",
-  },
-]
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
+import { Button } from "@/components/ui/button"
+import { Briefcase, Factory, ShoppingBag, HeartPulse, Utensils, Hammer, Clock, Users } from "lucide-react"
 
 export function JobCategories() {
-  return (
-    <section className="py-16 bg-white">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-12">
-          <h2 className="text-3xl font-bold text-gray-900 mb-4">Popular Job Categories Hiring Immediately</h2>
-          <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-            Browse jobs by category to find immediate hiring opportunities in your field. Many positions offer same-day
-            interviews and quick start dates.
-          </p>
-        </div>
+  const categories = [
+    {
+      title: "Full-Time Jobs",
+      description: "Stable, long-term career opportunities.",
+      icon: <Briefcase className="h-6 w-6 text-blue-600" />,
+      link: "/full-time-jobs",
+    },
+    {
+      title: "Part-Time Jobs",
+      description: "Flexible work options to fit your schedule.",
+      icon: <Clock className="h-6 w-6 text-green-600" />,
+      link: "/part-time-jobs",
+    },
+    {
+      title: "Entry-Level Jobs",
+      description: "Roles that require no prior experience.",
+      icon: <Users className="h-6 w-6 text-purple-600" />,
+      link: "/entry-level-jobs",
+    },
+    {
+      title: "Remote Jobs",
+      description: "Work from anywhere with these virtual opportunities.",
+      icon: <MapPinIcon className="h-6 w-6 text-red-600" />,
+      link: "/remote-jobs",
+    },
+    {
+      title: "Warehouse Jobs",
+      description: "Jobs in logistics, fulfillment, and distribution centers.",
+      icon: <Factory className="h-6 w-6 text-yellow-600" />,
+      link: "/warehouse-jobs",
+    },
+    {
+      title: "Retail Jobs",
+      description: "Opportunities in sales, customer service, and store operations.",
+      icon: <ShoppingBag className="h-6 w-6 text-indigo-600" />,
+      link: "/retail-jobs",
+    },
+    {
+      title: "Healthcare Jobs",
+      description: "Roles in hospitals, clinics, and medical facilities.",
+      icon: <HeartPulse className="h-6 w-6 text-pink-600" />,
+      link: "/healthcare-jobs",
+    },
+    {
+      title: "Fast Food Jobs",
+      description: "Quick-service restaurant positions with immediate openings.",
+      icon: <Utensils className="h-6 w-6 text-orange-600" />,
+      link: "/fast-food-jobs",
+    },
+    {
+      title: "Construction Jobs",
+      description: "Build your career in the construction industry.",
+      icon: <Hammer className="h-6 w-6 text-brown-600" />,
+      link: "/construction-jobs",
+    },
+  ]
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {categories.map((category) => {
-            const Icon = category.icon
-            return (
-              <Link key={category.title} href={category.href}>
-                <Card className="h-full hover:shadow-lg transition-shadow duration-200 cursor-pointer">
-                  <CardContent className="p-6">
-                    <div className="flex items-center mb-4">
-                      <div className="p-3 bg-blue-100 rounded-lg mr-4">
-                        <Icon className="h-6 w-6 text-blue-600" />
-                      </div>
-                      <div>
-                        <h3 className="text-xl font-semibold text-gray-900">{category.title}</h3>
-                        <p className="text-sm text-blue-600 font-medium">{category.count}</p>
-                      </div>
-                    </div>
-                    <p className="text-gray-600">{category.description}</p>
-                  </CardContent>
-                </Card>
-              </Link>
-            )
-          })}
+  return (
+    <section className="py-12 bg-white">
+      <div className="container mx-auto px-4">
+        <h2 className="text-3xl font-bold text-center mb-8">Browse Jobs by Category</h2>
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          {categories.map((category) => (
+            <Card key={category.title} className="flex flex-col items-center text-center p-6">
+              <div className="mb-4">{category.icon}</div>
+              <CardHeader>
+                <CardTitle className="text-xl">{category.title}</CardTitle>
+              </CardHeader>
+              <CardContent className="flex-grow">
+                <p className="text-gray-600">{category.description}</p>
+              </CardContent>
+              <Button asChild variant="outline" className="mt-4 bg-transparent">
+                <Link href={category.link}>View Jobs</Link>
+              </Button>
+            </Card>
+          ))}
         </div>
       </div>
     </section>
+  )
+}
+
+function MapPinIcon(props: React.SVGProps<SVGSVGElement>) {
+  return (
+    <svg
+      {...props}
+      xmlns="http://www.w3.org/2000/svg"
+      width="24"
+      height="24"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    >
+      <path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z" />
+      <circle cx="12" cy="10" r="3" />
+    </svg>
   )
 }

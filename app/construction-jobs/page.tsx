@@ -1,287 +1,266 @@
-import type { Metadata } from "next"
-import { SchemaMarkup } from "@/components/schema-markup"
-import { AdBanner } from "@/components/ad-banner"
-import { Building, MapPin, Clock, DollarSign } from "lucide-react"
-import { Card, CardContent } from "@/components/ui/card"
+import Link from "next/link"
+import Image from "next/image"
 import { Button } from "@/components/ui/button"
-import { Badge } from "@/components/ui/badge"
-import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion"
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
+import { SchemaMarkup } from "@/components/schema-markup"
+import { Breadcrumb } from "@/components/breadcrumb"
+import { FAQ } from "@/components/faq"
 
-export const metadata: Metadata = {
-  title: "Construction Jobs Hiring Near Me Immediately - Build Your Career",
+export const metadata = {
+  title: "Construction Jobs Hiring Immediately Near Me",
   description:
-    "Find construction jobs hiring immediately near you. Explore opportunities for laborers, skilled trades, and project support roles. Many positions offer competitive pay and immediate start dates. Start building your career in construction today!",
-  keywords:
-    "construction jobs near me hiring immediately, construction jobs hiring immediately, laborer jobs, skilled trades, immediate construction jobs, no experience construction jobs",
-  alternates: {
-    canonical: "/construction-jobs",
+    "Find construction jobs hiring immediately. Explore roles like general laborer, carpenter, and electrician with competitive pay and growth opportunities.",
+  keywords: [
+    "construction jobs",
+    "hiring immediately construction",
+    "general laborer jobs",
+    "carpenter jobs",
+    "electrician jobs",
+    "construction worker",
+  ],
+  openGraph: {
+    title: "Construction Jobs Hiring Immediately Near Me",
+    description:
+      "Find construction jobs hiring immediately. Explore roles like general laborer, carpenter, and electrician with competitive pay and growth opportunities.",
+    url: "https://jobsnearmehiringimmediately.com/construction-jobs",
+    siteName: "Jobs Near Me Hiring Immediately",
+    images: [
+      {
+        url: "https://jobsnearmehiringimmediately.com/public/placeholder-v7zml.png", // Placeholder image for construction
+        width: 1200,
+        height: 630,
+        alt: "Construction workers on a job site",
+      },
+    ],
+    type: "website",
   },
-}
-
-const constructionJobs = [
-  {
-    title: "Construction Laborer",
-    company: "City Builders Inc.",
-    location: "Houston, TX",
-    salary: "$18-25/hour",
-    type: "Full-time",
-    description: "Assist with various tasks on construction sites, including site prep and material handling.",
-    requirements: ["Ability to lift heavy objects", "Reliable transportation", "Safety-conscious"],
-    urgent: true,
-  },
-  {
-    title: "General Handyman",
-    company: "Rapid Repair Services",
-    location: "Phoenix, AZ",
-    salary: "$20-30/hour",
-    type: "Full-time",
-    description: "Perform general maintenance and repair tasks for residential and commercial properties.",
-    requirements: ["Basic tool knowledge", "Problem-solving skills", "Valid driver's license"],
-    urgent: false,
-  },
-]
-
-const jobPostingSchema = {
-  "@context": "https://schema.org",
-  "@type": "JobPosting",
-  title: "Construction Jobs Hiring Immediately",
-  description: "Find construction jobs hiring immediately near you.",
-  datePosted: new Date().toISOString(),
-  employmentType: ["FULL_TIME", "PART_TIME"],
-  hiringOrganization: {
-    "@type": "Organization",
-    name: "Jobs Hiring Near Me Immediately",
-  },
-  jobLocation: {
-    "@type": "Place",
-    address: {
-      "@type": "PostalAddress",
-      addressCountry: "US",
-    },
-  },
-  baseSalary: {
-    "@type": "MonetaryAmount",
-    currency: "USD",
-    value: {
-      "@type": "QuantitativeValue",
-      minValue: 18,
-      maxValue: 30,
-      unitText: "HOUR",
-    },
+  twitter: {
+    card: "summary_large_image",
+    title: "Construction Jobs Hiring Immediately Near Me",
+    description:
+      "Find construction jobs hiring immediately. Explore roles like general laborer, carpenter, and electrician with competitive pay and growth opportunities.",
+    images: ["https://jobsnearmehiringimmediately.com/public/placeholder-v7zml.png"],
   },
 }
 
 export default function ConstructionJobsPage() {
+  const faqs = [
+    {
+      question: "What are the most common entry-level construction jobs?",
+      answer:
+        "General Laborer is the most common entry-level role, involving tasks like site cleanup, material handling, and assisting skilled trades. Apprenticeships are also a great entry point.",
+    },
+    {
+      question: "Do I need specific training or certifications for construction jobs?",
+      answer:
+        "For entry-level labor, often no specific certification is needed beyond basic safety training (like OSHA 10). Skilled trades (e.g., electrician, plumber) require apprenticeships, licenses, or certifications.",
+    },
+    {
+      question: "Are construction jobs physically demanding?",
+      answer:
+        "Yes, most construction jobs are physically demanding, involving heavy lifting, standing for long periods, working outdoors in various weather conditions, and repetitive tasks.",
+    },
+    {
+      question: "What is the job outlook for the construction industry?",
+      answer:
+        "The construction industry generally has a positive job outlook, driven by infrastructure projects, residential and commercial development, and maintenance needs. Demand for skilled trades is particularly high.",
+    },
+    {
+      question: "What are the career progression opportunities in construction?",
+      answer:
+        "You can advance from a general laborer to a skilled tradesperson (e.g., carpenter, welder), then to a foreman, superintendent, or even project manager. Many also start their own contracting businesses.",
+    },
+  ]
+
+  const constructionSchema = {
+    "@context": "https://schema.org",
+    "@type": "CollectionPage",
+    name: "Construction Jobs Hiring Immediately Near Me",
+    description:
+      "Find construction jobs hiring immediately. Explore roles like general laborer, carpenter, and electrician with competitive pay and growth opportunities.",
+    url: "https://jobsnearmehiringimmediately.com/construction-jobs",
+    mainEntityOfPage: {
+      "@type": "WebPage",
+      "@id": "https://jobsnearmehiringimmediately.com/construction-jobs",
+    },
+  }
+
   return (
-    <>
-      <SchemaMarkup schema={jobPostingSchema} />
+    <div className="container mx-auto px-4 py-8">
+      <SchemaMarkup schema={constructionSchema} />
+      <Breadcrumb
+        items={[
+          { name: "Home", href: "/" },
+          { name: "Construction Jobs", href: "/construction-jobs" },
+        ]}
+      />
 
-      <section className="bg-gradient-to-br from-blue-50 to-indigo-100 py-16">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center">
-            <h1 className="text-4xl lg:text-5xl font-bold text-gray-900 mb-6">
-              Construction Jobs Hiring Near Me <span className="text-blue-600">Immediately</span>
-            </h1>
-            <p className="text-xl text-gray-600 mb-8 max-w-3xl mx-auto">
-              Find construction jobs hiring immediately near you. Explore opportunities for laborers, skilled trades,
-              and project support roles. Many positions offer competitive pay and immediate start dates.
-            </p>
-            <div className="flex items-center justify-center space-x-8 text-lg">
-              <div className="flex items-center">
-                <Building className="h-6 w-6 text-blue-600 mr-2" />
-                <span className="font-semibold">880+ Jobs</span>
-              </div>
-              <div className="flex items-center">
-                <Clock className="h-6 w-6 text-green-600 mr-2" />
-                <span className="font-semibold">Immediate Hiring</span>
-              </div>
-              <div className="flex items-center">
-                <DollarSign className="h-6 w-6 text-purple-600 mr-2" />
-                <span className="font-semibold">$18-30/hour</span>
-              </div>
-            </div>
-          </div>
+      <section className="text-center mb-12">
+        <h1 className="text-4xl font-bold text-gray-900 mb-4">Construction Jobs Hiring Immediately Near Me</h1>
+        <p className="text-lg text-gray-700 max-w-2xl mx-auto">
+          Ready to build your career? Discover a wide range of construction jobs hiring immediately, from general labor
+          to skilled trades, with opportunities for growth and competitive pay.
+        </p>
+        <Image
+          src="/construction-workers-job-site.png"
+          alt="Construction workers on a job site"
+          width={800}
+          height={450}
+          className="w-full h-auto rounded-md mt-8 shadow-lg"
+          priority
+        />
+      </section>
+
+      <section className="mb-12">
+        <h2 className="text-3xl font-semibold text-gray-900 mb-6 text-center">Job Outlook and Demand</h2>
+        <p className="mb-4 text-gray-700">
+          The construction industry is a robust sector with consistent demand for skilled and unskilled labor. Driven by
+          infrastructure projects, residential and commercial development, and ongoing maintenance, construction jobs
+          offer stable employment and often provide opportunities for immediate hire. The industry is always looking for
+          dedicated individuals ready to contribute to building the future.
+        </p>
+        <ul className="list-disc list-inside space-y-2 text-gray-700">
+          <li>
+            <strong>Steady Growth:</strong> Demand for construction workers is projected to grow.
+          </li>
+          <li>
+            <strong>Infrastructure Investment:</strong> Government spending on infrastructure creates numerous jobs.
+          </li>
+          <li>
+            <strong>Skilled Trades Shortage:</strong> High demand for specialized roles like electricians and plumbers.
+          </li>
+        </ul>
+      </section>
+
+      <section className="mb-12">
+        <h2 className="text-3xl font-semibold text-gray-900 mb-6 text-center">Typical Roles and Responsibilities</h2>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <Card>
+            <CardHeader>
+              <CardTitle>General Laborer</CardTitle>
+            </CardHeader>
+            <CardContent>
+              <p>
+                Performs various tasks on construction sites, including site cleanup, material handling, digging
+                trenches, and assisting skilled tradespeople. Often an entry-level role.
+              </p>
+            </CardContent>
+          </Card>
+          <Card>
+            <CardHeader>
+              <CardTitle>Carpenter</CardTitle>
+            </CardHeader>
+            <CardContent>
+              <p>
+                Constructs, erects, installs, and repairs structures and fixtures made of wood and other materials.
+                Involves framing, roofing, and finishing work.
+              </p>
+            </CardContent>
+          </Card>
+          <Card>
+            <CardHeader>
+              <CardTitle>Electrician</CardTitle>
+            </CardHeader>
+            <CardContent>
+              <p>
+                Installs, maintains, and repairs electrical wiring, equipment, and fixtures. Ensures electrical systems
+                are safe and up to code. Requires specialized training and licensing.
+              </p>
+            </CardContent>
+          </Card>
+          <Card>
+            <CardHeader>
+              <CardTitle>Plumber</CardTitle>
+            </CardHeader>
+            <CardContent>
+              <p>
+                Installs and repairs pipes, fixtures, and other plumbing systems used for water distribution and waste
+                disposal. Requires specialized training and licensing.
+              </p>
+            </CardContent>
+          </Card>
         </div>
       </section>
 
-      <AdBanner slot="construction-jobs-top" />
+      <section className="mb-12">
+        <h2 className="text-3xl font-semibold text-gray-900 mb-6 text-center">Skills and Qualifications</h2>
+        <p className="mb-4 text-gray-700">
+          While some roles require specific certifications, many construction jobs value practical skills and a strong
+          work ethic:
+        </p>
+        <ul className="list-disc list-inside space-y-2 text-gray-700">
+          <li>
+            <strong>Physical Stamina:</strong> Ability to perform strenuous tasks, lift heavy materials, and work in
+            various weather conditions.
+          </li>
+          <li>
+            <strong>Safety Consciousness:</strong> Adherence to strict safety protocols and awareness of potential
+            hazards.
+          </li>
+          <li>
+            <strong>Teamwork:</strong> Ability to collaborate effectively with other crew members and trades.
+          </li>
+          <li>
+            <strong>Problem-Solving:</strong> Adapting to unexpected challenges on the job site.
+          </li>
+          <li>
+            <strong>Basic Math Skills:</strong> For measurements, calculations, and material estimates.
+          </li>
+          <li>
+            <strong>Tool Proficiency:</strong> Familiarity with common hand and power tools.
+          </li>
+          <li>
+            <strong>Blueprint Reading:</strong> (For skilled trades) Ability to interpret construction plans.
+          </li>
+        </ul>
+      </section>
 
-      <section className="py-16 bg-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h2 className="text-3xl font-bold text-gray-900 mb-8">Featured Construction Jobs Hiring Immediately</h2>
+      <section className="mb-12">
+        <h2 className="text-3xl font-semibold text-gray-900 mb-6 text-center">Career Progression</h2>
+        <p className="mb-4 text-gray-700">
+          The construction industry offers clear and rewarding career paths, often starting from entry-level and
+          progressing through skilled trades to management:
+        </p>
+        <ul className="list-disc list-inside space-y-2 text-gray-700">
+          <li>General Laborer → Apprentice (e.g., Carpenter, Electrician) → Journeyman → Master Tradesperson</li>
+          <li>Skilled Tradesperson → Foreman → Superintendent → Project Manager</li>
+          <li>Opportunities to specialize in specific construction areas (e.g., heavy equipment, green building).</li>
+        </ul>
+      </section>
 
-          <div className="space-y-6">
-            {constructionJobs.map((job, index) => (
-              <Card key={index} className="hover:shadow-lg transition-shadow duration-200">
-                <CardContent className="p-6">
-                  <div className="flex justify-between items-start mb-4">
-                    <div>
-                      <h3 className="text-2xl font-semibold text-gray-900 mb-2">{job.title}</h3>
-                      <p className="text-lg text-blue-600 font-medium">{job.company}</p>
-                    </div>
-                    {job.urgent && <Badge variant="destructive">Urgent Hiring</Badge>}
-                  </div>
-
-                  <div className="flex flex-wrap items-center gap-4 mb-4 text-gray-600">
-                    <div className="flex items-center">
-                      <MapPin className="h-4 w-4 mr-1" />
-                      {job.location}
-                    </div>
-                    <div className="flex items-center">
-                      <DollarSign className="h-4 w-4 mr-1" />
-                      {job.salary}
-                    </div>
-                    <Badge variant="outline">{job.type}</Badge>
-                  </div>
-
-                  <p className="text-gray-700 mb-4">{job.description}</p>
-
-                  <div className="mb-4">
-                    <h4 className="font-semibold text-gray-900 mb-2">Requirements:</h4>
-                    <ul className="list-disc list-inside text-gray-600 space-y-1">
-                      {job.requirements.map((req, reqIndex) => (
-                        <li key={reqIndex}>{req}</li>
-                      ))}
-                    </ul>
-                  </div>
-
-                  <Button size="lg" className="w-full sm:w-auto">
-                    Apply Now
-                  </Button>
-                </CardContent>
-              </Card>
-            ))}
-          </div>
+      <section className="mb-12">
+        <h2 className="text-3xl font-semibold text-gray-900 mb-6 text-center">Related Job Titles</h2>
+        <div className="flex flex-wrap justify-center gap-3">
+          <Button variant="outline" asChild>
+            <Link href="/search?keywords=heavy%20equipment%20operator">Heavy Equipment Operator</Link>
+          </Button>
+          <Button variant="outline" asChild>
+            <Link href="/search?keywords=welder">Welder</Link>
+          </Button>
+          <Button variant="outline" asChild>
+            <Link href="/search?keywords=mason">Mason</Link>
+          </Button>
+          <Button variant="outline" asChild>
+            <Link href="/search?keywords=painter">Painter</Link>
+          </Button>
+          <Button variant="outline" asChild>
+            <Link href="/search?keywords=roofing%20specialist">Roofing Specialist</Link>
+          </Button>
         </div>
       </section>
 
-      <AdBanner slot="construction-jobs-middle" />
-
-      <section className="py-16 bg-gray-50">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h2 className="text-3xl font-bold text-gray-900 mb-8">About Construction Jobs Hiring Immediately</h2>
-
-          <div className="prose prose-lg max-w-none">
-            <p>
-              The construction industry frequently has immediate hiring needs due to project-based work and high demand.
-              These jobs often offer competitive wages and opportunities for skill development.
-            </p>
-
-            <h3>Types of Construction Roles</h3>
-            <ul>
-              <li>
-                <strong>Construction Laborer:</strong> General support, site cleanup, material handling.
-              </li>
-              <li>
-                <strong>Skilled Trades:</strong> Electricians, plumbers, carpenters (may require certifications).
-              </li>
-              <li>
-                <strong>Heavy Equipment Operator:</strong> Operating machinery like excavators and bulldozers.
-              </li>
-            </ul>
-
-            <h3>Benefits of Construction Work</h3>
-            <p>
-              Beyond immediate employment, construction jobs can lead to long-term careers with increasing pay as skills
-              are acquired. Many companies offer benefits and opportunities for apprenticeships.
-            </p>
-
-            <h3>Job Outlook and Demand in Construction</h3>
-            <p>
-              The construction industry is experiencing robust growth, driven by infrastructure projects, residential
-              development, and commercial building. This creates a consistent and high demand for skilled and unskilled
-              labor, making it a sector with frequent immediate hiring opportunities and competitive wages.
-            </p>
-
-            <h3>Typical Roles & Responsibilities in Construction</h3>
-            <ul>
-              <li>
-                <strong>Construction Laborer:</strong> Perform physical tasks such as digging trenches,
-                loading/unloading materials, site cleanup, and assisting skilled trades.
-              </li>
-              <li>
-                <strong>Heavy Equipment Operator:</strong> Operate machinery like excavators, bulldozers, and forklifts
-                to move earth, materials, and demolish structures.
-              </li>
-              <li>
-                <strong>Carpenter:</strong> Build and repair structures, frameworks, and other wooden installations.
-              </li>
-              <li>
-                <strong>Electrician:</strong> Install, maintain, and repair electrical wiring, systems, and fixtures.
-              </li>
-              <li>
-                <strong>Plumber:</strong> Install and repair pipes, fittings, and fixtures of heating, water, and
-                drainage systems.
-              </li>
-            </ul>
-
-            <h3>Skills & Qualifications for Construction Jobs</h3>
-            <p>
-              While some roles require specialized training, many entry-level construction jobs value practical skills
-              and a strong work ethic:
-            </p>
-            <ul>
-              <li>
-                <strong>Physical Stamina:</strong> Ability to perform demanding physical tasks for extended periods.
-              </li>
-              <li>
-                <strong>Safety Awareness:</strong> Adherence to strict safety protocols and use of personal protective
-                equipment.
-              </li>
-              <li>
-                <strong>Teamwork:</strong> Collaborating effectively with crew members.
-              </li>
-              <li>
-                <strong>Basic Tool Knowledge:</strong> Familiarity with common hand and power tools.
-              </li>
-              <li>
-                <strong>Problem-Solving:</strong> Ability to adapt to changing site conditions and resolve issues.
-              </li>
-            </ul>
-
-            <h3>Career Progression in Construction</h3>
-            <p>
-              Construction offers excellent opportunities for career advancement through apprenticeships,
-              certifications, and on-the-job experience. Laborers can become skilled tradespeople, and experienced
-              workers can move into supervisory roles like foreman or project manager.
-            </p>
-
-            <h3>Related Construction Job Titles</h3>
-            <ul>
-              <li>Painter</li>
-              <li>Roofer</li>
-              <li>Drywall Installer</li>
-              <li>Mason</li>
-              <li>Welder</li>
-              <li>HVAC Technician</li>
-            </ul>
-
-            <h3>FAQs About Immediate Construction Hiring</h3>
-            <Accordion type="single" collapsible className="w-full">
-              <AccordionItem value="faq-1">
-                <AccordionTrigger className="text-left">
-                  Do I need certifications for construction jobs?
-                </AccordionTrigger>
-                <AccordionContent>
-                  For entry-level laborer positions, often no specific certifications are required, though OSHA 10 or
-                  30-hour training is a plus. Skilled trades (electrician, plumber) typically require licenses or
-                  certifications.
-                </AccordionContent>
-              </AccordionItem>
-              <AccordionItem value="faq-2">
-                <AccordionTrigger className="text-left">Are construction jobs dangerous?</AccordionTrigger>
-                <AccordionContent>
-                  Construction involves inherent risks, but strict safety regulations and proper training significantly
-                  reduce hazards. Employers are legally required to provide a safe working environment and safety
-                  equipment.
-                </AccordionContent>
-              </AccordionItem>
-            </Accordion>
-          </div>
-        </div>
+      <section className="mb-12">
+        <h2 className="text-3xl font-semibold text-gray-900 mb-6 text-center">
+          Frequently Asked Questions about Construction Jobs
+        </h2>
+        <FAQ faqs={faqs} />
       </section>
 
-      <AdBanner slot="construction-jobs-bottom" />
-    </>
+      <div className="text-center mt-8">
+        <Button asChild size="lg">
+          <Link href="/search?keywords=construction">Search All Construction Jobs</Link>
+        </Button>
+      </div>
+    </div>
   )
 }

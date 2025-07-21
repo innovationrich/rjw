@@ -1,76 +1,91 @@
 import Link from "next/link"
-import { Calendar, ArrowRight } from "lucide-react"
-import { Card, CardContent } from "@/components/ui/card"
+import Image from "next/image"
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 
-const blogPosts = [
-  {
-    title: "How to Get Hired in 24 Hours: A Complete Guide",
-    excerpt:
-      "Learn the proven strategies to land a job quickly, from application to interview to getting hired the same day.",
-    date: "2024-01-15",
-    href: "/blog/how-to-get-hired-in-24-hours",
-    category: "Job Search Tips",
-  },
-  {
-    title: "10 Companies Hiring Near You This Week",
-    excerpt:
-      "Discover which major employers are actively hiring in your area and how to apply for immediate consideration.",
-    date: "2024-01-12",
-    href: "/blog/companies-hiring-this-week",
-    category: "Job Opportunities",
-  },
-  {
-    title: "Tips for Landing a Job with No Experience",
-    excerpt:
-      "Entry-level job seekers can still land great positions. Here's how to highlight your potential and get hired.",
-    date: "2024-01-10",
-    href: "/blog/jobs-with-no-experience",
-    category: "Career Advice",
-  },
-]
-
 export function BlogPreview() {
-  return (
-    <section className="py-16 bg-gray-50">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-12">
-          <h2 className="text-3xl font-bold text-gray-900 mb-4">Job Search Tips & Career Advice</h2>
-          <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-            Get expert advice on finding jobs quickly, acing interviews, and building your career. Our blog helps you
-            navigate the job market successfully.
-          </p>
-        </div>
+  const blogPosts = [
+    {
+      id: 1,
+      title: "How to Get Hired in 24 Hours: A Step-by-Step Guide",
+      description: "Need a job fast? This guide provides actionable steps to help you land a job within 24 hours.",
+      image: "/job-application-rush.png",
+      link: "/blog/how-to-get-hired-in-24-hours",
+    },
+    {
+      id: 2,
+      title: "Jobs with No Experience: Your Guide to Entry-Level Employment",
+      description: "Discover a wide range of jobs that don't require prior experience.",
+      image: "/confident-new-employee.png",
+      link: "/blog/jobs-with-no-experience",
+    },
+    {
+      id: 3,
+      title: "Top Warehouse Interview Questions & Answers",
+      description: "Prepare for your warehouse job interview with common questions and expert answers.",
+      image: "/warehouse-handshake.png",
+      link: "/blog/warehouse-interview-questions",
+    },
+    {
+      id: 4,
+      title: "Best Job Search Apps: Find Your Next Job On-The-Go",
+      description: "Explore the top job search apps to streamline your job hunt directly from your smartphone.",
+      image: "/job-search-app.png",
+      link: "/blog/best-job-search-apps",
+    },
+    {
+      id: 5,
+      title: "No Experience Part-Time Jobs: Your Guide to Flexible Entry-Level Roles",
+      description: "Find part-time jobs that don't require prior experience.",
+      image: "/retail-worker-smiling.png",
+      link: "/blog/no-experience-part-time-jobs",
+    },
+    {
+      id: 6,
+      title: "Overnight & Night Shift Jobs: Opportunities and Benefits",
+      description: "Explore industries offering overnight and night shift jobs.",
+      image: "/night-work.png",
+      link: "/blog/overnight-night-shift-jobs",
+    },
+    {
+      id: 7,
+      title: "Job Agencies & Temp Jobs: Your Pathway to Employment",
+      description: "Discover how job agencies and temporary staffing can help you find work quickly.",
+      image: "/quick-job-application.png",
+      link: "/blog/job-agencies-temp-jobs",
+    },
+  ]
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+  return (
+    <section className="py-12 bg-white">
+      <div className="container mx-auto px-4">
+        <h2 className="text-3xl font-bold text-center mb-8">Latest from Our Blog</h2>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {blogPosts.map((post) => (
-            <Card key={post.title} className="hover:shadow-lg transition-shadow duration-200">
-              <CardContent className="p-6">
-                <div className="mb-4">
-                  <span className="inline-block px-3 py-1 text-xs font-semibold text-blue-600 bg-blue-100 rounded-full">
-                    {post.category}
-                  </span>
-                </div>
-                <h3 className="text-xl font-semibold text-gray-900 mb-3">{post.title}</h3>
-                <p className="text-gray-600 mb-4">{post.excerpt}</p>
-                <div className="flex items-center justify-between">
-                  <div className="flex items-center text-sm text-gray-500">
-                    <Calendar className="h-4 w-4 mr-2" />
-                    {new Date(post.date).toLocaleDateString()}
-                  </div>
-                  <Link href={post.href} className="text-blue-600 hover:text-blue-700 font-medium flex items-center">
-                    Read More
-                    <ArrowRight className="h-4 w-4 ml-1" />
-                  </Link>
-                </div>
+            <Card key={post.id} className="flex flex-col">
+              <Image
+                src={post.image || "/placeholder.svg"}
+                alt={post.title}
+                width={400}
+                height={225}
+                className="w-full h-48 object-cover rounded-t-lg"
+                priority
+              />
+              <CardHeader>
+                <CardTitle className="text-xl line-clamp-2">{post.title}</CardTitle>
+                <CardDescription className="line-clamp-3">{post.description}</CardDescription>
+              </CardHeader>
+              <CardContent className="flex-grow">
+                <Button asChild variant="link" className="p-0 h-auto">
+                  <Link href={post.link}>Read More</Link>
+                </Button>
               </CardContent>
             </Card>
           ))}
         </div>
-
         <div className="text-center mt-8">
-          <Button variant="outline" size="lg" asChild>
-            <Link href="/blog">View All Articles</Link>
+          <Button asChild variant="outline">
+            <Link href="/blog">View All Blog Posts</Link>
           </Button>
         </div>
       </div>

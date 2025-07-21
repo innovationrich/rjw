@@ -1,52 +1,38 @@
-import { Search, MapPin, Clock } from "lucide-react"
-import Image from "next/image" // Add this import
+import { Button } from "@/components/ui/button"
+import Link from "next/link"
+import Image from "next/image"
 
 export function Hero() {
   return (
-    <section className="relative py-16 lg:py-24 overflow-hidden">
-      {" "}
-      {/* Modified section classes */}
-      {/* Background Image with Opacity */}
+    <section className="relative w-full h-[500px] md:h-[600px] lg:h-[700px] bg-gradient-to-r from-blue-600 to-purple-600 flex items-center justify-center text-center overflow-hidden">
       <Image
-        src="/images/hero-banner.png" // Path to the generated image
-        alt="Diverse workers in warehouse, retail, and customer service jobs, representing immediate hiring opportunities" // SEO-friendly alt text
-        fill // Fills the parent element
-        style={{ objectFit: "cover", opacity: 0.15 }} // Object fit cover, and opacity
-        className="absolute inset-0 z-0" // Position absolutely, behind content
-        priority // Load eagerly for LCP
+        src="/images/hero-banner.png"
+        alt="Jobs Hiring Immediately"
+        layout="fill"
+        objectFit="cover"
+        quality={100}
+        className="absolute inset-0 z-0 opacity-30"
       />
-      {/* Gradient Overlay for readability */}
-      <div className="absolute inset-0 bg-gradient-to-br from-blue-50 to-indigo-100 opacity-80 z-10"></div>{" "}
-      {/* Added gradient overlay */}
-      {/* Content */}
-      <div className="relative z-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        {" "}
-        {/* Added relative z-20 */}
-        <div className="text-center">
-          <h1 className="text-4xl lg:text-6xl font-bold text-gray-900 mb-6">
-            Jobs Near Me Hiring <span className="text-blue-600">Immediately</span>
-          </h1>
-          <p className="text-xl text-gray-600 mb-8 max-w-3xl mx-auto">
-            Find jobs near me hiring immediately. Search thousands of immediate hiring opportunities including
-            warehouse, retail, fast food, and entry-level positions. Many positions require no experience and offer
-            same-day interviews.
-          </p>
-
-          {/* Key Features */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-4xl mx-auto">
-            <div className="flex items-center justify-center space-x-3">
-              <Clock className="h-8 w-8 text-blue-600" />
-              <span className="text-lg font-semibold text-gray-700">Immediate Hiring</span>
-            </div>
-            <div className="flex items-center justify-center space-x-3">
-              <MapPin className="h-8 w-8 text-green-600" />
-              <span className="text-lg font-semibold text-gray-700">Local Opportunities</span>
-            </div>
-            <div className="flex items-center justify-center space-x-3">
-              <Search className="h-8 w-8 text-purple-600" />
-              <span className="text-lg font-semibold text-gray-700">No Experience Required</span>
-            </div>
-          </div>
+      <div className="relative z-10 px-4 space-y-6">
+        <h1 className="text-4xl md:text-5xl lg:text-6xl font-extrabold text-white leading-tight">
+          Your Next Opportunity, <br className="hidden sm:inline" />
+          Hiring Immediately
+        </h1>
+        <p className="text-lg md:text-xl text-white max-w-2xl mx-auto">
+          Discover thousands of full-time, part-time, and remote jobs near you. Start your job search today and get
+          hired fast!
+        </p>
+        <div className="flex flex-col sm:flex-row justify-center gap-4">
+          <Button asChild className="bg-white text-blue-600 hover:bg-gray-100 px-8 py-3 text-lg font-semibold">
+            <Link href="/search">Search Jobs</Link>
+          </Button>
+          <Button
+            asChild
+            variant="outline"
+            className="border-white text-white hover:bg-white hover:text-blue-600 px-8 py-3 text-lg font-semibold bg-transparent"
+          >
+            <Link href="/blog">Read Our Blog</Link>
+          </Button>
         </div>
       </div>
     </section>

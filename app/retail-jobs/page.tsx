@@ -1,286 +1,263 @@
-import type { Metadata } from "next"
-import { SchemaMarkup } from "@/components/schema-markup"
-import { AdBanner } from "@/components/ad-banner"
-import { ShoppingBag, MapPin, Clock, DollarSign } from "lucide-react"
-import { Card, CardContent } from "@/components/ui/card"
+import Link from "next/link"
+import Image from "next/image"
 import { Button } from "@/components/ui/button"
-import { Badge } from "@/components/ui/badge"
-import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion"
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
+import { SchemaMarkup } from "@/components/schema-markup"
+import { Breadcrumb } from "@/components/breadcrumb"
+import { FAQ } from "@/components/faq"
 
-export const metadata: Metadata = {
-  title: "Retail Jobs Hiring Near Me Immediately - Start Today",
+export const metadata = {
+  title: "Retail Jobs Hiring Immediately Near Me",
   description:
-    "Find retail jobs hiring immediately near you. Explore positions like sales associates, cashiers, and customer service roles. Many opportunities offer same-day interviews and quick start dates. Begin your retail career today!",
-  keywords:
-    "retail jobs near me hiring immediately, retail jobs hiring immediately, sales associate jobs, cashier jobs, customer service jobs, immediate retail jobs, no experience retail jobs",
-  alternates: {
-    canonical: "/retail-jobs",
-  },
-}
-
-const retailJobs = [
-  {
-    title: "Retail Sales Associate",
-    company: "Target",
-    location: "Multiple Locations",
-    salary: "$15-17/hour",
-    type: "Full-time, Part-time",
+    "Find retail jobs hiring immediately. Explore roles like sales associate, cashier, and store manager with flexible hours and growth opportunities.",
+  keywords: [
+    "retail jobs",
+    "hiring immediately retail",
+    "sales associate jobs",
+    "cashier jobs",
+    "store manager jobs",
+    "customer service retail",
+  ],
+  openGraph: {
+    title: "Retail Jobs Hiring Immediately Near Me",
     description:
-      "Assist customers, process transactions, and maintain store appearance. Employee discount and benefits available.",
-    requirements: ["Customer service skills", "Ability to stand for long periods", "Flexible availability"],
-    urgent: true,
+      "Find retail jobs hiring immediately. Explore roles like sales associate, cashier, and store manager with flexible hours and growth opportunities.",
+    url: "https://jobsnearmehiringimmediately.com/retail-jobs",
+    siteName: "Jobs Near Me Hiring Immediately",
+    images: [
+      {
+        url: "https://jobsnearmehiringimmediately.com/public/retail-worker-smiling.png",
+        width: 1200,
+        height: 630,
+        alt: "Smiling retail worker assisting a customer",
+      },
+    ],
+    type: "website",
   },
-  {
-    title: "Cashier",
-    company: "Walmart",
-    location: "Chicago, IL",
-    salary: "$14-16/hour",
-    type: "Part-time",
-    description: "Handle cash and card transactions, provide friendly service. Training provided.",
-    requirements: ["Basic math skills", "Attention to detail", "Reliable"],
-    urgent: false,
-  },
-]
-
-const jobPostingSchema = {
-  "@context": "https://schema.org",
-  "@type": "JobPosting",
-  title: "Retail Jobs Hiring Immediately",
-  description: "Find retail jobs hiring immediately near you.",
-  datePosted: new Date().toISOString(),
-  employmentType: ["FULL_TIME", "PART_TIME"],
-  hiringOrganization: {
-    "@type": "Organization",
-    name: "Jobs Hiring Near Me Immediately",
-  },
-  jobLocation: {
-    "@type": "Place",
-    address: {
-      "@type": "PostalAddress",
-      addressCountry: "US",
-    },
-  },
-  baseSalary: {
-    "@type": "MonetaryAmount",
-    currency: "USD",
-    value: {
-      "@type": "QuantitativeValue",
-      minValue: 14,
-      maxValue: 17,
-      unitText: "HOUR",
-    },
+  twitter: {
+    card: "summary_large_image",
+    title: "Retail Jobs Hiring Immediately Near Me",
+    description:
+      "Find retail jobs hiring immediately. Explore roles like sales associate, cashier, and store manager with flexible hours and growth opportunities.",
+    images: ["https://jobsnearmehiringimmediately.com/public/retail-worker-smiling.png"],
   },
 }
 
 export default function RetailJobsPage() {
+  const faqs = [
+    {
+      question: "What are the common types of retail jobs?",
+      answer:
+        "Common roles include Sales Associate, Cashier, Stock Associate, Customer Service Representative, Visual Merchandiser, and Store Manager.",
+    },
+    {
+      question: "Do retail jobs offer flexible hours?",
+      answer:
+        "Yes, many retail positions, especially part-time roles, offer flexible schedules, including evenings, weekends, and seasonal hours, which can be ideal for students or those seeking supplemental income.",
+    },
+    {
+      question: "Is experience required for retail jobs?",
+      answer:
+        "Many entry-level retail jobs do not require prior experience. Employers often look for strong communication skills, a positive attitude, and a willingness to learn.",
+    },
+    {
+      question: "What skills are important for a retail career?",
+      answer:
+        "Key skills include customer service, salesmanship, communication, problem-solving, teamwork, attention to detail, and basic math skills for handling transactions.",
+    },
+    {
+      question: "What are the career progression opportunities in retail?",
+      answer:
+        "Retail offers clear career paths: Sales Associate → Team Lead → Assistant Manager → Store Manager → District Manager, or even corporate roles in merchandising, marketing, or HR.",
+    },
+  ]
+
+  const retailSchema = {
+    "@context": "https://schema.org",
+    "@type": "CollectionPage",
+    name: "Retail Jobs Hiring Immediately Near Me",
+    description:
+      "Find retail jobs hiring immediately. Explore roles like sales associate, cashier, and store manager with flexible hours and growth opportunities.",
+    url: "https://jobsnearmehiringimmediately.com/retail-jobs",
+    mainEntityOfPage: {
+      "@type": "WebPage",
+      "@id": "https://jobsnearmehiringimmediately.com/retail-jobs",
+    },
+  }
+
   return (
-    <>
-      <SchemaMarkup schema={jobPostingSchema} />
+    <div className="container mx-auto px-4 py-8">
+      <SchemaMarkup schema={retailSchema} />
+      <Breadcrumb
+        items={[
+          { name: "Home", href: "/" },
+          { name: "Retail Jobs", href: "/retail-jobs" },
+        ]}
+      />
 
-      <section className="bg-gradient-to-br from-blue-50 to-indigo-100 py-16">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center">
-            <h1 className="text-4xl lg:text-5xl font-bold text-gray-900 mb-6">
-              Retail Jobs Hiring Near Me <span className="text-blue-600">Immediately</span>
-            </h1>
-            <p className="text-xl text-gray-600 mb-8 max-w-3xl mx-auto">
-              Find retail jobs hiring immediately near you. Explore positions like sales associates, cashiers, and
-              customer service roles. Many opportunities offer same-day interviews and quick start dates.
-            </p>
-            <div className="flex items-center justify-center space-x-8 text-lg">
-              <div className="flex items-center">
-                <ShoppingBag className="h-6 w-6 text-blue-600 mr-2" />
-                <span className="font-semibold">1,300+ Jobs</span>
-              </div>
-              <div className="flex items-center">
-                <Clock className="h-6 w-6 text-green-600 mr-2" />
-                <span className="font-semibold">Immediate Hiring</span>
-              </div>
-              <div className="flex items-center">
-                <DollarSign className="h-6 w-6 text-purple-600 mr-2" />
-                <span className="font-semibold">$14-17/hour</span>
-              </div>
-            </div>
-          </div>
+      <section className="text-center mb-12">
+        <h1 className="text-4xl font-bold text-gray-900 mb-4">Retail Jobs Hiring Immediately Near Me</h1>
+        <p className="text-lg text-gray-700 max-w-2xl mx-auto">
+          Step into the world of retail! Discover a variety of retail jobs hiring immediately, offering dynamic
+          environments, customer interaction, and opportunities for growth.
+        </p>
+        <Image
+          src="/retail-worker-smiling.png"
+          alt="Smiling retail worker assisting a customer"
+          width={800}
+          height={450}
+          className="w-full h-auto rounded-md mt-8 shadow-lg"
+          priority
+        />
+      </section>
+
+      <section className="mb-12">
+        <h2 className="text-3xl font-semibold text-gray-900 mb-6 text-center">Job Outlook and Demand</h2>
+        <p className="mb-4 text-gray-700">
+          The retail sector is a cornerstone of the economy, constantly evolving and offering a steady stream of job
+          opportunities. While the industry faces changes with e-commerce, the demand for in-person customer service,
+          merchandising, and operational roles remains strong. Many retail businesses, from small boutiques to large
+          department stores, frequently have immediate hiring needs, especially during peak seasons.
+        </p>
+        <ul className="list-disc list-inside space-y-2 text-gray-700">
+          <li>
+            <strong>Consistent Demand:</strong> High turnover and seasonal needs ensure frequent openings.
+          </li>
+          <li>
+            <strong>Entry-Level Friendly:</strong> Many roles are accessible without prior experience.
+          </li>
+          <li>
+            <strong>Flexible Hours:</strong> Ideal for those seeking part-time or varied schedules.
+          </li>
+        </ul>
+      </section>
+
+      <section className="mb-12">
+        <h2 className="text-3xl font-semibold text-gray-900 mb-6 text-center">Typical Roles and Responsibilities</h2>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <Card>
+            <CardHeader>
+              <CardTitle>Sales Associate</CardTitle>
+            </CardHeader>
+            <CardContent>
+              <p>
+                Assists customers with product selection, answers questions, processes sales, and helps maintain a tidy
+                sales floor. Focuses on driving sales and customer satisfaction.
+              </p>
+            </CardContent>
+          </Card>
+          <Card>
+            <CardHeader>
+              <CardTitle>Cashier</CardTitle>
+            </CardHeader>
+            <CardContent>
+              <p>
+                Handles customer transactions, processes payments, issues receipts, and provides accurate change. Often
+                the last point of contact for customers.
+              </p>
+            </CardContent>
+          </Card>
+          <Card>
+            <CardHeader>
+              <CardTitle>Stock Associate/Merchandiser</CardTitle>
+            </CardHeader>
+            <CardContent>
+              <p>
+                Responsible for receiving, organizing, and stocking merchandise, ensuring products are available on the
+                sales floor and backroom is organized.
+              </p>
+            </CardContent>
+          </Card>
+          <Card>
+            <CardHeader>
+              <CardTitle>Customer Service Representative</CardTitle>
+            </CardHeader>
+            <CardContent>
+              <p>
+                Assists customers with inquiries, resolves complaints, processes returns/exchanges, and provides
+                information about products and services.
+              </p>
+            </CardContent>
+          </Card>
         </div>
       </section>
 
-      <AdBanner slot="retail-jobs-top" />
+      <section className="mb-12">
+        <h2 className="text-3xl font-semibold text-gray-900 mb-6 text-center">Skills and Qualifications</h2>
+        <p className="mb-4 text-gray-700">
+          While formal qualifications might not always be necessary, certain skills are highly valued in retail:
+        </p>
+        <ul className="list-disc list-inside space-y-2 text-gray-700">
+          <li>
+            <strong>Customer Service:</strong> Ability to interact positively and effectively with customers.
+          </li>
+          <li>
+            <strong>Communication Skills:</strong> Clear verbal communication and active listening.
+          </li>
+          <li>
+            <strong>Sales Acumen:</strong> (For sales roles) Ability to understand customer needs and recommend
+            products.
+          </li>
+          <li>
+            <strong>Problem-Solving:</strong> Handling customer issues or operational challenges efficiently.
+          </li>
+          <li>
+            <strong>Teamwork:</strong> Collaborating with colleagues to achieve store goals.
+          </li>
+          <li>
+            <strong>Attention to Detail:</strong> For handling transactions, merchandising, and inventory.
+          </li>
+          <li>
+            <strong>Basic Math:</strong> Essential for cash handling and calculating discounts.
+          </li>
+        </ul>
+      </section>
 
-      <section className="py-16 bg-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h2 className="text-3xl font-bold text-gray-900 mb-8">Featured Retail Jobs Hiring Immediately</h2>
+      <section className="mb-12">
+        <h2 className="text-3xl font-semibold text-gray-900 mb-6 text-center">Career Progression</h2>
+        <p className="mb-4 text-gray-700">
+          Retail offers a clear and accessible career ladder, even starting from an entry-level position:
+        </p>
+        <ul className="list-disc list-inside space-y-2 text-gray-700">
+          <li>Sales Associate/Cashier → Team Lead → Assistant Store Manager → Store Manager → District Manager</li>
+          <li>Opportunities in specialized areas like visual merchandising, buying, or corporate retail roles.</li>
+          <li>Experience gained is highly transferable to other customer-facing industries.</li>
+        </ul>
+      </section>
 
-          <div className="space-y-6">
-            {retailJobs.map((job, index) => (
-              <Card key={index} className="hover:shadow-lg transition-shadow duration-200">
-                <CardContent className="p-6">
-                  <div className="flex justify-between items-start mb-4">
-                    <div>
-                      <h3 className="text-2xl font-semibold text-gray-900 mb-2">{job.title}</h3>
-                      <p className="text-lg text-blue-600 font-medium">{job.company}</p>
-                    </div>
-                    {job.urgent && <Badge variant="destructive">Urgent Hiring</Badge>}
-                  </div>
-
-                  <div className="flex flex-wrap items-center gap-4 mb-4 text-gray-600">
-                    <div className="flex items-center">
-                      <MapPin className="h-4 w-4 mr-1" />
-                      {job.location}
-                    </div>
-                    <div className="flex items-center">
-                      <DollarSign className="h-4 w-4 mr-1" />
-                      {job.salary}
-                    </div>
-                    <Badge variant="outline">{job.type}</Badge>
-                  </div>
-
-                  <p className="text-gray-700 mb-4">{job.description}</p>
-
-                  <div className="mb-4">
-                    <h4 className="font-semibold text-gray-900 mb-2">Requirements:</h4>
-                    <ul className="list-disc list-inside text-gray-600 space-y-1">
-                      {job.requirements.map((req, reqIndex) => (
-                        <li key={reqIndex}>{req}</li>
-                      ))}
-                    </ul>
-                  </div>
-
-                  <Button size="lg" className="w-full sm:w-auto">
-                    Apply Now
-                  </Button>
-                </CardContent>
-              </Card>
-            ))}
-          </div>
+      <section className="mb-12">
+        <h2 className="text-3xl font-semibold text-gray-900 mb-6 text-center">Related Job Titles</h2>
+        <div className="flex flex-wrap justify-center gap-3">
+          <Button variant="outline" asChild>
+            <Link href="/search?keywords=boutique%20assistant">Boutique Assistant</Link>
+          </Button>
+          <Button variant="outline" asChild>
+            <Link href="/search?keywords=merchandise%20associate">Merchandise Associate</Link>
+          </Button>
+          <Button variant="outline" asChild>
+            <Link href="/search?keywords=key%20holder">Key Holder</Link>
+          </Button>
+          <Button variant="outline" asChild>
+            <Link href="/search?keywords=brand%20ambassador">Brand Ambassador</Link>
+          </Button>
+          <Button variant="outline" asChild>
+            <Link href="/search?keywords=retail%20supervisor">Retail Supervisor</Link>
+          </Button>
         </div>
       </section>
 
-      <AdBanner slot="retail-jobs-middle" />
-
-      <section className="py-16 bg-gray-50">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h2 className="text-3xl font-bold text-gray-900 mb-8">About Retail Jobs Hiring Immediately</h2>
-
-          <div className="prose prose-lg max-w-none">
-            <p>
-              Retail jobs are a popular choice for those seeking immediate employment, offering flexible schedules and
-              opportunities to interact with customers. Many retail positions are entry-level and provide on-the-job
-              training.
-            </p>
-
-            <h3>Common Retail Positions</h3>
-            <ul>
-              <li>
-                <strong>Sales Associate:</strong> Assist customers, answer questions, and help with purchases.
-              </li>
-              <li>
-                <strong>Cashier:</strong> Process transactions accurately and efficiently.
-              </li>
-              <li>
-                <strong>Stock Clerk:</strong> Organize and replenish merchandise on sales floors and in stockrooms.
-              </li>
-              <li>
-                <strong>Customer Service Representative:</strong> Handle inquiries, resolve issues, and provide support.
-              </li>
-            </ul>
-
-            <h3>Benefits of Working in Retail</h3>
-            <p>
-              Beyond immediate hiring, retail jobs often come with employee discounts, flexible hours, and a dynamic
-              work environment. They can be a great stepping stone for building customer service and sales skills.
-            </p>
-
-            <h3>Job Outlook and Demand in Retail</h3>
-            <p>
-              The retail sector is a dynamic industry with constant hiring needs, especially for customer-facing roles.
-              While some trends shift towards online shopping, physical stores continue to be vital, creating a steady
-              demand for sales associates, cashiers, and stock clerks. Seasonal hiring also provides frequent immediate
-              opportunities.
-            </p>
-
-            <h3>Typical Roles & Responsibilities in Retail</h3>
-            <ul>
-              <li>
-                <strong>Sales Associate:</strong> Greet customers, assist with product selection, answer questions, and
-                process sales.
-              </li>
-              <li>
-                <strong>Cashier:</strong> Handle transactions, manage cash and card payments, and provide accurate
-                change.
-              </li>
-              <li>
-                <strong>Stock Associate/Merchandiser:</strong> Unload deliveries, organize inventory, stock shelves, and
-                maintain store displays.
-              </li>
-              <li>
-                <strong>Customer Service Representative:</strong> Address customer inquiries, resolve complaints, and
-                process returns/exchanges.
-              </li>
-            </ul>
-
-            <h3>Skills & Qualifications for Retail Jobs</h3>
-            <p>
-              Retail jobs often prioritize soft skills and a positive attitude, making them accessible for many job
-              seekers:
-            </p>
-            <ul>
-              <li>
-                <strong>Customer Service:</strong> Ability to interact positively and helpfully with customers.
-              </li>
-              <li>
-                <strong>Communication:</strong> Clear verbal communication and active listening.
-              </li>
-              <li>
-                <strong>Teamwork:</strong> Collaborating with colleagues to achieve store goals.
-              </li>
-              <li>
-                <strong>Basic Math:</strong> For handling transactions and counting inventory.
-              </li>
-              <li>
-                <strong>Reliability & Punctuality:</strong> Essential for maintaining store operations.
-              </li>
-            </ul>
-
-            <h3>Career Progression in Retail</h3>
-            <p>
-              Retail offers clear pathways for advancement. A sales associate can progress to a team lead, then to an
-              assistant manager, and eventually to a store manager. Opportunities also exist in visual merchandising,
-              inventory management, and corporate roles.
-            </p>
-
-            <h3>Related Retail Job Titles</h3>
-            <ul>
-              <li>Merchandise Associate</li>
-              <li>Key Holder</li>
-              <li>Department Supervisor</li>
-              <li>Loss Prevention Officer</li>
-              <li>Visual Merchandiser</li>
-            </ul>
-
-            <h3>FAQs About Immediate Retail Hiring</h3>
-            <Accordion type="single" collapsible className="w-full">
-              <AccordionItem value="faq-1">
-                <AccordionTrigger className="text-left">Can I get a retail job with no experience?</AccordionTrigger>
-                <AccordionContent>
-                  Absolutely! Many retail positions, especially entry-level sales associate or cashier roles, are
-                  designed for individuals with no prior experience. Employers often provide comprehensive on-the-job
-                  training.
-                </AccordionContent>
-              </AccordionItem>
-              <AccordionItem value="faq-2">
-                <AccordionTrigger className="text-left">What are the busiest hiring times for retail?</AccordionTrigger>
-                <AccordionContent>
-                  Retailers frequently hire immediately during peak seasons like holidays (Black Friday, Christmas),
-                  back-to-school, and summer. However, turnover means there are often openings year-round.
-                </AccordionContent>
-              </AccordionItem>
-            </Accordion>
-          </div>
-        </div>
+      <section className="mb-12">
+        <h2 className="text-3xl font-semibold text-gray-900 mb-6 text-center">
+          Frequently Asked Questions about Retail Jobs
+        </h2>
+        <FAQ faqs={faqs} />
       </section>
 
-      <AdBanner slot="retail-jobs-bottom" />
-    </>
+      <div className="text-center mt-8">
+        <Button asChild size="lg">
+          <Link href="/search?keywords=retail">Search All Retail Jobs</Link>
+        </Button>
+      </div>
+    </div>
   )
 }

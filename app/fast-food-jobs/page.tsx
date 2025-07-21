@@ -1,281 +1,262 @@
-import type { Metadata } from "next"
-import { SchemaMarkup } from "@/components/schema-markup"
-import { AdBanner } from "@/components/ad-banner"
-import { Utensils, MapPin, Clock, DollarSign } from "lucide-react"
-import { Card, CardContent } from "@/components/ui/card"
+import Link from "next/link"
+import Image from "next/image"
 import { Button } from "@/components/ui/button"
-import { Badge } from "@/components/ui/badge"
-import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion"
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
+import { SchemaMarkup } from "@/components/schema-markup"
+import { Breadcrumb } from "@/components/breadcrumb"
+import { FAQ } from "@/components/faq"
 
-export const metadata: Metadata = {
-  title: "Fast Food Jobs Hiring Near Me Immediately - Quick Start",
+export const metadata = {
+  title: "Fast Food Jobs Hiring Immediately Near Me",
   description:
-    "Find fast food jobs hiring immediately near you. Explore opportunities for crew members, cooks, and shift managers at popular restaurants. Many positions offer same-day interviews and quick start dates. Get hired in fast food today!",
-  keywords:
-    "fast food jobs near me hiring immediately, fast food jobs hiring immediately, crew member jobs, cook jobs, shift manager jobs, immediate fast food jobs, no experience fast food jobs",
-  alternates: {
-    canonical: "/fast-food-jobs",
+    "Find fast food jobs hiring immediately. Explore roles like crew member, cashier, and cook with flexible hours and quick hiring processes.",
+  keywords: [
+    "fast food jobs",
+    "hiring immediately fast food",
+    "crew member jobs",
+    "cashier fast food",
+    "cook fast food",
+    "restaurant jobs",
+  ],
+  openGraph: {
+    title: "Fast Food Jobs Hiring Immediately Near Me",
+    description:
+      "Find fast food jobs hiring immediately. Explore roles like crew member, cashier, and cook with flexible hours and quick hiring processes.",
+    url: "https://jobsnearmehiringimmediately.com/fast-food-jobs",
+    siteName: "Jobs Near Me Hiring Immediately",
+    images: [
+      {
+        url: "https://jobsnearmehiringimmediately.com/public/placeholder-v7zml.png", // Placeholder image for fast food
+        width: 1200,
+        height: 630,
+        alt: "Fast food worker serving a customer",
+      },
+    ],
+    type: "website",
   },
-}
-
-const fastFoodJobs = [
-  {
-    title: "Crew Member",
-    company: "McDonald's",
-    location: "Multiple Locations",
-    salary: "$14-16/hour",
-    type: "Full-time, Part-time",
-    description: "Prepare food, serve customers, and maintain cleanliness. Free meals and flexible scheduling.",
-    requirements: ["Ability to work in a fast-paced environment", "Team player", "Good communication"],
-    urgent: true,
-  },
-  {
-    title: "Cook",
-    company: "Burger King",
-    location: "Atlanta, GA",
-    salary: "$15-17/hour",
-    type: "Full-time",
-    description: "Cook and prepare menu items according to standards. Experience preferred but not required.",
-    requirements: ["Basic cooking skills", "Food safety knowledge", "Reliable"],
-    urgent: false,
-  },
-]
-
-const jobPostingSchema = {
-  "@context": "https://schema.org",
-  "@type": "JobPosting",
-  title: "Fast Food Jobs Hiring Immediately",
-  description: "Find fast food jobs hiring immediately near you.",
-  datePosted: new Date().toISOString(),
-  employmentType: ["FULL_TIME", "PART_TIME"],
-  hiringOrganization: {
-    "@type": "Organization",
-    name: "Jobs Hiring Near Me Immediately",
-  },
-  jobLocation: {
-    "@type": "Place",
-    address: {
-      "@type": "PostalAddress",
-      addressCountry: "US",
-    },
-  },
-  baseSalary: {
-    "@type": "MonetaryAmount",
-    currency: "USD",
-    value: {
-      "@type": "QuantitativeValue",
-      minValue: 14,
-      maxValue: 17,
-      unitText: "HOUR",
-    },
+  twitter: {
+    card: "summary_large_image",
+    title: "Fast Food Jobs Hiring Immediately Near Me",
+    description:
+      "Find fast food jobs hiring immediately. Explore roles like crew member, cashier, and cook with flexible hours and quick hiring processes.",
+    images: ["https://jobsnearmehiringimmediately.com/public/placeholder-v7zml.png"],
   },
 }
 
 export default function FastFoodJobsPage() {
+  const faqs = [
+    {
+      question: "What are the typical roles in a fast food restaurant?",
+      answer: "Common roles include Crew Member, Cashier, Cook, Drive-Thru Attendant, Food Prep, and Shift Supervisor.",
+    },
+    {
+      question: "Do fast food jobs offer flexible hours?",
+      answer:
+        "Yes, fast food restaurants are known for offering flexible schedules, including part-time, evening, weekend, and late-night shifts, making them suitable for students or those needing adaptable hours.",
+    },
+    {
+      question: "Is experience required for fast food jobs?",
+      answer:
+        "Many fast food positions are entry-level and do not require prior experience. Employers often prioritize a positive attitude, strong work ethic, and good customer service skills.",
+    },
+    {
+      question: "What skills are important for working in fast food?",
+      answer:
+        "Key skills include customer service, teamwork, speed and efficiency, attention to detail, basic math for handling cash, and the ability to work in a fast-paced environment.",
+    },
+    {
+      question: "What are the career progression opportunities in fast food?",
+      answer:
+        "Many fast food chains offer clear paths for advancement: Crew Member → Shift Supervisor → Assistant Manager → Store Manager → District Manager. Some even offer tuition assistance.",
+    },
+  ]
+
+  const fastFoodSchema = {
+    "@context": "https://schema.org",
+    "@type": "CollectionPage",
+    name: "Fast Food Jobs Hiring Immediately Near Me",
+    description:
+      "Find fast food jobs hiring immediately. Explore roles like crew member, cashier, and cook with flexible hours and quick hiring processes.",
+    url: "https://jobsnearmehiringimmediately.com/fast-food-jobs",
+    mainEntityOfPage: {
+      "@type": "WebPage",
+      "@id": "https://jobsnearmehiringimmediately.com/fast-food-jobs",
+    },
+  }
+
   return (
-    <>
-      <SchemaMarkup schema={jobPostingSchema} />
+    <div className="container mx-auto px-4 py-8">
+      <SchemaMarkup schema={fastFoodSchema} />
+      <Breadcrumb
+        items={[
+          { name: "Home", href: "/" },
+          { name: "Fast Food Jobs", href: "/fast-food-jobs" },
+        ]}
+      />
 
-      <section className="bg-gradient-to-br from-blue-50 to-indigo-100 py-16">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center">
-            <h1 className="text-4xl lg:text-5xl font-bold text-gray-900 mb-6">
-              Fast Food Jobs Hiring Near Me <span className="text-blue-600">Immediately</span>
-            </h1>
-            <p className="text-xl text-gray-600 mb-8 max-w-3xl mx-auto">
-              Find fast food jobs hiring immediately near you. Explore opportunities for crew members, cooks, and shift
-              managers at popular restaurants. Many positions offer same-day interviews and quick start dates.
-            </p>
-            <div className="flex items-center justify-center space-x-8 text-lg">
-              <div className="flex items-center">
-                <Utensils className="h-6 w-6 text-blue-600 mr-2" />
-                <span className="font-semibold">880+ Jobs</span>
-              </div>
-              <div className="flex items-center">
-                <Clock className="h-6 w-6 text-green-600 mr-2" />
-                <span className="font-semibold">Immediate Hiring</span>
-              </div>
-              <div className="flex items-center">
-                <DollarSign className="h-6 w-6 text-purple-600 mr-2" />
-                <span className="font-semibold">$14-17/hour</span>
-              </div>
-            </div>
-          </div>
+      <section className="text-center mb-12">
+        <h1 className="text-4xl font-bold text-gray-900 mb-4">Fast Food Jobs Hiring Immediately Near Me</h1>
+        <p className="text-lg text-gray-700 max-w-2xl mx-auto">
+          Craving a new opportunity? Discover fast food jobs hiring immediately, offering quick entry, flexible hours,
+          and a dynamic work environment.
+        </p>
+        <Image
+          src="/placeholder-9k1wp.png"
+          alt="Fast food worker serving a customer"
+          width={800}
+          height={450}
+          className="w-full h-auto rounded-md mt-8 shadow-lg"
+          priority
+        />
+      </section>
+
+      <section className="mb-12">
+        <h2 className="text-3xl font-semibold text-gray-900 mb-6 text-center">Job Outlook and Demand</h2>
+        <p className="mb-4 text-gray-700">
+          The fast food industry is a massive employer with a constant demand for staff due to high turnover and the
+          need for 24/7 operations in many locations. It's an excellent sector for those seeking immediate employment,
+          flexible hours, or their first job. Fast food establishments are always looking for energetic and reliable
+          individuals to join their teams.
+        </p>
+        <ul className="list-disc list-inside space-y-2 text-gray-700">
+          <li>
+            <strong>High Volume Hiring:</strong> Constant need for new employees due to growth and turnover.
+          </li>
+          <li>
+            <strong>Entry-Level Friendly:</strong> Many positions require no prior experience.
+          </li>
+          <li>
+            <strong>Flexible Schedules:</strong> Ideal for students, part-time seekers, or those needing varied hours.
+          </li>
+        </ul>
+      </section>
+
+      <section className="mb-12">
+        <h2 className="text-3xl font-semibold text-gray-900 mb-6 text-center">Typical Roles and Responsibilities</h2>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <Card>
+            <CardHeader>
+              <CardTitle>Crew Member</CardTitle>
+            </CardHeader>
+            <CardContent>
+              <p>
+                Performs a variety of tasks including taking orders, preparing food, serving customers, cleaning, and
+                maintaining restaurant standards.
+              </p>
+            </CardContent>
+          </Card>
+          <Card>
+            <CardHeader>
+              <CardTitle>Cashier</CardTitle>
+            </CardHeader>
+            <CardContent>
+              <p>
+                Handles customer transactions, operates the cash register, processes payments, and provides friendly
+                service at the front counter or drive-thru.
+              </p>
+            </CardContent>
+          </Card>
+          <Card>
+            <CardHeader>
+              <CardTitle>Cook/Food Prep</CardTitle>
+            </CardHeader>
+            <CardContent>
+              <p>
+                Prepares food items according to recipes and safety standards, manages cooking stations, and ensures
+                food quality and presentation.
+              </p>
+            </CardContent>
+          </Card>
+          <Card>
+            <CardHeader>
+              <CardTitle>Drive-Thru Attendant</CardTitle>
+            </CardHeader>
+            <CardContent>
+              <p>
+                Takes orders, processes payments, and delivers food to customers in the drive-thru lane, focusing on
+                speed and accuracy.
+              </p>
+            </CardContent>
+          </Card>
         </div>
       </section>
 
-      <AdBanner slot="fast-food-jobs-top" />
+      <section className="mb-12">
+        <h2 className="text-3xl font-semibold text-gray-900 mb-6 text-center">Skills and Qualifications</h2>
+        <p className="mb-4 text-gray-700">
+          While specific experience might not be required, certain soft skills are highly valued in fast food roles:
+        </p>
+        <ul className="list-disc list-inside space-y-2 text-gray-700">
+          <li>
+            <strong>Customer Service:</strong> Friendly demeanor and ability to handle customer interactions positively.
+          </li>
+          <li>
+            <strong>Teamwork:</strong> Working effectively with colleagues in a fast-paced, often high-pressure
+            environment.
+          </li>
+          <li>
+            <strong>Speed & Efficiency:</strong> Ability to perform tasks quickly and accurately.
+          </li>
+          <li>
+            <strong>Attention to Detail:</strong> Ensuring order accuracy and food quality.
+          </li>
+          <li>
+            <strong>Basic Math Skills:</strong> For handling cash and making change.
+          </li>
+          <li>
+            <strong>Reliability & Punctuality:</strong> Essential for maintaining smooth shift operations.
+          </li>
+          <li>
+            <strong>Ability to Multitask:</strong> Juggling multiple responsibilities during busy periods.
+          </li>
+        </ul>
+      </section>
 
-      <section className="py-16 bg-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h2 className="text-3xl font-bold text-gray-900 mb-8">Featured Fast Food Jobs Hiring Immediately</h2>
+      <section className="mb-12">
+        <h2 className="text-3xl font-semibold text-gray-900 mb-6 text-center">Career Progression</h2>
+        <p className="mb-4 text-gray-700">
+          The fast food industry offers clear pathways for advancement, often from within:
+        </p>
+        <ul className="list-disc list-inside space-y-2 text-gray-700">
+          <li>Crew Member → Shift Supervisor → Assistant Manager → Store Manager → District Manager</li>
+          <li>Opportunities to specialize in training, inventory, or specific kitchen roles.</li>
+          <li>Many companies offer tuition reimbursement or scholarship programs for employees.</li>
+        </ul>
+      </section>
 
-          <div className="space-y-6">
-            {fastFoodJobs.map((job, index) => (
-              <Card key={index} className="hover:shadow-lg transition-shadow duration-200">
-                <CardContent className="p-6">
-                  <div className="flex justify-between items-start mb-4">
-                    <div>
-                      <h3 className="text-2xl font-semibold text-gray-900 mb-2">{job.title}</h3>
-                      <p className="text-lg text-blue-600 font-medium">{job.company}</p>
-                    </div>
-                    {job.urgent && <Badge variant="destructive">Urgent Hiring</Badge>}
-                  </div>
-
-                  <div className="flex flex-wrap items-center gap-4 mb-4 text-gray-600">
-                    <div className="flex items-center">
-                      <MapPin className="h-4 w-4 mr-1" />
-                      {job.location}
-                    </div>
-                    <div className="flex items-center">
-                      <DollarSign className="h-4 w-4 mr-1" />
-                      {job.salary}
-                    </div>
-                    <Badge variant="outline">{job.type}</Badge>
-                  </div>
-
-                  <p className="text-gray-700 mb-4">{job.description}</p>
-
-                  <div className="mb-4">
-                    <h4 className="font-semibold text-gray-900 mb-2">Requirements:</h4>
-                    <ul className="list-disc list-inside text-gray-600 space-y-1">
-                      {job.requirements.map((req, reqIndex) => (
-                        <li key={reqIndex}>{req}</li>
-                      ))}
-                    </ul>
-                  </div>
-
-                  <Button size="lg" className="w-full sm:w-auto">
-                    Apply Now
-                  </Button>
-                </CardContent>
-              </Card>
-            ))}
-          </div>
+      <section className="mb-12">
+        <h2 className="text-3xl font-semibold text-gray-900 mb-6 text-center">Related Job Titles</h2>
+        <div className="flex flex-wrap justify-center gap-3">
+          <Button variant="outline" asChild>
+            <Link href="/search?keywords=barista">Barista</Link>
+          </Button>
+          <Button variant="outline" asChild>
+            <Link href="/search?keywords=food%20prep%20worker">Food Prep Worker</Link>
+          </Button>
+          <Button variant="outline" asChild>
+            <Link href="/search?keywords=server">Server</Link>
+          </Button>
+          <Button variant="outline" asChild>
+            <Link href="/search?keywords=restaurant%20team%20member">Restaurant Team Member</Link>
+          </Button>
+          <Button variant="outline" asChild>
+            <Link href="/search?keywords=kitchen%20assistant">Kitchen Assistant</Link>
+          </Button>
         </div>
       </section>
 
-      <AdBanner slot="fast-food-jobs-middle" />
-
-      <section className="py-16 bg-gray-50">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h2 className="text-3xl font-bold text-gray-900 mb-8">About Fast Food Jobs Hiring Immediately</h2>
-
-          <div className="prose prose-lg max-w-none">
-            <p>
-              Fast food jobs are ideal for individuals seeking quick employment and flexible hours. These roles are
-              often entry-level and provide valuable experience in customer service, teamwork, and food preparation.
-            </p>
-
-            <h3>Typical Fast Food Roles</h3>
-            <ul>
-              <li>
-                <strong>Crew Member:</strong> All-around role, assisting with food prep, serving, and cleaning.
-              </li>
-              <li>
-                <strong>Cook:</strong> Focus on preparing menu items efficiently and to quality standards.
-              </li>
-              <li>
-                <strong>Cashier:</strong> Handle orders and payments, ensuring a smooth customer experience.
-              </li>
-              <li>
-                <strong>Shift Manager:</strong> Oversee daily operations, manage staff, and ensure customer
-                satisfaction.
-              </li>
-            </ul>
-
-            <h3>Why Choose a Fast Food Job?</h3>
-            <p>
-              Fast food establishments are almost always hiring, making them a reliable source for immediate work. They
-              often offer opportunities for rapid advancement, especially for dedicated and reliable employees.
-            </p>
-
-            <h3>Job Outlook and Demand in Fast Food</h3>
-            <p>
-              The fast food industry is a consistent source of immediate employment due to its high volume of customers
-              and frequent staff turnover. Restaurants are always looking for reliable team members, making it an
-              excellent sector for quick hiring, flexible schedules, and entry-level opportunities.
-            </p>
-
-            <h3>Typical Roles & Responsibilities in Fast Food</h3>
-            <ul>
-              <li>
-                <strong>Crew Member:</strong> Take orders, prepare food, serve customers, clean dining areas, and
-                maintain kitchen hygiene.
-              </li>
-              <li>
-                <strong>Cook:</strong> Prepare menu items according to recipes and standards, manage food inventory, and
-                ensure food safety.
-              </li>
-              <li>
-                <strong>Cashier:</strong> Process customer orders and payments accurately, handle cash, and provide
-                friendly service.
-              </li>
-              <li>
-                <strong>Drive-Thru Attendant:</strong> Take orders, process payments, and deliver food efficiently to
-                drive-thru customers.
-              </li>
-            </ul>
-
-            <h3>Skills & Qualifications for Fast Food Jobs</h3>
-            <p>Fast food jobs are often entry-level and focus on a strong work ethic and customer service:</p>
-            <ul>
-              <li>
-                <strong>Customer Service:</strong> Friendly and efficient interaction with customers.
-              </li>
-              <li>
-                <strong>Teamwork:</strong> Ability to work effectively with colleagues in a fast-paced environment.
-              </li>
-              <li>
-                <strong>Speed & Efficiency:</strong> Performing tasks quickly and accurately during busy periods.
-              </li>
-              <li>
-                <strong>Basic Math:</strong> For handling cash and making change.
-              </li>
-              <li>
-                <strong>Food Safety Knowledge:</strong> Understanding and adhering to hygiene standards.
-              </li>
-            </ul>
-
-            <h3>Career Progression in Fast Food</h3>
-            <p>
-              Many fast food chains offer clear paths for advancement. A crew member can become a shift leader, then an
-              assistant manager, and eventually a restaurant general manager. These roles often come with increased
-              responsibilities and better pay.
-            </p>
-
-            <h3>Related Fast Food Job Titles</h3>
-            <ul>
-              <li>Barista</li>
-              <li>Server</li>
-              <li>Dishwasher</li>
-              <li>Kitchen Staff</li>
-              <li>Expeditor</li>
-            </ul>
-
-            <h3>FAQs About Immediate Fast Food Hiring</h3>
-            <Accordion type="single" collapsible className="w-full">
-              <AccordionItem value="faq-1">
-                <AccordionTrigger className="text-left">How old do I need to be for a fast food job?</AccordionTrigger>
-                <AccordionContent>
-                  Most fast food establishments hire individuals aged 16 and older, though some may hire 14 or
-                  15-year-olds for specific roles and hours, adhering to local labor laws.
-                </AccordionContent>
-              </AccordionItem>
-              <AccordionItem value="faq-2">
-                <AccordionTrigger className="text-left">Do fast food jobs offer benefits?</AccordionTrigger>
-                <AccordionContent>
-                  While entry-level roles might not always include full benefits, many larger chains offer health
-                  insurance, paid time off, and even tuition assistance for full-time employees or those in management
-                  roles.
-                </AccordionContent>
-              </AccordionItem>
-            </Accordion>
-          </div>
-        </div>
+      <section className="mb-12">
+        <h2 className="text-3xl font-semibold text-gray-900 mb-6 text-center">
+          Frequently Asked Questions about Fast Food Jobs
+        </h2>
+        <FAQ faqs={faqs} />
       </section>
 
-      <AdBanner slot="fast-food-jobs-bottom" />
-    </>
+      <div className="text-center mt-8">
+        <Button asChild size="lg">
+          <Link href="/search?keywords=fast%20food">Search All Fast Food Jobs</Link>
+        </Button>
+      </div>
+    </div>
   )
 }

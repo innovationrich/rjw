@@ -1,179 +1,259 @@
-import type { Metadata } from "next"
+import Link from "next/link"
+import Image from "next/image"
+import { Button } from "@/components/ui/button"
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { SchemaMarkup } from "@/components/schema-markup"
-import { AdBanner } from "@/components/ad-banner"
-import { MapPin, Building, TrendingUp } from "lucide-react"
-import { Card, CardContent } from "@/components/ui/card"
+import { Breadcrumb } from "@/components/breadcrumb"
+import { FAQ } from "@/components/faq"
 
-export const metadata: Metadata = {
-  title: "Jobs Hiring Immediately in Atlanta, GA - 7,200+ Positions",
+export const metadata = {
+  title: "Jobs in Atlanta, GA - Hiring Immediately",
   description:
-    "Find jobs hiring immediately in Atlanta, Georgia. Over 7,200 immediate hiring opportunities in food service, logistics, film production, and more. Apply today and start working this week in Atlanta!",
-  keywords:
-    "jobs hiring immediately Atlanta GA, Atlanta jobs, immediate hiring Atlanta, fast food jobs Atlanta, warehouse jobs Atlanta, film jobs Atlanta, Atlanta GA jobs",
-  alternates: {
-    canonical: "/atlanta",
+    "Find immediate hiring opportunities in Atlanta, GA. Explore various industries, job types, and companies looking for talent now.",
+  keywords: ["jobs Atlanta", "hiring Atlanta", "Atlanta jobs immediately", "Atlanta employment", "jobs in Georgia"],
+  openGraph: {
+    title: "Jobs in Atlanta, GA - Hiring Immediately",
+    description:
+      "Find immediate hiring opportunities in Atlanta, GA. Explore various industries, job types, and companies looking for talent now.",
+    url: "https://jobsnearmehiringimmediately.com/atlanta",
+    siteName: "Jobs Near Me Hiring Immediately",
+    images: [
+      {
+        url: "https://jobsnearmehiringimmediately.com/public/placeholder-v7zml.png", // Placeholder image for Atlanta
+        width: 1200,
+        height: 630,
+        alt: "Atlanta city skyline",
+      },
+    ],
+    type: "website",
   },
-}
-
-const atlantaEmployers = [
-  {
-    name: "Hartsfield-Jackson Atlanta Airport",
-    jobCount: "1,500+",
-    types: ["Customer Service", "Baggage Handler", "Retail"],
-    hiring: "Immediate",
+  twitter: {
+    card: "summary_large_image",
+    title: "Jobs in Atlanta, GA - Hiring Immediately",
+    description:
+      "Find immediate hiring opportunities in Atlanta, GA. Explore various industries, job types, and companies looking for talent now.",
+    images: ["https://jobsnearmehiringimmediately.com/public/placeholder-v7zml.png"], // Placeholder image for Atlanta
   },
-  {
-    name: "Chick-fil-A",
-    jobCount: "600+",
-    types: ["Team Member", "Kitchen Staff", "Shift Leader"],
-    hiring: "Same Day",
-  },
-  {
-    name: "Amazon Fulfillment",
-    jobCount: "400+",
-    types: ["Warehouse Associate", "Sorter"],
-    hiring: "Immediate",
-  },
-]
-
-const localBusinessSchema = {
-  "@context": "https://schema.org",
-  "@type": "LocalBusiness",
-  name: "Jobs Hiring Immediately Atlanta",
-  description: "Find immediate hiring jobs in Atlanta, Georgia",
-  address: {
-    "@type": "PostalAddress",
-    addressLocality: "Atlanta",
-    addressRegion: "GA",
-    addressCountry: "US",
-  },
-  geo: {
-    "@type": "GeoCoordinates",
-    latitude: 33.749,
-    longitude: -84.388,
-  },
-  url: "https://jobshiringnearmeimmediately.com/atlanta",
 }
 
 export default function AtlantaJobsPage() {
+  const faqs = [
+    {
+      question: "What are the fastest-growing industries in Atlanta?",
+      answer:
+        "Atlanta's economy is booming in sectors like technology (FinTech, cybersecurity), film & entertainment, logistics, healthcare, and advanced manufacturing.",
+    },
+    {
+      question: "Is Atlanta a good place for entry-level jobs?",
+      answer:
+        "Yes, Atlanta has a strong market for entry-level positions, particularly in customer service, retail, hospitality, and administrative support, with many companies offering training.",
+    },
+    {
+      question: "What is the cost of living like in Atlanta?",
+      answer:
+        "Atlanta's cost of living is generally considered affordable compared to other major U.S. cities, though housing costs have been rising. Transportation can be a factor due to traffic.",
+    },
+    {
+      question: "How can I find jobs hiring immediately in Atlanta?",
+      answer:
+        "Utilize online job boards with 'immediate hire' filters, check company career pages for 'walk-in interview' events, and connect with local staffing agencies specializing in quick placements.",
+    },
+    {
+      question: "Is public transportation reliable in Atlanta?",
+      answer:
+        "MARTA (Metropolitan Atlanta Rapid Transit Authority) provides rail and bus services, connecting many parts of the city and surrounding areas. It's a viable option for commuting, especially to downtown and Midtown.",
+    },
+  ]
+
+  const atlantaSchema = {
+    "@context": "https://schema.org",
+    "@type": "City",
+    name: "Atlanta, GA",
+    url: "https://jobsnearmehiringimmediately.com/atlanta",
+    mainEntityOfPage: {
+      "@type": "WebPage",
+      "@id": "https://jobsnearmehiringimmediately.com/atlanta",
+    },
+  }
+
   return (
-    <>
-      <SchemaMarkup schema={localBusinessSchema} />
+    <div className="container mx-auto px-4 py-8">
+      <SchemaMarkup schema={atlantaSchema} />
+      <Breadcrumb
+        items={[
+          { name: "Home", href: "/" },
+          { name: "Jobs in Atlanta", href: "/atlanta" },
+        ]}
+      />
 
-      <section className="bg-gradient-to-br from-blue-50 to-indigo-100 py-16">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center">
-            <h1 className="text-4xl lg:text-5xl font-bold text-gray-900 mb-6">
-              Jobs Hiring Immediately in <span className="text-blue-600">Atlanta, GA</span>
-            </h1>
-            <p className="text-xl text-gray-600 mb-8 max-w-3xl mx-auto">
-              Find jobs hiring immediately in Atlanta, Georgia. Over 7,200 immediate hiring opportunities in food
-              service, logistics, film production, and more. Major employers are actively recruiting for positions that
-              start this week.
-            </p>
-            <div className="flex items-center justify-center space-x-8 text-lg">
-              <div className="flex items-center">
-                <Building className="h-6 w-6 text-blue-600 mr-2" />
-                <span className="font-semibold">7,200+ Jobs</span>
-              </div>
-              <div className="flex items-center">
-                <MapPin className="h-6 w-6 text-green-600 mr-2" />
-                <span className="font-semibold">Atlanta Metro</span>
-              </div>
-              <div className="flex items-center">
-                <TrendingUp className="h-6 w-6 text-purple-600 mr-2" />
-                <span className="font-semibold">Trending: Food Service</span>
-              </div>
-            </div>
-          </div>
+      <section className="text-center mb-12">
+        <h1 className="text-4xl font-bold text-gray-900 mb-4">Jobs in Atlanta, GA - Hiring Immediately</h1>
+        <p className="text-lg text-gray-700 max-w-2xl mx-auto">
+          Discover a wealth of immediate hiring opportunities in Atlanta, Georgia. The "Gateway to the South" offers
+          diverse roles across booming industries, ready for your talent.
+        </p>
+        <Image
+          src="/atlanta-skyline.png"
+          alt="Atlanta city skyline"
+          width={800}
+          height={450}
+          className="w-full h-auto rounded-md mt-8 shadow-lg"
+          priority
+        />
+      </section>
+
+      <section className="mb-12">
+        <h2 className="text-3xl font-semibold text-gray-900 mb-6 text-center">Top Industries Hiring in Atlanta</h2>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <Card>
+            <CardHeader>
+              <CardTitle>Film & Entertainment</CardTitle>
+            </CardHeader>
+            <CardContent>
+              <p>
+                Known as "Hollywood of the South," Atlanta has a thriving film and TV production scene, creating jobs in
+                various production roles, set design, and support services.
+              </p>
+              <Button asChild variant="link" className="p-0 h-auto mt-2">
+                <Link href="/search?keywords=film&location=Atlanta">View Film Jobs</Link>
+              </Button>
+            </CardContent>
+          </Card>
+          <Card>
+            <CardHeader>
+              <CardTitle>Logistics & Transportation</CardTitle>
+            </CardHeader>
+            <CardContent>
+              <p>
+                As a major transportation hub, Atlanta has high demand for roles in warehousing, supply chain
+                management, truck driving, and airport operations.
+              </p>
+              <Button asChild variant="link" className="p-0 h-auto mt-2">
+                <Link href="/warehouse-jobs?location=Atlanta">View Logistics Jobs</Link>
+              </Button>
+            </CardContent>
+          </Card>
+          <Card>
+            <CardHeader>
+              <CardTitle>Technology</CardTitle>
+            </CardHeader>
+            <CardContent>
+              <p>
+                Atlanta's tech sector is rapidly expanding, particularly in FinTech, cybersecurity, and software
+                development, with numerous startups and established tech companies.
+              </p>
+              <Button asChild variant="link" className="p-0 h-auto mt-2">
+                <Link href="/search?keywords=tech&location=Atlanta">View Tech Jobs</Link>
+              </Button>
+            </CardContent>
+          </Card>
+          <Card>
+            <CardHeader>
+              <CardTitle>Healthcare</CardTitle>
+            </CardHeader>
+            <CardContent>
+              <p>
+                With a large population and major medical centers, healthcare professionals, administrative staff, and
+                support roles are consistently in demand.
+              </p>
+              <Button asChild variant="link" className="p-0 h-auto mt-2">
+                <Link href="/healthcare-jobs?location=Atlanta">View Healthcare Jobs</Link>
+              </Button>
+            </CardContent>
+          </Card>
+          <Card>
+            <CardHeader>
+              <CardTitle>Retail & Food Service</CardTitle>
+            </CardHeader>
+            <CardContent>
+              <p>
+                Atlanta's vibrant retail scene and diverse culinary landscape mean constant opportunities for sales
+                associates, cashiers, servers, cooks, and hospitality staff.
+              </p>
+              <Button asChild variant="link" className="p-0 h-auto mt-2">
+                <Link href="/retail-jobs?location=Atlanta">View Retail Jobs</Link>
+              </Button>
+            </CardContent>
+          </Card>
+          <Card>
+            <CardHeader>
+              <CardTitle>Construction</CardTitle>
+            </CardHeader>
+            <CardContent>
+              <p>
+                Ongoing development and infrastructure projects create a steady need for construction laborers, skilled
+                trades, and project managers.
+              </p>
+              <Button asChild variant="link" className="p-0 h-auto mt-2">
+                <Link href="/construction-jobs?location=Atlanta">View Construction Jobs</Link>
+              </Button>
+            </CardContent>
+          </Card>
         </div>
       </section>
 
-      <AdBanner slot="atlanta-jobs-top" />
-
-      <section className="py-16 bg-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h2 className="text-3xl font-bold text-gray-900 mb-8">Major Atlanta Employers Hiring Immediately</h2>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            {atlantaEmployers.map((employer, index) => (
-              <Card key={index} className="hover:shadow-lg transition-shadow duration-200">
-                <CardContent className="p-6">
-                  <div className="flex justify-between items-start mb-4">
-                    <h3 className="text-xl font-semibold text-gray-900">{employer.name}</h3>
-                    <span className="text-sm bg-green-100 text-green-800 px-2 py-1 rounded-full">
-                      {employer.hiring}
-                    </span>
-                  </div>
-                  <p className="text-blue-600 font-medium mb-3">{employer.jobCount} positions available</p>
-                  <div className="space-y-1">
-                    {employer.types.map((type, typeIndex) => (
-                      <span
-                        key={typeIndex}
-                        className="inline-block bg-gray-100 text-gray-700 px-2 py-1 rounded text-sm mr-2 mb-1"
-                      >
-                        {type}
-                      </span>
-                    ))}
-                  </div>
-                </CardContent>
-              </Card>
-            ))}
-          </div>
+      <section className="mb-12">
+        <h2 className="text-3xl font-semibold text-gray-900 mb-6 text-center">Why Work in Atlanta?</h2>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <Card>
+            <CardHeader>
+              <CardTitle>Growing Economy</CardTitle>
+            </CardHeader>
+            <CardContent>
+              <p>
+                Atlanta boasts one of the fastest-growing economies in the U.S., offering abundant job opportunities and
+                career advancement.
+              </p>
+            </CardContent>
+          </Card>
+          <Card>
+            <CardHeader>
+              <CardTitle>Affordable Living</CardTitle>
+            </CardHeader>
+            <CardContent>
+              <p>
+                Compared to other major metropolitan areas, Atlanta generally offers a more affordable cost of living,
+                especially for housing.
+              </p>
+            </CardContent>
+          </Card>
+          <Card>
+            <CardHeader>
+              <CardTitle>Cultural Diversity</CardTitle>
+            </CardHeader>
+            <CardContent>
+              <p>
+                A rich history, diverse communities, and a vibrant arts and food scene make Atlanta a culturally rich
+                place to live and work.
+              </p>
+            </CardContent>
+          </Card>
+          <Card>
+            <CardHeader>
+              <CardTitle>Green Spaces</CardTitle>
+            </CardHeader>
+            <CardContent>
+              <p>
+                Despite being a major city, Atlanta is known for its lush tree canopy and numerous parks, offering a
+                balance of urban and natural environments.
+              </p>
+            </CardContent>
+          </Card>
         </div>
       </section>
 
-      <AdBanner slot="atlanta-jobs-middle" />
-
-      <section className="py-16 bg-gray-50">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h2 className="text-3xl font-bold text-gray-900 mb-8">Atlanta Job Market Overview</h2>
-
-          <div className="prose prose-lg max-w-none">
-            <p>
-              Atlanta's dynamic economy, fueled by its status as a major transportation hub and growing tech and film
-              industries, creates numerous immediate hiring opportunities.
-            </p>
-
-            <h3>Top Industries Hiring Immediately in Atlanta</h3>
-            <ul>
-              <li>
-                <strong>Food Service & Hospitality:</strong> Driven by tourism and a vibrant culinary scene.
-              </li>
-              <li>
-                <strong>Logistics & Transportation:</strong> Due to Hartsfield-Jackson Atlanta International Airport.
-              </li>
-              <li>
-                <strong>Retail:</strong> Major shopping centers and a growing population.
-              </li>
-            </ul>
-
-            <h3>Atlanta Neighborhoods with High Job Availability</h3>
-            <p>Job opportunities are concentrated in several key areas of Atlanta:</p>
-            <ul>
-              <li>
-                <strong>Midtown/Downtown:</strong> Hospitality, retail, and corporate support.
-              </li>
-              <li>
-                <strong>Airport Area:</strong> Logistics, transportation, and airport services.
-              </li>
-              <li>
-                <strong>Perimeter Center:</strong> Corporate offices and retail.
-              </li>
-            </ul>
-
-            <h3>Average Wages for Immediate Hiring Jobs in Atlanta</h3>
-            <p>Atlanta offers competitive wages for immediate hiring positions:</p>
-            <ul>
-              <li>Food Service Workers: $13-16/hour + tips</li>
-              <li>Retail Associates: $14-18/hour</li>
-              <li>Warehouse Associates: $16-20/hour</li>
-            </ul>
-          </div>
-        </div>
+      <section className="mb-12">
+        <h2 className="text-3xl font-semibold text-gray-900 mb-6 text-center">
+          Frequently Asked Questions about Jobs in Atlanta
+        </h2>
+        <FAQ faqs={faqs} />
       </section>
 
-      <AdBanner slot="atlanta-jobs-bottom" />
-    </>
+      <div className="text-center mt-8">
+        <Button asChild size="lg">
+          <Link href="/search?location=Atlanta">Search All Atlanta Jobs</Link>
+        </Button>
+      </div>
+    </div>
   )
 }
