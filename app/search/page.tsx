@@ -7,7 +7,7 @@ import Loading from "./loading"
 /* ------------------------------------------------------------------
    Dynamically load the client-only component – NO server rendering.
 ------------------------------------------------------------------- */
-const SearchPageClient = dynamic(() => import("./SearchPageClient").then((m) => m.SearchPageClient), { ssr: false })
+const SearchPageClient = dynamic(() => import("./SearchPageClient"), { suspense: true })
 
 /* ---------- <head> metadata ---------- */
 export const metadata: Metadata = {
