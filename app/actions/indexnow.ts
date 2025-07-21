@@ -15,7 +15,7 @@ interface IndexNowSubmission {
  */
 export async function submitUrlsToIndexNow(urls: string[], type: "added" | "deleted") {
   const indexNowApiKey = process.env.INDEXNOW_API_KEY
-  const host = process.env.NEXT_PUBLIC_VERCEL_URL || "jobsnearmehiringimmediately.com" // Use your actual domain
+  const host = "yourdomain.com" // UPDATE THIS WITH YOUR ACTUAL DOMAIN (without https://)
 
   if (!indexNowApiKey) {
     console.error("INDEXNOW_API_KEY environment variable is not set.")
@@ -23,9 +23,9 @@ export async function submitUrlsToIndexNow(urls: string[], type: "added" | "dele
   }
 
   const payload: IndexNowSubmission = {
-    host: host.replace(/^(https?:\/\/)?(www\.)?/, ""), // Remove protocol and www for host
+    host: host,
     key: indexNowApiKey,
-    keyLocation: `https://${host.replace(/^(https?:\/\/)?/, "")}/indexnow.txt`, // Full URL to the key file
+    keyLocation: `https://${host}/indexnow.txt`,
     urlList: urls,
   }
 

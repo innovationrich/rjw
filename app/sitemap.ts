@@ -1,7 +1,7 @@
 import type { MetadataRoute } from "next"
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const baseUrl = "https://jobsnearmehiringimmediately.com" // This should match your production domain
+  const baseUrl = "https://yourdomain.com" // UPDATE THIS WITH YOUR ACTUAL DOMAIN
 
   return [
     {
@@ -211,7 +211,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.8,
     },
     {
-      url: `${baseUrl}/ Orlando`,
+      url: `${baseUrl}/orlando`,
       lastModified: new Date(),
       changeFrequency: "weekly",
       priority: 0.8,

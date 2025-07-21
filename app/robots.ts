@@ -1,16 +1,15 @@
 import type { MetadataRoute } from "next"
 
 export default function robots(): MetadataRoute.Robots {
-  const baseUrl = process.env.NEXT_PUBLIC_VERCEL_URL
-    ? `https://${process.env.NEXT_PUBLIC_VERCEL_URL}`
-    : "http://localhost:3000"
+  const baseUrl = "https://yourdomain.com" // UPDATE THIS WITH YOUR ACTUAL DOMAIN
+
   return {
     rules: {
       userAgent: "*",
       allow: "/",
       disallow: ["/private/", "/admin/"],
     },
-    sitemap: "https://jobsnearmehiringimmediately.vercel.app/sitemap.xml", // This URL should be your deployed site's sitemap
-    IndexNow: `${baseUrl}/indexnow.txt`,
+    sitemap: `${baseUrl}/sitemap.xml`, // UPDATE THIS WITH YOUR ACTUAL DOMAIN
+    host: baseUrl, // UPDATE THIS WITH YOUR ACTUAL DOMAIN
   }
 }

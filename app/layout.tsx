@@ -16,10 +16,10 @@ const websiteSchema = {
   "@context": "https://schema.org",
   "@type": "WebSite",
   name: "Jobs Near Me Hiring Immediately",
-  url: "https://jobsnearmehiringimmediately.com",
+  url: "https://yourdomain.com", // UPDATE THIS WITH YOUR ACTUAL DOMAIN
   potentialAction: {
     "@type": "SearchAction",
-    target: "https://jobsnearmehiringimmediately.com/search?q={search_term_string}",
+    target: "https://yourdomain.com/search?q={search_term_string}", // UPDATE THIS
     "query-input": "required name=search_term_string",
   },
 }
@@ -41,19 +41,19 @@ export const metadata: Metadata = {
     address: false,
     telephone: false,
   },
-  metadataBase: new URL("https://jobsnearmehiringimmediately.com"),
+  metadataBase: new URL("https://yourdomain.com"), // UPDATE THIS WITH YOUR ACTUAL DOMAIN
   alternates: {
-    canonical: "https://jobsnearmehiringimmediately.com",
+    canonical: "https://yourdomain.com", // UPDATE THIS WITH YOUR ACTUAL DOMAIN
   },
   openGraph: {
     title: "Jobs Near Me Hiring Immediately - Find Work Today",
     description:
       "Find jobs near me hiring immediately. Thousands of companies are hiring today - warehouse, retail, fast food, entry-level positions with no experience required. Start your new job today!",
-    url: "https://jobsnearmehiringimmediately.com",
+    url: "https://yourdomain.com", // UPDATE THIS WITH YOUR ACTUAL DOMAIN
     siteName: "JobsNearMeHiringImmediately.com",
     images: [
       {
-        url: "/jobs-hiring-banner.png", // Using placeholder for now
+        url: "/jobs-hiring-banner.png",
         width: 1200,
         height: 630,
         alt: "Jobs Hiring Near Me Immediately - Find Work Today",
@@ -67,7 +67,7 @@ export const metadata: Metadata = {
     title: "Jobs Near Me Hiring Immediately - Find Work Today",
     description:
       "Find jobs near me hiring immediately. Thousands of companies are hiring today - warehouse, retail, fast food, entry-level positions with no experience required. Start your new job today!",
-    images: ["/jobs-hiring-banner.png"], // Using placeholder for now
+    images: ["/jobs-hiring-banner.png"],
   },
   robots: {
     index: true,
