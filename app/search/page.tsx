@@ -1,13 +1,10 @@
-import { Suspense } from "react"
 import type { Metadata } from "next"
+import { Suspense } from "react"
 import { searchJobs } from "@/lib/job-api"
-import dynamic from "next/dynamic"
 import Loading from "./loading"
 
-/* ------------------------------------------------------------------
-   Dynamically load the client-only component – NO server rendering.
-------------------------------------------------------------------- */
-const SearchPageClient = dynamic(() => import("./SearchPageClient"), { suspense: true })
+/* Client wrapper (defined above) */
+import ClientSearchPage from "./ClientSearchPage"
 
 /* ---------- <head> metadata ---------- */
 export const metadata: Metadata = {
@@ -49,15 +46,15 @@ interface SearchPageProps {
   }
 }
 
+/* ---------------- Server Component ---------------- */
 export default async function SearchPage({ searchParams }: SearchPageProps) {
-  /* ---------- read URL params ---------- */
   const keywords = searchParams.keywords || ""
   const location = searchParams.location || ""
   const jobType = searchParams.jobType || "all"
   const page = Number.parseInt(searchParams.page || "1")
   const limit = 10
 
-  /* ---------- pre-fetch first page so hydration is instant ---------- */
+  /* Pre-fetch first page so hydration is instant */
   const initial = await searchJobs({
     keywords,
     location,
@@ -68,7 +65,7 @@ export default async function SearchPage({ searchParams }: SearchPageProps) {
 
   return (
     <Suspense fallback={<Loading />}>
-      <SearchPageClient
+      <ClientSearchPage
         initialJobs={initial.jobs}
         initialTotalCount={initial.totalCount}
         initialCurrentPage={initial.currentPage}
