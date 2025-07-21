@@ -1,10 +1,10 @@
+/* SERVER-ONLY SEARCH PAGE  –  NO client hooks */
+
 import type { Metadata } from "next"
 import Link from "next/link"
 import { searchJobs, type JobListing } from "@/lib/job-api"
 
-/* ──────────────────────────────
-   <head> metadata
-──────────────────────────────── */
+/* ─── <head> metadata ────────────────────────────────────────────────────── */
 export const metadata: Metadata = {
   title: "Job Search – Find Your Next Opportunity",
   description:
@@ -34,9 +34,7 @@ export const metadata: Metadata = {
   },
 }
 
-/* ──────────────────────────────
-   Page component (Server)
-──────────────────────────────── */
+/* ─── Page component (pure server) ───────────────────────────────────────── */
 interface PageProps {
   searchParams: {
     keywords?: string
@@ -47,14 +45,14 @@ interface PageProps {
 }
 
 export default async function SearchPage({ searchParams }: PageProps) {
-  /* ---------- read URL params ---------- */
+  /* Read URL params */
   const keywords = searchParams.keywords ?? ""
   const location = searchParams.location ?? ""
   const jobTypeParam = searchParams.jobType ?? "all"
   const page = Number.parseInt(searchParams.page ?? "1", 10) || 1
   const limit = 10
 
-  /* ---------- server-side fetch ---------- */
+  /* Server-side fetch */
   const { jobs, totalCount, currentPage, totalPages } = await searchJobs({
     keywords,
     location,
@@ -63,19 +61,19 @@ export default async function SearchPage({ searchParams }: PageProps) {
     limit,
   })
 
-  /* ---------- helper: build query string ---------- */
+  /* Helper to rebuild query-string */
   const buildQS = (extra: Record<string, string>) =>
     new URLSearchParams({
       ...(keywords && { keywords }),
       ...(location && { location }),
-      ...(jobTypeParam && jobTypeParam !== "all" && { jobType: jobTypeParam }),
+      ...(jobTypeParam !== "all" && { jobType: jobTypeParam }),
       ...extra,
     }).toString()
 
-  /* ---------- render ---------- */
+  /* Render */
   return (
     <main className="min-h-screen bg-gray-50">
-      {/* ── Hero / search form ───────────────────── */}
+      {/* Search form */}
       <section className="bg-white border-b py-8">
         <div className="max-w-4xl mx-auto px-4">
           <h1 className="text-3xl font-bold mb-6">Job Search</h1>
@@ -104,7 +102,7 @@ export default async function SearchPage({ searchParams }: PageProps) {
         </div>
       </section>
 
-      {/* ── Results list ─────────────────────────── */}
+      {/* Results */}
       <section className="max-w-4xl mx-auto px-4 py-10 space-y-6">
         <p className="text-gray-600">
           {totalCount > 0
@@ -121,7 +119,7 @@ export default async function SearchPage({ searchParams }: PageProps) {
           <JobCard key={job.id} job={job} />
         ))}
 
-        {/* ── Pagination ─────────────────────── */}
+        {/* Pagination */}
         {totalPages > 1 && (
           <nav className="flex justify-center gap-2 pt-8">
             {currentPage > 1 && (
@@ -152,9 +150,7 @@ export default async function SearchPage({ searchParams }: PageProps) {
   )
 }
 
-/* ──────────────────────────────
-   Tiny job card (no client hooks)
-──────────────────────────────── */
+/* Job card – no client code */
 function JobCard({ job }: { job: JobListing }) {
   return (
     <article className="bg-white border rounded-lg p-6 shadow-sm hover:shadow-md transition">
